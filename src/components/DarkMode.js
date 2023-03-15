@@ -1,9 +1,10 @@
-import React from "react";
-import moon from "../assets/moon.png";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import moon from "../assets/moon-outline.svg";
+import sun from "../assets/sunny-outline.svg";
 
 export default function DarkMode() {
-  const [theme, setTheme] = useState("Light");
+  const [theme, setTheme] = useState("light");
+  const [imageSrc, setImageSrc] = useState(moon);
 
   useEffect(() => {
     if (theme === "dark") {
@@ -13,19 +14,20 @@ export default function DarkMode() {
     }
   }, [theme]);
 
+  const handleClick = () => {
+    setImageSrc(theme === "dark" ? moon : sun);
+  };
+
   const handleThemeSwitch = () => {
     setTheme(theme === "dark" ? "light" : "dark");
+    handleClick();
   };
 
   return (
     <div>
-      <div className=" bg-blue-300 flex float-right pb-5 h-[40px]">
-        <button
-          id="dbutton"
-          className="p-2 rounded-3xl"
-          onClick={handleThemeSwitch}
-        >
-          <img className="w-[20px]" src={moon} alt="button" />
+      <div className="flex float-right pb-5 h-[40px]">
+        <button className="p-2 rounded-3xl" onClick={handleThemeSwitch}>
+          <img className="w-[20px]" src={imageSrc} alt="button" />
         </button>
       </div>
     </div>
