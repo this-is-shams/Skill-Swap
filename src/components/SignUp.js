@@ -42,7 +42,7 @@ function SignUp() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 h-screen w-full">
       <div className="hidden sm:block dark:bg-gray-800 p-10">
-        <img className="w-full h-full object-cover" src={register} alt="" />
+        <img className="w-full h-full object-cover pt-10" src={register} alt="" />
       </div>
       <div className="bg-white dark:bg-gray-800 flex flex-col justify-center pr-10 pt-20 pb-10">
         <form onSubmit={handleSignup} className="max-w-[400px] w-full mx-auto rounded-lg bg-gray-300 dark:bg-gray-900 p-8">
