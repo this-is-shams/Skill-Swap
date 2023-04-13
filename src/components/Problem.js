@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import submit from "../assets/submission.png";
+import dev from "../assets/dev.png";
+import leader from "../assets/leader.png";
+import prof from "../assets/prof.png";
 
 export default function Problem() {
   const [items, setItems] = useState([]);
@@ -38,48 +42,58 @@ export default function Problem() {
         style={{ float: "left" }}
       >
         <div className="pt-20 p-6">
-          <button className="block mb-8 py-2 px-10 w-52 bg-gray-200 hover:bg-gray-300 rounded-md text-gray-800 font-semibold whitespace-normal text-center">
-            <Link to="/problem">
-              <h1>Problem Solving</h1>
-            </Link>
+          <Link to="/problem">
+            <button className="mb-8 py-1 px-5 w-52 bg-gray-200 hover:bg-gray-300 rounded-md text-gray-800 font-semibold whitespace-normal text-center">
+              <img src={submit} alt="" className="w-8 float-left"></img>
+              <h1 className="flex-1 pt-1">Problem Solving</h1>
+            </button>
+          </Link>
+          <Link to="/" className="flex items-center">
+            <button className="mb-8 py-1 px-5 w-52 bg-gray-200 hover:bg-gray-300 rounded-md text-gray-800 font-semibold whitespace-normal text-center">
+              <img src={dev} alt="" className="w-8 float-left"></img>
+              <h1 className="flex-1 pt-1">Development</h1>
+            </button>
+          </Link>
+          <Link to="/" className="flex items-center">
+          <button className="mb-8 py-1 px-5 w-52 bg-gray-200 hover:bg-gray-300 rounded-md text-gray-800 font-semibold whitespace-normal text-center">
+            <img src={leader} alt="" className="w-8 float-left"></img>
+            <h1 className="flex-1 pt-1">Leaderboard</h1>
           </button>
-          <button className="block mb-8 py-2 px-10 w-52 bg-gray-200 hover:bg-gray-300 rounded-md text-gray-800 font-semibold whitespace-normal text-center">
-            <Link to="/development">
-              <h1>Development</h1>
-            </Link>
+          </Link>
+          <Link to="/" className="flex items-center">
+          <button className="mb-8 py-1 px-5 w-52 bg-gray-200 hover:bg-gray-300 rounded-md text-gray-800 font-semibold whitespace-normal text-center">
+            <img src={prof} alt="" className="w-8 float-left"></img>
+            <h1 className="flex-1 pt-1">Profile</h1>
           </button>
-          <button className="block mb-8 py-2 px-10 w-52 bg-gray-200 hover:bg-gray-300 rounded-md text-gray-800 font-semibold whitespace-normal text-center">
-            <h1>Leaderboard</h1>
-          </button>
-          <button className="block mb-8 py-2 px-10 w-52 bg-gray-200 hover:bg-gray-300 rounded-md text-gray-800 font-semibold whitespace-normal text-center">
-            Profile
-          </button>
+          </Link>
         </div>
       </div>
       <div
-        className="bg-white dark:bg-blue-800 h-screen w-full lg:w-4/5 flex items-center justify-center"
+        className="bg-white dark:bg-gray-800 h-screen w-full lg:w-4/5"
         style={{ float: "right", flexDirection: "column" }}
       >
         <div
-          className="bg-white"
-          style={{ position: "fixed", top: 55, left: 280, right: 12 }}
+          className="bg-white dark:bg-gray-800"
+          style={{ position: "fixed", top: 56, left: 280, right: 12 }}
         >
           <div className="flex items-center justify-between">
-            <div className="p-3">
-              <span>{items.length + 1}.</span>
+            <div className="p-4 pt-10">
+              <span className="dark:text-white">{items.length + 1}.</span>
             </div>
-            <div className="p-8">
+            <div className="p-4 pt-10 dark:text-white">
               <input
                 type="text"
                 placeholder="Problem Link"
                 value={problemLink}
                 onChange={(e) => setProblemLink(e.target.value)}
+                className="dark:text-white rounded-md py-1 px-3 dark:bg-gray-600"
               />
             </div>
-            <div className="p-8">
+            <div className="p-4 pt-10 dark:text-white">
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
+                className="dark:text-white rounded-md py-1 px-3 dark:bg-gray-600"
               >
                 <option value="">Select Status</option>
                 <option value="Accepted">Accepted</option>
@@ -87,24 +101,26 @@ export default function Problem() {
                 <option value="Time limit exceed">Time limit exceed</option>
               </select>
             </div>
-            <div className="p-8">
+            <div className="p-4 pt-10 dark:text-white">
               <input
                 type="text"
                 placeholder="Time (minutes)"
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
+                className="dark:text-white rounded-md py-1 px-3 dark:bg-gray-600"
               />
             </div>
-            <div className="p-8">
+            <div className="p-4 pt-10">
               <input
                 type="date"
                 onChange={(e) => setDate(e.target.value)}
+                className=" dark:text-white rounded-md py-1 px-3 dark:bg-gray-600"
               />
             </div>
 
-            <div className="p-8">
+            <div className="p-4 pt-10">
               <button
-                className="bg-blue-800 text-white w-20"
+                className="p-10 bg-blue-500 text-white rounded-md py-1 px-3"
                 onClick={handleAddItem}
               >
                 Add
@@ -115,7 +131,7 @@ export default function Problem() {
 
         <div>
           <div
-            className="bg-white m-8 pt-2 pb-2"
+            className="bg-white m-8 pt-2 pb-2 dark:bg-gray-800 rounded-md shadow-md"
             style={{
               flexDirection: "column",
               position: "fixed",
@@ -126,25 +142,32 @@ export default function Problem() {
           >
             {items.map((item, index) => (
               <div className="p-2" key={index}>
-                <span className="pr-10 " style={{ width: "25%" }}>
+                <span
+                  className="pr-10 dark:text-white"
+                >
                   {item.serialNo}
                 </span>
                 {showButton ? (
                   <a
                     href={item.problemLink}
                     className="p-10 bg-blue-500 text-white rounded-md py-1 px-3"
-                    target="_blank" // Add target="_blank" to open the link in a new tab
-                    rel="noopener noreferrer" // Add rel="noopener noreferrer" for security reasons
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     Link
                   </a>
                 ) : (
                   <span className="p-10">{item.problemLink}</span>
                 )}
-                <span className="p-10">{item.category}</span>
-                <span className="p-10">{item.time}</span>
-                <span className="p-10">{item.date}</span>
-                <button onClick={() => handleDeleteItem(index)}>Delete</button>
+                <span className="p-10 dark:text-white">{item.category}</span>
+                <span className="p-10 dark:text-white">{item.time}</span>
+                <span className="p-10 dark:text-white">{item.date}</span>
+                <button
+                  className="p-10 bg-blue-500 text-white rounded-md py-1 px-3"
+                  onClick={() => handleDeleteItem(index)}
+                >
+                  Delete
+                </button>
               </div>
             ))}
           </div>

@@ -9,10 +9,7 @@ export default function Login() {
         <img className="w-full h-full object-cover p-10" src={loginImg} alt="" />
       </div>
       <div className="bg-white dark:bg-gray-800 flex flex-col justify-center">
-        {/* <h2 className="text-4xl dark:text-gray-200 font-bold text-center pb-10">
-          Welcome to the{" "}
-          <span className=" text-blue-500 dark:text-blue-500">SKILL SWAP</span>
-        </h2> */}
+
         <form className="max-w-[400px] w-full mx-auto rounded-lg bg-gray-300 dark:bg-gray-900 p-8">
           <h2 className="text-4xl dark:text-white font-bold text-center">
             SIGN IN
@@ -48,12 +45,11 @@ export default function Login() {
             </p>
             <p>Forgot Password</p>
           </div>
+          <Link to="/dashboard">
           <button className="w-full my-5 py-2 bg-blue-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg">
-            <Link to="/dashboard">
               Sign in
-            </Link>
           </button>
-
+          </Link>
           <h1 className="dark:text-gray-200 text-center">
             Don't have any account? Click on{" "}
             <Link to="/signup" className="underline">
