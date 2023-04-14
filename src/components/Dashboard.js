@@ -9,7 +9,7 @@ export default function Dashboard() {
   return (
     <div>
       <div
-        className="bg-white dark:bg-gray-800 h-screen w-full lg:w-1/5"
+        className="bg-white dark:bg-gray-800 h-screen w-full lg:w-5/5"
         style={{ float: "left" }}
       >
         <div className="pt-20 p-6">

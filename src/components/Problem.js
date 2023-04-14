@@ -10,7 +10,7 @@ export default function Problem() {
   const [problemLink, setProblemLink] = useState("");
   const [category, setCategory] = useState("");
   const [time, setTime] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(new Date().toISOString().substr(0, 10));
   const [showButton, setShowButton] = useState(false);
 
   const handleAddItem = () => {
@@ -55,16 +55,16 @@ export default function Problem() {
             </button>
           </Link>
           <Link to="/" className="flex items-center">
-          <button className="mb-8 py-1 px-5 w-52 bg-gray-200 hover:bg-gray-300 rounded-md text-gray-800 font-semibold whitespace-normal text-center">
-            <img src={leader} alt="" className="w-8 float-left"></img>
-            <h1 className="flex-1 pt-1">Leaderboard</h1>
-          </button>
+            <button className="mb-8 py-1 px-5 w-52 bg-gray-200 hover:bg-gray-300 rounded-md text-gray-800 font-semibold whitespace-normal text-center">
+              <img src={leader} alt="" className="w-8 float-left"></img>
+              <h1 className="flex-1 pt-1">Leaderboard</h1>
+            </button>
           </Link>
           <Link to="/" className="flex items-center">
-          <button className="mb-8 py-1 px-5 w-52 bg-gray-200 hover:bg-gray-300 rounded-md text-gray-800 font-semibold whitespace-normal text-center">
-            <img src={prof} alt="" className="w-8 float-left"></img>
-            <h1 className="flex-1 pt-1">Profile</h1>
-          </button>
+            <button className="mb-8 py-1 px-5 w-52 bg-gray-200 hover:bg-gray-300 rounded-md text-gray-800 font-semibold whitespace-normal text-center">
+              <img src={prof} alt="" className="w-8 float-left"></img>
+              <h1 className="flex-1 pt-1">Profile</h1>
+            </button>
           </Link>
         </div>
       </div>
@@ -113,8 +113,9 @@ export default function Problem() {
             <div className="p-4 pt-10">
               <input
                 type="date"
+                value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className=" dark:text-white rounded-md py-1 px-3 dark:bg-gray-600"
+                className="dark:text-white rounded-md py-1 px-3 dark:bg-gray-600"
               />
             </div>
 
@@ -142,11 +143,7 @@ export default function Problem() {
           >
             {items.map((item, index) => (
               <div className="p-2" key={index}>
-                <span
-                  className="pr-10 dark:text-white"
-                >
-                  {item.serialNo}
-                </span>
+                <span className="pr-10 dark:text-white">{item.serialNo}</span>
                 {showButton ? (
                   <a
                     href={item.problemLink}
