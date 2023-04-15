@@ -74,7 +74,7 @@ export default function Problem() {
       >
         <div
           className="bg-white dark:bg-gray-800"
-          style={{ position: "fixed", top: 56, left: 280, right: 12 }}
+          style={{ position: "absolute", top: 56, left: 280, right: 12 }}
         >
           <div className="flex items-center justify-between">
             <div className="p-4 pt-10">
@@ -130,44 +130,130 @@ export default function Problem() {
           </div>
         </div>
 
-        <div>
-          <div
-            className="bg-white m-8 pt-2 pb-2 dark:bg-gray-800 rounded-md shadow-md"
-            style={{
-              flexDirection: "column",
-              position: "fixed",
-              top: 120,
-              left: 250,
-              right: -20,
-            }}
-          >
-            {items.map((item, index) => (
-              <div className="p-2" key={index}>
-                <span className="pr-10 dark:text-white">{item.serialNo}</span>
-                {showButton ? (
-                  <a
-                    href={item.problemLink}
-                    className="p-10 bg-blue-500 text-white rounded-md py-1 px-3"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Link
-                  </a>
-                ) : (
-                  <span className="p-10">{item.problemLink}</span>
-                )}
-                <span className="p-10 dark:text-white">{item.category}</span>
-                <span className="p-10 dark:text-white">{item.time}</span>
-                <span className="p-10 dark:text-white">{item.date}</span>
-                <button
-                  className="p-10 bg-blue-500 text-white rounded-md py-1 px-3"
-                  onClick={() => handleDeleteItem(index)}
-                >
-                  Delete
-                </button>
-              </div>
-            ))}
+        <div style={{
+            flexDirection: "row",
+            position: "absolute",
+            display: "flex",
+            top: 140,
+            left: 295,
+          }}>
+            <h1>Sl.</h1>
+            <h1 className="pl-7 pr-5">Problem Link</h1>
+            <h1 className="pl-20 pr-10">Verdict</h1>
+            <h1 className="pl-40">Time</h1>
+            <h1 className="pl-40">Date</h1>
           </div>
+
+        <div
+          className="bg-white m-8 pt-2 pb-2 dark:bg-gray-800 rounded-md shadow-md"
+          style={{
+            flexDirection: "column",
+            position: "absolute",
+            top: 130,
+            left: 250,
+            right: -20,
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          {items.map((item, index) => (
+            <div
+              className="p-2"
+              key={index}
+              style={{ width: "100%", display: "flex", alignItems: "center" }}
+            >
+              <span
+                className="pr-10 dark:text-white"
+                style={{
+                  width: "5%",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                  textAlign: "center",
+                }}
+              >
+                {item.serialNo}
+              </span>
+              {showButton ? (
+                <a
+                  href={item.problemLink}
+                  className="p-10 bg-blue-500 text-white rounded-md py-1 px-3"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    width: "6%",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                    textAlign: "center",
+                  }}
+                >
+                  Link
+                </a>
+              ) : (
+                <span
+                  className="p-10"
+                  style={{
+                    width: "25%",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {item.problemLink}
+                </span>
+              )}
+              <span
+                className="p-10 dark:text-white"
+                style={{
+                  width: "30%",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                  textAlign: "center",
+                }}
+              >
+                {item.category}
+              </span>
+              <span
+                className="p-10 dark:text-white"
+                style={{
+                  width: "15%",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                  textAlign: "center",
+                }}
+              >
+                {item.time}
+              </span>
+              <span
+                className="p-10 dark:text-white"
+                style={{
+                  width: "20%",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                  textAlign: "center",
+                }}
+              >
+                {item.date}
+              </span>
+              <button
+                className="p-10 bg-blue-500 text-white rounded-md py-1 px-3"
+                onClick={() => handleDeleteItem(index)}
+                style={{
+                  width: "8%",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                  textAlign: "center",
+                }}
+              >
+                Delete
+              </button>
+            </div>
+          ))}
         </div>
       </div>
     </div>
