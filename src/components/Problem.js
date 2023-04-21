@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import submit from "../assets/submission.png";
-import dev from "../assets/dev.png";
-import leader from "../assets/leader.png";
-import prof from "../assets/prof.png";
+import Dashboard from "../components/Dashboard";
 
 export default function Problem() {
   const [items, setItems] = useState([]);
@@ -11,7 +7,7 @@ export default function Problem() {
   const [category, setCategory] = useState("");
   const [time, setTime] = useState("");
   const [date, setDate] = useState(new Date().toISOString().substr(0, 10));
-  const [showButton, setShowButton] = useState(false);
+  const [showButton, setShowButton] = useState(true);
 
   const handleAddItem = () => {
     const newItem = {
@@ -37,37 +33,7 @@ export default function Problem() {
 
   return (
     <div style={{ flexDirection: "column" }}>
-      <div
-        className="bg-white dark:bg-gray-800 h-screen w-full lg:w-1/5"
-        style={{ float: "left" }}
-      >
-        <div className="pt-20 p-6">
-          <Link to="/problem">
-            <button className="mb-8 py-1 px-5 w-52 bg-gray-200 hover:bg-gray-300 rounded-md text-gray-800 font-semibold whitespace-normal text-center">
-              <img src={submit} alt="" className="w-8 float-left"></img>
-              <h1 className="flex-1 pt-1">Problem Solving</h1>
-            </button>
-          </Link>
-          <Link to="/" className="flex items-center">
-            <button className="mb-8 py-1 px-5 w-52 bg-gray-200 hover:bg-gray-300 rounded-md text-gray-800 font-semibold whitespace-normal text-center">
-              <img src={dev} alt="" className="w-8 float-left"></img>
-              <h1 className="flex-1 pt-1">Development</h1>
-            </button>
-          </Link>
-          <Link to="/" className="flex items-center">
-            <button className="mb-8 py-1 px-5 w-52 bg-gray-200 hover:bg-gray-300 rounded-md text-gray-800 font-semibold whitespace-normal text-center">
-              <img src={leader} alt="" className="w-8 float-left"></img>
-              <h1 className="flex-1 pt-1">Leaderboard</h1>
-            </button>
-          </Link>
-          <Link to="/" className="flex items-center">
-            <button className="mb-8 py-1 px-5 w-52 bg-gray-200 hover:bg-gray-300 rounded-md text-gray-800 font-semibold whitespace-normal text-center">
-              <img src={prof} alt="" className="w-8 float-left"></img>
-              <h1 className="flex-1 pt-1">Profile</h1>
-            </button>
-          </Link>
-        </div>
-      </div>
+      <Dashboard />
       <div
         className="bg-white dark:bg-gray-800 h-screen w-full lg:w-4/5"
         style={{ float: "right", flexDirection: "column" }}
@@ -82,7 +48,7 @@ export default function Problem() {
             </div>
             <div className="p-4 pt-10 dark:text-white">
               <input
-                type="text"
+                type="integer"
                 placeholder="Problem Link"
                 value={problemLink}
                 onChange={(e) => setProblemLink(e.target.value)}
@@ -95,15 +61,15 @@ export default function Problem() {
                 onChange={(e) => setCategory(e.target.value)}
                 className="dark:text-white rounded-md py-1 px-3 dark:bg-gray-600"
               >
-                <option value="">Select Status</option>
-                <option value="Accepted">Accepted</option>
-                <option value="Wrong Answer">Wrong Answer</option>
-                <option value="Time limit exceed">Time limit exceed</option>
+                <option value="AC">AC</option>
+                <option value="WA">WA</option>
+                <option value="TLE">TLE</option>
+                <option value="RE">RE</option>
               </select>
             </div>
             <div className="p-4 pt-10 dark:text-white">
               <input
-                type="text"
+                type="number"
                 placeholder="Time (minutes)"
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
@@ -130,20 +96,6 @@ export default function Problem() {
           </div>
         </div>
 
-        <div style={{
-            flexDirection: "row",
-            position: "absolute",
-            display: "flex",
-            top: 140,
-            left: 295,
-          }}>
-            <h1>Sl.</h1>
-            <h1 className="pl-7 pr-5">Problem Link</h1>
-            <h1 className="pl-20 pr-10">Verdict</h1>
-            <h1 className="pl-40">Time</h1>
-            <h1 className="pl-40">Date</h1>
-          </div>
-
         <div
           className="bg-white m-8 pt-2 pb-2 dark:bg-gray-800 rounded-md shadow-md"
           style={{
@@ -153,105 +105,47 @@ export default function Problem() {
             left: 250,
             right: -20,
             display: "flex",
-            justifyContent: "center",
+            float: "right",
           }}
         >
           {items.map((item, index) => (
-            <div
-              className="p-2"
-              key={index}
-              style={{ width: "100%", display: "flex", alignItems: "center" }}
-            >
-              <span
-                className="pr-10 dark:text-white"
-                style={{
-                  width: "5%",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
-                  textAlign: "center",
-                }}
-              >
-                {item.serialNo}
-              </span>
-              {showButton ? (
-                <a
-                  href={item.problemLink}
+            <div className="p-2" key={index} style={{ flexDirection: "row"}}>
+
+              <div className="float-left w-1/6">{item.serialNo}</div>
+
+              <div className="float-left w-1/6">
+                {showButton ? (
+                  <a
+                    href={item.problemLink}
+                    className="p-10 bg-blue-500 text-white rounded-md py-1 px-3"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ textAlign: "center" }}
+                  >
+                    Link
+                  </a>
+                ) : (
+                  <h1>Link Not Given</h1>
+                )}
+              </div>
+
+              <div className="float-left w-1/6">{item.category}</div>
+
+              <div className="float-left w-1/6">{item.time}</div>
+
+              <div className="float-left w-1/6">{item.date}</div>
+
+              <div className="float-left w-1/6">
+                <button
                   className="p-10 bg-blue-500 text-white rounded-md py-1 px-3"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  onClick={() => handleDeleteItem(index)}
                   style={{
-                    width: "6%",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    whiteSpace: "nowrap",
                     textAlign: "center",
                   }}
                 >
-                  Link
-                </a>
-              ) : (
-                <span
-                  className="p-10"
-                  style={{
-                    width: "25%",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {item.problemLink}
-                </span>
-              )}
-              <span
-                className="p-10 dark:text-white"
-                style={{
-                  width: "30%",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
-                  textAlign: "center",
-                }}
-              >
-                {item.category}
-              </span>
-              <span
-                className="p-10 dark:text-white"
-                style={{
-                  width: "15%",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
-                  textAlign: "center",
-                }}
-              >
-                {item.time}
-              </span>
-              <span
-                className="p-10 dark:text-white"
-                style={{
-                  width: "20%",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
-                  textAlign: "center",
-                }}
-              >
-                {item.date}
-              </span>
-              <button
-                className="p-10 bg-blue-500 text-white rounded-md py-1 px-3"
-                onClick={() => handleDeleteItem(index)}
-                style={{
-                  width: "8%",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
-                  textAlign: "center",
-                }}
-              >
-                Delete
-              </button>
+                  Delete
+                </button>
+              </div>
             </div>
           ))}
         </div>

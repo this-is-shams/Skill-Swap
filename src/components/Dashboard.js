@@ -9,7 +9,7 @@ export default function Dashboard() {
   return (
     <div>
       <div
-        className="bg-white dark:bg-gray-800 h-screen w-full lg:w-5/5"
+        className="bg-white dark:bg-gray-800 h-screen w-full lg:w-1/5"
         style={{ float: "left" }}
       >
         <div className="pt-20 p-6">
@@ -26,16 +26,16 @@ export default function Dashboard() {
             </button>
           </Link>
           <Link to="/" className="flex items-center">
-          <button className="mb-8 py-1 px-5 w-52 bg-gray-200 hover:bg-gray-300 rounded-md text-gray-800 font-semibold whitespace-normal text-center">
-            <img src={leader} alt="" className="w-8 float-left"></img>
-            <h1 className="flex-1 pt-1">Leaderboard</h1>
-          </button>
+            <button className="mb-8 py-1 px-5 w-52 bg-gray-200 hover:bg-gray-300 rounded-md text-gray-800 font-semibold whitespace-normal text-center">
+              <img src={leader} alt="" className="w-8 float-left"></img>
+              <h1 className="flex-1 pt-1">Leaderboard</h1>
+            </button>
           </Link>
           <Link to="/" className="flex items-center">
-          <button className="mb-8 py-1 px-5 w-52 bg-gray-200 hover:bg-gray-300 rounded-md text-gray-800 font-semibold whitespace-normal text-center">
-            <img src={prof} alt="" className="w-8 float-left"></img>
-            <h1 className="flex-1 pt-1">Profile</h1>
-          </button>
+            <button className="mb-8 py-1 px-5 w-52 bg-gray-200 hover:bg-gray-300 rounded-md text-gray-800 font-semibold whitespace-normal text-center">
+              <img src={prof} alt="" className="w-8 float-left"></img>
+              <h1 className="flex-1 pt-1">Profile</h1>
+            </button>
           </Link>
         </div>
       </div>
