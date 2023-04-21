@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Dashboard from "../components/Dashboard";
+import Sidebar from "./Sidebar";
 
 export default function Problem() {
   const [items, setItems] = useState([]);
@@ -33,10 +33,9 @@ export default function Problem() {
 
   return (
     <div style={{ flexDirection: "column" }}>
-      <Dashboard />
+      <Sidebar />
       <div
-        className="bg-white dark:bg-gray-800 h-screen w-full lg:w-4/5"
-        style={{ float: "right", flexDirection: "column" }}
+        className="bg-white dark:bg-gray-800 h-screen w-full lg:w-4/5 flex-col flex-wrap"
       >
         <div
           className="bg-white dark:bg-gray-800"
@@ -61,6 +60,7 @@ export default function Problem() {
                 onChange={(e) => setCategory(e.target.value)}
                 className="dark:text-white rounded-md py-1 px-3 dark:bg-gray-600"
               >
+                <option value="null">Select Status</option>
                 <option value="AC">AC</option>
                 <option value="WA">WA</option>
                 <option value="TLE">TLE</option>
@@ -129,13 +129,13 @@ export default function Problem() {
                 )}
               </div>
 
-              <div className="float-left w-1/6">{item.category}</div>
+              <div className="float-left w-1/6 flex justify-center">{item.category}</div>
 
-              <div className="float-left w-1/6">{item.time}</div>
+              <div className="float-left w-1/6 flex justify-center">{item.time}</div>
 
-              <div className="float-left w-1/6">{item.date}</div>
+              <div className="float-left w-1/6 flex justify-center">{item.date}</div>
 
-              <div className="float-left w-1/6">
+              <div className="float-left w-1/6 flex justify-center">
                 <button
                   className="p-10 bg-blue-500 text-white rounded-md py-1 px-3"
                   onClick={() => handleDeleteItem(index)}
