@@ -32,7 +32,7 @@ export default function Problem() {
   };
 
   return (
-    <div style={{ flexDirection: "column" }}>
+    <div className="dark:bg-gray-800" style={{ flexDirection: "column" }}>
       <Sidebar />
       <div
         className="bg-white dark:bg-gray-800 h-screen w-full lg:w-4/5 flex-col flex-wrap"
@@ -109,9 +109,9 @@ export default function Problem() {
           }}
         >
           {items.map((item, index) => (
-            <div className="p-2" key={index} style={{ flexDirection: "row"}}>
+            <div className="p-2 dark:bg-gray-800" key={index} style={{ flexDirection: "row"}}>
 
-              <div className="float-left w-1/6">{item.serialNo}</div>
+              <div className="float-left w-1/6 dark:text-white">{item.serialNo}</div>
 
               <div className="float-left w-1/6">
                 {showButton ? (
@@ -129,13 +129,13 @@ export default function Problem() {
                 )}
               </div>
 
-              <div className="float-left w-1/6 flex justify-center">{item.category}</div>
+              <div className="float-left w-1/6 flex justify-center dark:text-white">{item.category}</div>
 
-              <div className="float-left w-1/6 flex justify-center">{item.time}</div>
+              <div className="float-left w-1/6 flex justify-center dark:text-white">{item.time}</div>
 
-              <div className="float-left w-1/6 flex justify-center">{item.date}</div>
+              <div className="float-left w-1/6 flex justify-center dark:text-white">{item.date}</div>
 
-              <div className="float-left w-1/6 flex justify-center">
+              <div className="float-left w-1/6 flex justify-center dark:text-white">
                 <button
                   className="p-10 bg-blue-500 text-white rounded-md py-1 px-3"
                   onClick={() => handleDeleteItem(index)}
