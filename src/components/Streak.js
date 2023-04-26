@@ -33,7 +33,7 @@ function Streak() {
   }
 
   for (let i = 0; i < values.length; i++) {
-    if (values[i].date === "2023-01-01") {
+    if (values[i].date === "2023-01-02") {
       values[i].problemSolvingCount = 2;
       values[i].developmentCount = 3;
       break; 
