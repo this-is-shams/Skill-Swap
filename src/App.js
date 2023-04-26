@@ -5,6 +5,7 @@ import Sidebar from "./components/Sidebar";
 import Problem from "./components/Problem";
 import Development from "./components/Development";
 import Dashboard from "./components/Dashboard";
+import Streak from "./components/Streak";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="/problem" element={<Problem/>}></Route>
         <Route path="/development" element={<Development/>}></Route>
         <Route path="/dashboard" element={<Dashboard/>}></Route>
+        <Route path="/streak" element={<Streak/>}></Route>
       </Routes>
     </Router>
   );

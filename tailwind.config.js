@@ -7,15 +7,21 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // define your color palette here
         white: '#ffffff',
         black: '#000000',
         gray: {
           800: '#1f2937',
           900: '#111827',
         },
+        calendarHeatmap: {
+          '.color-github-0': { fill: '#eeeeee' },
+          '.color-github-1': { fill: '#d6e685' },
+          '.color-github-2': { fill: '#8cc665' },
+          '.color-github-3': { fill: '#44a340' },
+          '.color-github-4': { fill: '#1e6823' },
+        },
       },
-    },
+    },    
   },
   variants: {
     extend: {
