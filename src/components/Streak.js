@@ -4,10 +4,22 @@ import "react-calendar-heatmap/dist/styles.css";
 
 function Streak() {
   const [year, setYear] = useState("2023");
+  const [problemSolvingCount, setProblemSolvingCount] = useState(0);
+  const [developmentCount, setDevelopmentCount] = useState(0);
 
   const handleYearChange = (event) => {
     setYear(event.target.value);
   };
+
+//   const handleInputChange = (event) => {
+//     const { name, value } = event.target;
+
+//     if (name === "problemSolvingCount") {
+//       setProblemSolvingCount(value);
+//     } else if (name === "developmentCount") {
+//       setDevelopmentCount(value);
+//     }
+//   };
 
   const startDate = new Date(`${year}-01-01`);
   const endDate = new Date(`${year}-12-31`);
@@ -17,43 +29,13 @@ function Streak() {
     date <= endDate;
     date.setDate(date.getDate() + 1)
   ) {
-    values.push({ date: date.toISOString().slice(0, 10), count: 0 });
-  }
-
-//   values = [
-//     { date: "2022-01-01", count: 1 },
-//     { date: "2022-02-14", count: 2 },
-//     { date: "2022-03-27", count: 3 },
-//     { date: "2023-03-27", count: 3 },
-//     { date: "2021-03-27", count: 3 },
-//     { date: "2020-03-23", count: 3 },
-//     // add more values here
-//   ];
-
-for (let i = 0; i < values.length; i++) {
-    if (values[i].date === "2023-04-01") {
-      values[i].count = 1;
-      break; 
-    }
+    values.push({ date: date.toISOString().slice(0, 10), problemSolvingCount: 0, developmentCount: 0 });
   }
 
   for (let i = 0; i < values.length; i++) {
-    if (values[i].date === "2023-04-10") {
-      values[i].count = 1;
-      break; 
-    }
-  }
-
-  for (let i = 0; i < values.length; i++) {
-    if (values[i].date === "2023-04-11") {
-      values[i].count = 2;
-      break; 
-    }
-  }
-
-  for (let i = 0; i < values.length; i++) {
-    if (values[i].date === "2023-04-11") {
-      values[i].count = 5;
+    if (values[i].date === "2023-01-01") {
+      values[i].problemSolvingCount = 2;
+      values[i].developmentCount = 3;
       break; 
     }
   }
@@ -66,30 +48,25 @@ for (let i = 0; i < values.length; i++) {
   ];
 
   const titleForValue = (value) => {
-    return `Date: ${value.date}, Count: ${value.count}`;
+    return `Date: ${value.date}, Problem Solving: ${value.problemSolvingCount}h, Development: ${value.developmentCount}h`;
   };
 
-
-
   const classForValue = (value) => {
-    if (value.count === 0) {
+    if (value.problemSolvingCount === 0 && value.developmentCount === 0) {
       return "color-github-0";
-    } else if (value.count === 1) {
-      return "color-github-2";
-    } else if (value.count === 2) {
+    } else if (value.problemSolvingCount >= 1 || value.developmentCount >= 1) {
       return "color-github-3";
-    } else if (value.count >= 3) {
-      return "color-github-4";
     } else {
       return "";
     }
   };
   
+  
 
   return (
     <div className="w-full">
       <div className="flex flex-row-reverse">
-        <select className=" text-black dark:text-white dark:bg-slate-600" id="year" value={year} onChange={handleYearChange}>
+        <select className="text-black dark:text-white dark:bg-slate-600" id="year" value={year} onChange={handleYearChange}>
           {yearOptions.map((year) => (
             <option key={year} value={year}>
               {year}
@@ -107,6 +84,6 @@ for (let i = 0; i < values.length; i++) {
       />
     </div>
   );
-}
+}  
 
 export default Streak;
