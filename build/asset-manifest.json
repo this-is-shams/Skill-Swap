@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/static/css/main.dcce2e86.css",
+    "main.js": "/static/js/main.8ece73cc.js",
+    "static/media/emne.gif": "/static/media/emne.93d90995a312c8da3d1b.gif",
+    "static/media/register.gif": "/static/media/register.b658ecbbd46590b0f1eb.gif",
+    "index.html": "/index.html",
+    "static/media/sunny-outline.svg": "/static/media/sunny-outline.1d11bc314beb185514e6818f10d444be.svg",
+    "static/media/moon-outline.svg": "/static/media/moon-outline.ed14e62383eee27a57c447e80da2f840.svg",
+    "main.dcce2e86.css.map": "/static/css/main.dcce2e86.css.map",
+    "main.8ece73cc.js.map": "/static/js/main.8ece73cc.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.dcce2e86.css",
+    "static/js/main.8ece73cc.js"
+  ]
+}
