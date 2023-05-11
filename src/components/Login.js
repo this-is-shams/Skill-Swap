@@ -1,6 +1,6 @@
 import React from "react";
-import loginImg from "../assets/emne.gif";
 import { Link } from "react-router-dom";
+import loginImg from "../assets/emne.gif";
 
 export default function Login() {
   return (

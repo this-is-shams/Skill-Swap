@@ -1,8 +1,7 @@
 import React from "react";
-import Sidebar from "./Sidebar";
 import Chart from "react-google-charts";
+import Sidebar from "./Sidebar";
 import Streak from "./Streak";
-
 const pieData = [
   ["Task", "Hours per Day"],
   ["Development", 40],
@@ -60,10 +59,11 @@ export default function Dashboard() {
             <span className="ml-16 self-end">:</span>
           </h1>
         </div>
-      </div>
-      <div className="container flex justify-center">
+        <div className="container flex justify-center pr-10">
         <Streak/>
       </div>
+      </div>
+      
     </div>
   );
 }
