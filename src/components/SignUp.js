@@ -10,7 +10,7 @@ function SignUp() {
     setMentor(e.target.value);
   };
 
-  //Database e account create howar code
+  //Database e account create howar code ^o^
   const nameRef=useRef()
   const userRef=useRef()
   const passRef=useRef()
