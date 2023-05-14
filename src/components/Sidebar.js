@@ -10,7 +10,7 @@ export default function Dashboard() {
   return (
     <div>
       <div
-        className="bg-white dark:bg-gray-800 h-screen float-left"
+        className="bg-white dark:bg-gray-800 h-screen float-left fixed top-12 z-50 overflow-hidden;"
         style={{ float: "left" }}
       >
         <div className="pt-20 p-6">

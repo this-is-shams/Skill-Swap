@@ -32,14 +32,14 @@ export default function Problem() {
   };
 
   return (
-    <div className="dark:bg-gray-800" style={{ flexDirection: "column" }}>
+    <div className="dark:bg-gray-800 h-screen" style={{ flexDirection: "column" }}>
       <Sidebar />
       <div
-        className="bg-white dark:bg-gray-800 h-screen w-full lg:w-4/5 flex-col flex-wrap"
+        className="dark:bg-gray-800 h-screen"
       >
         <div
-          className="bg-white dark:bg-gray-800"
-          style={{ position: "absolute", top: 56, left: 280, right: 12 }}
+          className="bg-white dark:bg-gray-800 z-20"
+          style={{ position: "fixed", top: 40, left: 280, right: 12 }}
         >
           <div className="flex items-center justify-between">
             <div className="p-4 pt-10">
@@ -97,7 +97,7 @@ export default function Problem() {
         </div>
 
         <div
-          className="bg-white m-8 pt-2 pb-2 dark:bg-gray-800 rounded-md shadow-md"
+          className="bg-white m-8 pt-2 pb-2 dark:bg-gray-800 rounded-md shadow-md z-0"
           style={{
             flexDirection: "column",
             position: "absolute",

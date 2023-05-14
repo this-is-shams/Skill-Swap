@@ -2,16 +2,22 @@ import { React, useState } from 'react';
 import Sidebar from "./Sidebar";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import Card from 'react-bootstrap/Card';
 
 export default function Development() {
   const [showModal, setShowModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [items, setItems] = useState([]);
   const [links, setLinks] = useState([""]);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [time, setTime] = useState("");
+  const [date, setDate] = useState(new Date().toISOString().substr(0, 10));
 
   const handleOpenModal = () => {
     setShowModal(true);
   };
-  
+
   const handleCloseModal = () => {
     setShowModal(false);
   };
@@ -32,16 +38,29 @@ export default function Development() {
     setLinks(newLinks);
   }
 
-  const submit = () => {
-    
-  }
+ 
+  const handleAddItem = () => {
+    const newItem = {
+      serialNo: items.length + 1,
+      title: title,
+      description: description,
+      time: time,
+      date: date,
+    };
+    setItems([...items, newItem]);
+    setTitle("");
+    setDescription("");
+    setTime("");
+    setDate("");
+    setShowModal(false);
+  };
 
   return (
     <div className="dark:bg-gray-800 overflow-hidden text-gray-800 dark:text-white">
       <Sidebar />
       <div className='bg-white dark:bg-gray-800 h-screen w-full lg:w-4/5 flex-col flex-wrap'>
         <div className='bg-white dark:bg-gray-800' style={{ position: 'absolute', top: 56, left: 280, right: 12 }}>
-          <button onClick={handleOpenModal} className='rounded-md py-1 px-3 bg-blue-400 text-white w-full'>Add Development Record +</button>
+          <button onClick={handleOpenModal} className='rounded-md py-1 px-3 bg-blue-400 text-white w-full position: fixed;'>Add Development Record +</button>
           {showModal && (
             <div className="modal">
               <div className="modal-content dark:text-white dark:bg-gray-600">
@@ -51,15 +70,15 @@ export default function Development() {
                 <h1 className='pt-2 text-center font-semibold'>ADD DEVELOPMENT LEARNING</h1>
                 <div className='pt-5'>
                   <h2>Title</h2>
-                  <input className='dark:text-white rounded-md py-1 px-3 dark:bg-gray-600 border border-gray-400 w-full'></input>
+                  <input className='dark:text-white rounded-md py-1 px-3 dark:bg-gray-600 border border-gray-400 w-full' id='title-input' value={title} onChange={(e) => setTitle(e.target.value)}></input>
                 </div>
                 <div className='pt-5'>
                   <h2>Description</h2>
-                  <input className='dark:text-white rounded-md py-1 px-3 dark:bg-gray-600 border border-gray-400 w-full'></input>
+                  <input className='dark:text-white rounded-md py-1 px-3 dark:bg-gray-600 border border-gray-400 w-full' id='description-input' value={description} onChange={(e) => setDescription(e.target.value)}></input>
                 </div>
                 <div className='pt-5'>
                   <h2>Time</h2>
-                  <input className='dark:text-white rounded-md py-1 px-3 dark:bg-gray-600 border border-gray-400 w-full'></input>
+                  <input className='dark:text-white rounded-md py-1 px-3 dark:bg-gray-600 border border-gray-400 w-full' id='time-input' value={time} onChange={(e) => setTime(e.target.value)}></input>
                 </div>
                 <div className='pt-5'>
                   <h2>Date</h2>
@@ -68,29 +87,46 @@ export default function Development() {
                     onChange={(date) => setSelectedDate(date)}
                     dateFormat="dd/MM/yyyy"
                     placeholderText="Select date"
-                    className=" text-blue-500 dark:text-white rounded-md py-1 px-3 dark:bg-gray-600 border border-gray-400 w-full"
+                    className=" dark:text-white rounded-md py-1 px-3 dark:bg-gray-600 border border-gray-400 w-full"
                   />
                 </div>
                 <div className='pt-5'>
-                  <h2>Link</h2>
                   {links.map((link, index) => (
                     <div key={index} className='pt-2'>
+                      <h2>Link</h2>
                       <input
                         className='dark:text-white rounded-md py-1 px-3 dark:bg-gray-600 border border-gray-400 w-3/4'
                         value={link}
                         onChange={(event) => handleLinkChange(index, event.target.value)}
                       />
-                      <button className="ml-2 rounded-md py-1 px-3 bg-red-500 text-white" onClick={handleRemoveLink}>
+                      <button className="ml-2 rounded-md py-1 px-3 bg-red-500 text-white" onClick={() => handleRemoveLink(index)}>
                         Delete
                       </button>
+
                     </div>
                   ))}
                   <div className='pt-2'><button className="rounded-md py-1 px-3 bg-blue-600 text-white w-full" onClick={handleAddLink}>Add Link</button></div>
-                  <div className='pt-2'><button className="rounded-md py-1 px-3 bg-violet-600 text-white w-full" onClick={submit}>Submit</button></div>
+                  <div className='pt-2'><button className="rounded-md py-1 px-3 bg-blue-600 text-white w-full" onClick={handleAddItem}>Submit</button></div>
                 </div>
               </div>
             </div>
           )}
+          <div className="bg-white w-full pt-10 pb-2 dark:bg-gray-800 rounded-md shadow-md"
+          style={{
+            flexDirection: "column",
+            display: "flex",
+          }}>
+          {items.map((item, index) => (
+            <div className="p-5 dark:bg-gray-800 w-full" key={index} style={{ flexDirection: "row"}}>
+              <h1 className="dark:text-white">Task {item.serialNo}</h1>
+              <li className="dark:text-white">{item.title}</li>
+              <li className="dark:text-white">{item.description}</li>
+              <li className="dark:text-white">{item.time}</li>
+              <li className="dark:text-white">{item.date}</li>
+              <li className="dark:text-white"></li>
+            </div>
+          ))}
+          </div>
         </div>
       </div>
 

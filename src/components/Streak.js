@@ -54,10 +54,10 @@ function Streak() {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-3/4 dark:bg-gray-800 flex justify-center">
       <div className="flex flex-row-reverse">
         <select
-          className="text-black dark:text-white dark:bg-slate-600"
+          className="text-black dark:text-white dark:bg-gray-800 h-10"
           id="year"
           value={year}
           onChange={handleYearChange}

@@ -21,9 +21,9 @@ const pieOptions = {
 
 export default function Dashboard() {
   return (
-    <div className="dark:bg-gray-800 overflow-hidden text-gray-800 dark:text-white">
+    <div className="dark:bg-gray-800 overflow-hidden text-gray-800 dark:text-white w-screen h-screen">
       <Sidebar />
-      <div className="overflow-hidden">
+      <div className="pl-24">
         <div className="float-left w-1/2 pt-20 text-gray-800 dark:text-white flex justify-center">
           <Chart
             width={"400px"}
@@ -59,11 +59,11 @@ export default function Dashboard() {
             <span className="ml-16 self-end">:</span>
           </h1>
         </div>
-        <div className="container flex justify-center pr-10">
-        <Streak/>
+        <div className="container flex justify-center pl-20">
+          <Streak />
+        </div>
       </div>
-      </div>
-      
+
     </div>
   );
 }
