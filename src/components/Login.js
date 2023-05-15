@@ -1,8 +1,35 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import loginImg from "../assets/emne.gif";
+import { useRef } from "react";
 
 export default function Login() {
+  const optionRef=useRef()
+  const userRef=useRef()
+  const passRef=useRef()
+  const handleSignin = (e) => {
+    e.preventDefault();
+    const option=optionRef.current.value
+    const user=userRef.current.value
+    const pass=passRef.current.value
+    const formData={option,user,pass}
+
+    fetch("http://localhost:5000/signin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.statusCode === 200) {
+          alert("Success");
+          e.target.reset();
+        }
+      });
+  };
   return (
     <div className="dark:bg-gray-800 grid grid-cols-1 sm:grid-cols-2 h-screen w-full pt-20 pb-10">
       <div className="hidden sm:block dark:bg-gray-800 ">
@@ -10,19 +37,21 @@ export default function Login() {
       </div>
       <div className="bg-white dark:bg-gray-800 flex flex-col justify-center">
 
-        <form className="max-w-[400px] w-full mx-auto rounded-lg bg-gray-300 dark:bg-gray-900 p-8">
+        <form onSubmit={handleSignin} className="max-w-[400px] w-full mx-auto rounded-lg bg-gray-300 dark:bg-gray-900 p-8">
           <h2 className="text-4xl dark:text-white font-bold text-center">
             SIGN IN
           </h2>
           <div className="flex flex-col dark:text-gray-400 py-2">
             <label>User Type</label>
             <select
+              ref={optionRef}
               id="userType"
               className="rounded-lg dark:bg-gray-700 mt-2 p-2 focus:border-blue-500 dark:focus:bg-gray-800 focus:outline-none"
               type="text"
             >
               <option value="fjs">Mentor</option>
               <option value="sp">Mentee</option>
+              
             </select>
           </div>
           <div className="flex flex-col dark:text-gray-200 py-2">
@@ -30,6 +59,7 @@ export default function Login() {
             <input
               className="rounded-lg dark:bg-gray-700 mt-2 p-2 focus:border-blue-500 dark:focus:bg-gray-800 focus:outline-none"
               type="text"
+              ref={userRef}
             />
           </div>
           <div className="flex flex-col dark:text-gray-200 py-2">
@@ -37,6 +67,7 @@ export default function Login() {
             <input
               className="p-2 rounded-lg dark:bg-gray-700 mt-2 focus:border-blue-500 dark:focus:bg-gray-800 focus:outline-none"
               type="password"
+              ref={passRef}
             />
           </div>
           <div className="flex justify-between dark:text-gray-200 py-2">
