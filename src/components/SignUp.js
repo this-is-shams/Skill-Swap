@@ -26,6 +26,7 @@ function SignUp() {
     const cat=catRef.current.value
     const mentor=mentorRef.current.value
     const newService={name,user,pass,conPass,cat,mentor}
+    console.log(newService);
     e.preventDefault()
     fetch("http://localhost:5000/signup",{method:'POST',headers:{'Content-Type':'application/json',},body:JSON.stringify(newService),})
     .then(res=>res.json())

@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose');
 const signupHandler = require("./routeHandler/signupHandler")
+const signinHandler = require("./routeHandler/signinHandler")
 const cors = require('cors')
 
 //express app initialization
@@ -22,6 +23,7 @@ mongoose.connect('mongodb+srv://cygnus:star99MOON@cluster0.ifcdflc.mongodb.net/m
 
 //application routes
 app.use('/signup',signupHandler);
+app.use('/signin',signinHandler);
 
 
 //default error handler
