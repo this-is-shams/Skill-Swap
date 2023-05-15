@@ -79,7 +79,7 @@ export default function Development() {
                 </div>
                 <div className='pt-5'>
                   <h2>Time</h2>
-                  <input className='dark:text-white rounded-md py-1 px-3 dark:bg-gray-600 border border-gray-400 w-full' id='time-input' value={time} onChange={(e) => setTime(e.target.value)}></input>
+                  <input className='dark:text-white rounded-md py-1 px-3 dark:bg-gray-600 border border-gray-400 w-full' id='time-input' value={time} type="number" onChange={(e) => setTime(e.target.value)}></input>
                 </div>
                 <div className='pt-5'>
                   <h2>Date</h2>
@@ -99,7 +99,7 @@ export default function Development() {
                         value={link}
                         onChange={(event) => handleLinkChange(index, event.target.value)}
                       />
-                      <button className="ml-2 rounded-md py-1 px-3 bg-red-500 text-white" onClick={() => handleRemoveLink(index)}>
+                      <button className="ml-5 rounded-md py-1 px-3 w-1/5 bg-red-500 text-white" onClick={() => handleRemoveLink(index)}>
                         Delete
                       </button>
 
@@ -117,8 +117,8 @@ export default function Development() {
               display: "flex",
             }}>
             {items.map((item, index) => (
-              <div className="p-5 dark:bg-gray-800 w-full m-2" key={index} style={{ flexDirection: "row", border: "2px solid black" }}>
-                <h1 className="dark:text-white">Task {item.serialNo}</h1>
+              <div className="p-5 dark:bg-gray-800 w-full m-2" key={index} style={{ flexDirection: "row", border: "2px solid blue" }}>
+                <li className="dark:text-white font-bold">Task {item.serialNo}</li>
                 <li className="dark:text-white">{item.title}</li>
                 <li className="dark:text-white">{item.description}</li>
                 <li className="dark:text-white">{item.time}</li>
@@ -148,6 +148,7 @@ export default function Development() {
           height: 100%;
           overflow: auto;
           background-color: rgba(0, 0, 0, 0.4);
+          z-index: 1000;
         }
 
         /* Modal Content Styles */

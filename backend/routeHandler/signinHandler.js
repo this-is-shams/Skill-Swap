@@ -6,7 +6,7 @@ const SignUp = require('../schemas/signupschema');
 // POST signin data
 router.post('/', async (req, res) => {
   const { user, pass, option } = req.body;
-  
+  console.log(req.body);
   try {
     
     // Find the user in the database
