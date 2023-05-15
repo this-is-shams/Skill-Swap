@@ -125,11 +125,12 @@ export default function Development() {
                 <li className="dark:text-white">{item.date}</li>
                 <div className='pt-4'>
                   {item.link.map((link, linkIndex) => (
-                    <li className="dark:text-white" key={linkIndex}>
-                      Link {linkIndex+1} : {link}
+                    <li className="dark:text-white text-blue-600" key={linkIndex}>
+                      <a href={link}>{link}</a>
                     </li>
                   ))}
                 </div>
+                
               </div>
             ))}
           </div>
