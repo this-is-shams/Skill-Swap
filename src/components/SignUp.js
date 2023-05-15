@@ -101,21 +101,21 @@ function SignUp() {
             >
               {category === "fjs" && (
                 <>
-                  <option value="fjs">Md. Al Asad Nur Riyad</option>
-                  <option value="sp">Md Kalim Amzad Chy</option>
-                  <option value="fl">Md. Monjurul Hoque Chowdhury</option>
-                  <option value="dot">Md Shahariar Younus Ashik</option>
-                  <option value="dot">Mohammad Arfizur Rahman</option>
+                  <option value="Md. Al Asad Nur Riyad">Md. Al Asad Nur Riyad</option>
+                  <option value="Md Kalim Amzad Chy">Md Kalim Amzad Chy</option>
+                  <option value="Md. Monjurul Hoque Chowdhury">Md. Monjurul Hoque Chowdhury</option>
+                  <option value="Md Shahariar Younus Ashik">Md Shahariar Younus Ashik</option>
+                  <option value="Mohammad Arfizur Rahmandot">Mohammad Arfizur Rahman</option>
                 </>
               )}
 
               {category === "sp" && (
                 <>
-                  <option value="dot">Iqbal Hossain</option>
-                  <option value="dot">Md. Arif Haider</option>
-                  <option value="dot">Arafat Hossain</option>
-                  <option value="dot">Naimul Haque</option>
-                  <option value="dot">Shabaj Khan</option>
+                  <option value="Iqbal Hossain">Iqbal Hossain</option>
+                  <option value="Md. Arif Haider">Md. Arif Haider</option>
+                  <option value="Arafat Hossain">Arafat Hossain</option>
+                  <option value="Naimul Haque">Naimul Haque</option>
+                  <option value="Shabaj Khan">Shabaj Khan</option>
                 </>
               )}
               {category === "Please select..." && (
