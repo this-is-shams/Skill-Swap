@@ -26,9 +26,9 @@ export default function DarkMode() {
   };
 
   return (
-    <div className="dark:bg-indigo-100-accent pl-5 overflow-hidden fixed z-10">
-      <div className="bg-white dark:bg-gray-800 fixed top-0 left-4 w-full pt-2">
-        <img src={logo} style={{ display: 'inline-block' }}></img>
+    <div className="dark:bg-indigo-100-accent overflow-hidden fixed z-10">
+      <div className="bg-white dark:bg-gray-800 fixed h-12 w-full pt-2">
+        <img src={logo} className='top-0' style={{ display: 'inline-block' }}></img>
         <h1 className="dark:text-white" style={{ display: 'inline-block', marginLeft: '-245px', fontWeight:'bold', fontSize: '22px'}}>Skill Swap</h1>
       </div>
       <div className="fixed right-0 flex float-right h-[40px] bg-blue-300  dark:bg-yellow-400">
