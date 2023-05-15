@@ -9,7 +9,7 @@ function Streak() {
     setYear(event.target.value);
   };
 
-  const startDate = new Date(`${year}-01-01`);
+  const startDate = new Date(`${parseInt(year, 10) - 1}-12-31`);
   const endDate = new Date(`${year}-12-31`);
   const values = [];
   for (let date = new Date(startDate);date <= endDate;date.setDate(date.getDate() + 1)) 
