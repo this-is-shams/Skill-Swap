@@ -21,7 +21,7 @@ const pieOptions = {
 
 export default function Dashboard() {
   return (
-    <div className="dark:bg-gray-800 w-screen overflow-hidden text-gray-800 dark:text-white w-screen h-screen">
+    <div className="dark:bg-gray-800 overflow-hidden text-gray-800 dark:text-white w-screen h-screen">
       <Sidebar />
       <div className="pl-24">
         <div className="float-left w-1/2 pt-20 text-gray-800 dark:text-white flex justify-center">
