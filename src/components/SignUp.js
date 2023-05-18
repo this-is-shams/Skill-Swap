@@ -14,57 +14,80 @@ function SignUp() {
     setUserType(e.target.value);
   };
 
-
   //Database e account create howar code ^o^
-  const nameRef = useRef()
-  const userRef = useRef()
-  const passRef = useRef()
-  const conPassRef = useRef()
-  const catRef = useRef()
-  const mentorRef = useRef()
-  const userTypeRef = useRef()
-
+  const nameRef = useRef();
+  const userRef = useRef();
+  const passRef = useRef();
+  const conPassRef = useRef();
+  const catRef = useRef();
+  const mentorRef = useRef();
+  const userTypeRef = useRef();
 
   const handleSignup = (e) => {
-    const name = nameRef.current.value
-    const user = userRef.current.value
-    const pass = passRef.current.value
-    const conPass = conPassRef.current.value
-    const cat = catRef.current.value
-    const mentor = mentorRef.current.value
-    const userType = userTypeRef.current.value
+    const name = nameRef.current.value;
+    const user = userRef.current.value;
+    const pass = passRef.current.value;
+    const conPass = conPassRef.current.value;
+    const cat = catRef.current.value;
+    const mentor = mentorRef.current.value ?? "";
+    const userType = userTypeRef.current.value;
 
     var newService;
 
     if (pass !== conPass) {
-      alert("Password doesn't match")
-      return
+      alert("Password doesn't match");
+      return;
     }
 
     if (uType === "mentor") {
-
-      newService = { name, user, pass, conPass,  userType, cat }
-    }
-
-    else if(uType === "mentee")
-    {
-      newService = { name, user, pass, conPass, userType, cat, mentor }
-    }
-
-    console.log(newService);
-    e.preventDefault()
-    fetch("http://localhost:5000/signup", { method: 'POST', headers: { 'Content-Type': 'application/json', }, body: JSON.stringify(newService), })
-      .then(res => res.json())
-      .then((data) => {
-        console.log(data)
-        if (data.statusCode === 200) {
-          alert('Succesfully Added!')
-          e.target.reset();
-        }
+      newService = { name, user, pass, conPass, cat };
+      console.log(newService);
+      e.preventDefault();
+      fetch("http://localhost:5000/signup/mentor", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newService),
       })
-  }
-  //Database e account create howar code
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.statusCode === 200) {
+            alert("Mentor Succesfully Added!");
+            e.target.reset();
+          }
+        });
+    } else if (uType === "mentee") {
+      newService = { name, user, pass, conPass, userType, cat, mentor };
+      console.log(newService);
+      e.preventDefault();
+      fetch("http://localhost:5000/signup/mentee", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newService),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.statusCode === 200) {
+            alert("Mentee Succesfully Added!");
+            e.target.reset();
+          }
+        });
+    }
 
+    // console.log(newService);
+    // e.preventDefault()
+    // fetch("http://localhost:5000/signup", { method: 'POST', headers: { 'Content-Type': 'application/json', }, body: JSON.stringify(newService), })
+    //   .then(res => res.json())
+    //   .then((data) => {
+    //     console.log(data)
+    //     if (data.statusCode === 200) {
+    //       alert('Succesfully Added!')
+    //       e.target.reset();
+    //     }
+    //   })
+  };
+  //Database e account create howar code
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 h-screen w-full">
@@ -119,7 +142,9 @@ function SignUp() {
             <select
               ref={userTypeRef}
               className="rounded-lg dark:bg-gray-700 mt-2 p-2 focus:border-blue-500 dark:focus:bg-gray-800 focus:outline-none"
-              type="text" value={uType} onChange={handleUserTypeChange}
+              type="text"
+              value={uType}
+              onChange={handleUserTypeChange}
             >
               <option>Please select...</option>
               <option value="mentor">Mentor</option>
@@ -153,11 +178,21 @@ function SignUp() {
                 >
                   {category === "fjs" && (
                     <>
-                      <option value="Md. Al Asad Nur Riyad">Md. Al Asad Nur Riyad</option>
-                      <option value="Md Kalim Amzad Chy">Md Kalim Amzad Chy</option>
-                      <option value="Md. Monjurul Hoque Chowdhury">Md. Monjurul Hoque Chowdhury</option>
-                      <option value="Md Shahariar Younus Ashik">Md Shahariar Younus Ashik</option>
-                      <option value="Mohammad Arfizur Rahmandot">Mohammad Arfizur Rahman</option>
+                      <option value="Md. Al Asad Nur Riyad">
+                        Md. Al Asad Nur Riyad
+                      </option>
+                      <option value="Md Kalim Amzad Chy">
+                        Md Kalim Amzad Chy
+                      </option>
+                      <option value="Md. Monjurul Hoque Chowdhury">
+                        Md. Monjurul Hoque Chowdhury
+                      </option>
+                      <option value="Md Shahariar Younus Ashik">
+                        Md Shahariar Younus Ashik
+                      </option>
+                      <option value="Mohammad Arfizur Rahmandot">
+                        Mohammad Arfizur Rahman
+                      </option>
                     </>
                   )}
 
@@ -183,7 +218,8 @@ function SignUp() {
           {uType === "mentor" && (
             <div>
               <div className="flex flex-col dark:text-gray-400 py-2">
-                <label>Category</label>
+                <label ref={mentorRef}>Category</label>{" "}
+                {/*  Ref is declared here just to solve the undefined  */}
                 <select
                   ref={catRef}
                   className="rounded-lg dark:bg-gray-700 mt-2 p-2 focus:border-blue-500 dark:focus:bg-gray-800 focus:outline-none"
@@ -198,11 +234,14 @@ function SignUp() {
                   <option value="dot">Dotnet</option>
                 </select>
               </div>
-
             </div>
           )}
 
-          <button variant="primary" type="submit" className="w-full my-5 py-2 bg-blue-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg">
+          <button
+            variant="primary"
+            type="submit"
+            className="w-full my-5 py-2 bg-blue-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg"
+          >
             Sign Up
           </button>
         </form>
