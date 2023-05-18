@@ -15,6 +15,7 @@ function SignUp() {
     setUserType(e.target.value);
   };
 
+
   //Database e account create howar code ^o^
   const nameRef = useRef()
   const userRef = useRef()
@@ -22,6 +23,8 @@ function SignUp() {
   const conPassRef = useRef()
   const catRef = useRef()
   const mentorRef = useRef()
+  const userTypeRef = useRef()
+
 
   const handleSignup = (e) => {
     const name = nameRef.current.value
@@ -30,7 +33,25 @@ function SignUp() {
     const conPass = conPassRef.current.value
     const cat = catRef.current.value
     const mentor = mentorRef.current.value
-    const newService = { name, user, pass, conPass, cat, mentor }
+    const userType = userTypeRef.current.value
+
+    var newService;
+
+    if (pass !== conPass) {
+      alert("Password doesn't match")
+      return
+    }
+
+    if (uType === "mentor") {
+
+      newService = { name, user, pass, conPass,  userType, cat }
+    }
+
+    else if(uType === "mentee")
+    {
+      newService = { name, user, pass, conPass, userType, cat, mentor }
+    }
+
     console.log(newService);
     e.preventDefault()
     fetch("http://localhost:5000/signup", { method: 'POST', headers: { 'Content-Type': 'application/json', }, body: JSON.stringify(newService), })
@@ -44,6 +65,7 @@ function SignUp() {
       })
   }
   //Database e account create howar code
+
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 h-screen w-full">
@@ -87,7 +109,7 @@ function SignUp() {
           <div className="flex flex-col dark:text-gray-400 py-2">
             <label>User Type</label>
             <select
-              ref={catRef}
+              ref={userTypeRef}
               className="rounded-lg dark:bg-gray-700 mt-2 p-2 focus:border-blue-500 dark:focus:bg-gray-800 focus:outline-none"
               type="text" value={uType} onChange={handleUserTypeChange}
             >
@@ -147,6 +169,28 @@ function SignUp() {
                   )}
                 </select>
               </div>
+            </div>
+          )}
+
+          {uType === "mentor" && (
+            <div>
+              <div className="flex flex-col dark:text-gray-400 py-2">
+                <label>Category</label>
+                <select
+                  ref={catRef}
+                  className="rounded-lg dark:bg-gray-700 mt-2 p-2 focus:border-blue-500 dark:focus:bg-gray-800 focus:outline-none"
+                  type="text"
+                  value={category}
+                  onChange={handleMentorChange}
+                >
+                  <option>Please select...</option>
+                  <option value="fjs">Full StackJS</option>
+                  <option value="sp">Spring Boot</option>
+                  <option value="fl">Flutter</option>
+                  <option value="dot">Dotnet</option>
+                </select>
+              </div>
+
             </div>
           )}
 
