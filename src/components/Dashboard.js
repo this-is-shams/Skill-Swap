@@ -35,7 +35,7 @@ export default function Dashboard() {
             rootProps={{ "data-testid": "3" }}
           />
         </div>
-        <div className="float-right w-1/2 pt-40 flex flex-col justify-center">
+        <div className="pt-40 flex-col justify-center">
           <h1 className="text-2xl text-gray-800 dark:text-white flex items-center">
             <div className="w-4 h-4 bg-red-500 mr-2"></div>
             Development

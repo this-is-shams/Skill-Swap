@@ -6,13 +6,12 @@ import Card from 'react-bootstrap/Card';
 
 export default function Development() {
   const [showModal, setShowModal] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [date, setDate] = useState(new Date().toISOString().substr(0, 10));
   const [items, setItems] = useState([]);
   const [links, setLinks] = useState([""]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [time, setTime] = useState("");
-  const [date, setDate] = useState(new Date().toISOString().substr(0, 10));
 
   const handleOpenModal = () => {
     setShowModal(true);
@@ -23,7 +22,7 @@ export default function Development() {
   };
 
   const handleAddLink = () => {
-    setLinks(links.concat(""));
+    setLinks([...links, "\n"]);
   };
 
   const handleLinkChange = (index, value) => {
@@ -38,7 +37,7 @@ export default function Development() {
     setLinks(newLinks);
   }
 
- 
+
   const handleAddItem = () => {
     const newItem = {
       serialNo: items.length + 1,
@@ -46,6 +45,7 @@ export default function Development() {
       description: description,
       time: time,
       date: date,
+      link: links,
     };
     setItems([...items, newItem]);
     setTitle("");
@@ -53,6 +53,7 @@ export default function Development() {
     setTime("");
     setDate("");
     setShowModal(false);
+    setLinks([""]);
   };
 
   return (
@@ -60,7 +61,7 @@ export default function Development() {
       <Sidebar />
       <div className='bg-white dark:bg-gray-800 h-screen w-full lg:w-4/5 flex-col flex-wrap'>
         <div className='bg-white dark:bg-gray-800' style={{ position: 'absolute', top: 56, left: 280, right: 12 }}>
-          <button onClick={handleOpenModal} className='rounded-md py-1 px-3 bg-blue-400 text-white w-full position: fixed;'>Add Development Record +</button>
+          <button onClick={handleOpenModal} className='rounded-md py-1 px-3 bg-blue-800 text-white w-full position: fixed;'>Add Development Record +</button>
           {showModal && (
             <div className="modal">
               <div className="modal-content dark:text-white dark:bg-gray-600">
@@ -78,16 +79,15 @@ export default function Development() {
                 </div>
                 <div className='pt-5'>
                   <h2>Time</h2>
-                  <input className='dark:text-white rounded-md py-1 px-3 dark:bg-gray-600 border border-gray-400 w-full' id='time-input' value={time} onChange={(e) => setTime(e.target.value)}></input>
+                  <input className='dark:text-white rounded-md py-1 px-3 dark:bg-gray-600 border border-gray-400 w-full' id='time-input' value={time} type="number" onChange={(e) => setTime(e.target.value)}></input>
                 </div>
                 <div className='pt-5'>
                   <h2>Date</h2>
-                  <DatePicker
-                    selected={selectedDate}
-                    onChange={(date) => setSelectedDate(date)}
-                    dateFormat="dd/MM/yyyy"
-                    placeholderText="Select date"
-                    className=" dark:text-white rounded-md py-1 px-3 dark:bg-gray-600 border border-gray-400 w-full"
+                  <input
+                    type="date"
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                    className="dark:text-white rounded-md py-1 px-3 dark:bg-gray-600 border border-gray-400 w-full"
                   />
                 </div>
                 <div className='pt-5'>
@@ -99,7 +99,7 @@ export default function Development() {
                         value={link}
                         onChange={(event) => handleLinkChange(index, event.target.value)}
                       />
-                      <button className="ml-2 rounded-md py-1 px-3 bg-red-500 text-white" onClick={() => handleRemoveLink(index)}>
+                      <button className="ml-5 rounded-md py-1 px-3 w-1/5 bg-red-500 text-white" onClick={() => handleRemoveLink(index)}>
                         Delete
                       </button>
 
@@ -112,20 +112,27 @@ export default function Development() {
             </div>
           )}
           <div className="bg-white w-full pt-10 pb-2 dark:bg-gray-800 rounded-md shadow-md"
-          style={{
-            flexDirection: "column",
-            display: "flex",
-          }}>
-          {items.map((item, index) => (
-            <div className="p-5 dark:bg-gray-800 w-full" key={index} style={{ flexDirection: "row"}}>
-              <h1 className="dark:text-white">Task {item.serialNo}</h1>
-              <li className="dark:text-white">{item.title}</li>
-              <li className="dark:text-white">{item.description}</li>
-              <li className="dark:text-white">{item.time}</li>
-              <li className="dark:text-white">{item.date}</li>
-              <li className="dark:text-white"></li>
-            </div>
-          ))}
+            style={{
+              flexDirection: "column",
+              display: "flex",
+            }}>
+            {items.map((item, index) => (
+              <div className="p-5 dark:bg-gray-800 w-full m-2" key={index} style={{ flexDirection: "row", border: "2px solid blue" }}>
+                <li className="dark:text-white font-bold">Task {item.serialNo}</li>
+                <li className="dark:text-white">{item.title}</li>
+                <li className="dark:text-white">{item.description}</li>
+                <li className="dark:text-white">{item.time}</li>
+                <li className="dark:text-white">{item.date}</li>
+                <div className='pt-4'>
+                  {item.link.map((link, linkIndex) => (
+                    <li className="dark:text-white text-blue-600" key={linkIndex}>
+                      <a href={link}>{link}</a>
+                    </li>
+                  ))}
+                </div>
+                
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -142,6 +149,7 @@ export default function Development() {
           height: 100%;
           overflow: auto;
           background-color: rgba(0, 0, 0, 0.4);
+          z-index: 1000;
         }
 
         /* Modal Content Styles */

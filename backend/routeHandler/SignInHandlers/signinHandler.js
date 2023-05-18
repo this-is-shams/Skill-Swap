@@ -5,11 +5,8 @@ const SignUp = require('../../schemas/signupschema');
 
 // POST signin data
 router.post('/', async (req, res) => {
-  
-  const { user, pass } = req.body;
-
-
-  
+  const { user, pass, option } = req.body;
+  console.log(req.body);
   try {
     console.log("In handler")
     console.log(req.body)

@@ -9,7 +9,7 @@ function Streak() {
     setYear(event.target.value);
   };
 
-  const startDate = new Date(`${year}-01-01`);
+  const startDate = new Date(`${parseInt(year, 10) - 1}-12-31`);
   const endDate = new Date(`${year}-12-31`);
   const values = [];
   for (let date = new Date(startDate);date <= endDate;date.setDate(date.getDate() + 1)) 
@@ -29,13 +29,6 @@ function Streak() {
     }
   }
 
-  for (let i = 0; i < values.length; i++) {
-    if (values[i].date === "2023-01-05") {
-      values[i].problemSolvingCount = 2;
-      values[i].developmentCount = 3;
-      break;
-    }
-  }
 
   const yearOptions = ["2020", "2021", "2022", "2023"];
 
@@ -54,7 +47,7 @@ function Streak() {
   };
 
   return (
-    <div className="w-3/4 dark:bg-gray-800 flex justify-center">
+    <div className="w-5/6 dark:bg-gray-800 flex justify-center">
       <div className="flex flex-row-reverse">
         <select
           className="text-black dark:text-white dark:bg-gray-800 h-10"

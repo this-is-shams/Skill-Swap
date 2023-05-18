@@ -35,10 +35,10 @@ export default function Problem() {
     <div className="dark:bg-gray-800 h-screen" style={{ flexDirection: "column" }}>
       <Sidebar />
       <div
-        className="dark:bg-gray-800 h-screen"
+        className="dark:bg-gray-800"
       >
         <div
-          className="bg-white dark:bg-gray-800 z-20"
+          className="bg-white dark:bg-gray-800 z-10"
           style={{ position: "fixed", top: 40, left: 280, right: 12 }}
         >
           <div className="flex items-center justify-between">
@@ -97,7 +97,7 @@ export default function Problem() {
         </div>
 
         <div
-          className="bg-white m-8 pt-2 pb-2 dark:bg-gray-800 rounded-md shadow-md z-0"
+          className="bg-white m-10 pt-2 pb-2 dark:bg-gray-800 rounded-md shadow-md z-0"
           style={{
             flexDirection: "column",
             position: "absolute",
@@ -109,24 +109,22 @@ export default function Problem() {
           }}
         >
           {items.map((item, index) => (
-            <div className="p-2 dark:bg-gray-800" key={index} style={{ flexDirection: "row"}}>
+            <div className="p-2 dark:bg-gray-800" key={index} style={{ flexDirection: "row" }}>
 
               <div className="float-left w-1/6 dark:text-white">{item.serialNo}</div>
 
               <div className="float-left w-1/6">
-                {showButton ? (
-                  <a
-                    href={item.problemLink}
-                    className="p-10 bg-blue-500 text-white rounded-md py-1 px-3"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ textAlign: "center" }}
-                  >
-                    Link
-                  </a>
-                ) : (
-                  <h1>Link Not Given</h1>
-                )}
+
+                <a
+                  href={item.problemLink}
+                  className="p-10 bg-blue-500 text-white rounded-md py-1 px-3"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ textAlign: "center" }}
+                >
+                  Link
+                </a>
+
               </div>
 
               <div className="float-left w-1/6 flex justify-center dark:text-white">{item.category}</div>
