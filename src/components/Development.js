@@ -1,8 +1,6 @@
 import { React, useState } from 'react';
 import Sidebar from "./Sidebar";
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import Card from 'react-bootstrap/Card';
 
 export default function Development() {
   const [showModal, setShowModal] = useState(false);
