@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import loginImg from "../assets/emne.gif";
-import { useRef,useState } from "react";
+import { useRef, useState } from "react";
 
 export default function Login() {
   //const optionRef=useRef()
-  const userRef=useRef()
-  const passRef=useRef()
+  const userRef = useRef();
+  const passRef = useRef();
   const [uType, setUserType] = useState("");
   const userTypeRef = useRef();
 
@@ -17,35 +17,59 @@ export default function Login() {
   const handleSignin = (e) => {
     e.preventDefault();
     //const option=optionRef.current.value
-    const user=userRef.current.value
-    const pass=passRef.current.value
-    const formData={user,pass}
+    const user = userRef.current.value;
+    const pass = passRef.current.value;
+    //const formData = { user, pass };
 
-    fetch("http://localhost:5000/signin", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.statusCode === 200) {
-          alert("Success");
-          e.target.reset();
-          
-        }
-      });
+    if (uType === "mentor") {
+
+      const url = `http://localhost:5000/signin/mentor/${user}/${pass}`;
+      fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.statusCode === 200) {
+            alert("Mentor sign in Successful!");
+            e.target.reset();
+          }
+        });
+    } else {
+      const url = `http://localhost:5000/signin/mentee/${user}/${pass}`;
+      fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.statusCode === 200) {
+            alert("Mentee sign in Successful!");
+            e.target.reset();
+          }
+        });
+    }
   };
   return (
     <div className="dark:bg-gray-800 grid grid-cols-1 sm:grid-cols-2 h-screen w-full pt-20 pb-10">
       <div className="hidden sm:block dark:bg-gray-800 ">
-        <img className="w-full h-full object-cover p-10" src={loginImg} alt="" />
+        <img
+          className="w-full h-full object-cover p-10"
+          src={loginImg}
+          alt=""
+        />
       </div>
       <div className="bg-white dark:bg-gray-800 flex flex-col justify-center">
-
-        <form onSubmit={handleSignin} className="max-w-[400px] w-full mx-auto rounded-lg bg-gray-300 dark:bg-gray-900 p-8">
+        <form
+          onSubmit={handleSignin}
+          className="max-w-[400px] w-full mx-auto rounded-lg bg-gray-300 dark:bg-gray-900 p-8"
+        >
           <h2 className="text-4xl dark:text-white font-bold text-center">
             SIGN IN
           </h2>
@@ -85,11 +109,11 @@ export default function Login() {
             </p>
             <p>Forgot Password</p>
           </div>
-          <Link to="/dashboard">
+          {/* <Link to="/dashboard"> */}
           <button className="w-full my-5 py-2 bg-blue-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg">
-              Sign in
+            Sign in
           </button>
-          </Link>
+          {/* </Link> */}
           <h1 className="dark:text-gray-200 text-center">
             Don't have any account? Click on{" "}
             <Link to="/signup" className="underline">

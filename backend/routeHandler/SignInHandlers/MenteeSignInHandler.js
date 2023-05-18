@@ -4,8 +4,10 @@ const router = express.Router()
 const MenteeSignUp = require("../../schemas/menteeSchema")
 
 // GET signin data
-router.get("/", async (req, res) => {
-  const { user, pass } = req.body
+router.get("/:user/:pass", async (req, res) => {
+  const { user, pass } = req.params
+  console.log(user)
+  console.log(pass)
 
   try {
     // console.log("In handler")
