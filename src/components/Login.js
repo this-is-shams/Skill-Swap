@@ -1,12 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import loginImg from "../assets/emne.gif";
-import { useRef } from "react";
+import { useRef,useState } from "react";
 
 export default function Login() {
   //const optionRef=useRef()
   const userRef=useRef()
   const passRef=useRef()
+  const [uType, setUserType] = useState("");
+  const userTypeRef = useRef();
+
+  const handleUserTypeChange = (e) => {
+    setUserType(e.target.value);
+  };
+
   const handleSignin = (e) => {
     e.preventDefault();
     //const option=optionRef.current.value
@@ -42,7 +49,20 @@ export default function Login() {
           <h2 className="text-4xl dark:text-white font-bold text-center">
             SIGN IN
           </h2>
-          
+          <div className="flex flex-col dark:text-gray-400 py-2">
+            <label>User Type</label>
+            <select
+              ref={userTypeRef}
+              className="rounded-lg dark:bg-gray-700 mt-2 p-2 focus:border-blue-500 dark:focus:bg-gray-800 focus:outline-none"
+              type="text"
+              value={uType}
+              onChange={handleUserTypeChange}
+            >
+              <option>Please select...</option>
+              <option value="mentor">Mentor</option>
+              <option value="mentee">Mentee</option>
+            </select>
+          </div>
           <div className="flex flex-col dark:text-gray-200 py-2">
             <label>Username</label>
             <input
