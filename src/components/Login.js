@@ -1,7 +1,8 @@
-import React from "react";
+import {React} from "react";
 import { Link } from "react-router-dom";
 import loginImg from "../assets/emne.gif";
 import { useRef, useState } from "react";
+
 
 export default function Login() {
   //const optionRef=useRef()
@@ -35,7 +36,6 @@ export default function Login() {
           console.log(data);
           if (data.statusCode === 200) {
             alert("Mentor sign in Successful!");
-            e.target.reset();
           }
         });
     } else {
