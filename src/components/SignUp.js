@@ -3,7 +3,6 @@ import register from "../assets/register.gif";
 import { useRef } from "react";
 
 function SignUp() {
-
   const [category, setMentor] = useState("");
   const [uType, setUserType] = useState("");
 
@@ -70,40 +69,49 @@ function SignUp() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 h-screen w-full">
       <div className="hidden sm:block dark:bg-gray-800 p-10">
-        <img className="w-full h-full object-cover pt-10" src={register} alt="" />
+        <img
+          className="w-full h-full object-cover pt-10"
+          src={register}
+          alt=""
+        />
       </div>
       <div className="bg-white dark:bg-gray-800 flex flex-col justify-center pr-10 pt-20 pb-10">
-        <form onSubmit={handleSignup} className="max-w-[400px] w-full mx-auto rounded-lg bg-gray-300 dark:bg-gray-900 p-8">
+        <form
+          onSubmit={handleSignup}
+          className="max-w-[400px] w-full mx-auto rounded-lg bg-gray-300 dark:bg-gray-900 p-8"
+        >
           <h2 className="text-4xl dark:text-white font-bold text-center">
             SIGN UP
           </h2>
           <div className="flex flex-col dark:text-gray-400 py-2">
             <label>Full name</label>
             <input
-              type="text" ref={nameRef}
+              type="text"
+              ref={nameRef}
               className="rounded-lg dark:bg-gray-700 mt-2 p-2 focus:border-blue-500 dark:focus:bg-gray-800 focus:outline-none"
             />
           </div>
           <div className="flex flex-col dark:text-gray-400 py-2">
             <label>Username</label>
-            <input ref={userRef}
+            <input
+              ref={userRef}
               className="rounded-lg dark:bg-gray-700 mt-2 p-2 focus:border-blue-500 dark:focus:bg-gray-800 focus:outline-none"
             />
           </div>
           <div className="flex flex-col dark:text-gray-400 py-2">
             <label>Password</label>
-            <input ref={passRef}
+            <input
+              ref={passRef}
               className="p-2 rounded-lg dark:bg-gray-700 mt-2 focus:border-blue-500 dark:focus:bg-gray-800 focus:outline-none"
               type="password"
-
             />
           </div>
           <div className="flex flex-col dark:text-gray-400 py-2">
             <label>Confirm Password</label>
-            <input ref={conPassRef}
+            <input
+              ref={conPassRef}
               className="p-2 rounded-lg dark:bg-gray-700 mt-2 focus:border-blue-500 dark:focus:bg-gray-800 focus:outline-none"
               type="password"
-
             />
           </div>
           <div className="flex flex-col dark:text-gray-400 py-2">

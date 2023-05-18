@@ -4,15 +4,15 @@ import loginImg from "../assets/emne.gif";
 import { useRef } from "react";
 
 export default function Login() {
-  const optionRef=useRef()
+  //const optionRef=useRef()
   const userRef=useRef()
   const passRef=useRef()
   const handleSignin = (e) => {
     e.preventDefault();
-    const option=optionRef.current.value
+    //const option=optionRef.current.value
     const user=userRef.current.value
     const pass=passRef.current.value
-    const formData={option,user,pass}
+    const formData={user,pass}
 
     fetch("http://localhost:5000/signin", {
       method: "POST",
@@ -27,6 +27,7 @@ export default function Login() {
         if (data.statusCode === 200) {
           alert("Success");
           e.target.reset();
+          
         }
       });
   };
