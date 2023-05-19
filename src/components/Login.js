@@ -1,5 +1,5 @@
 import {React} from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import loginImg from "../assets/emne.gif";
 import { useRef, useState } from "react";
 
@@ -10,6 +10,7 @@ export default function Login() {
   const passRef = useRef();
   const [uType, setUserType] = useState("");
   const userTypeRef = useRef();
+  const navigate = useNavigate();
 
   const handleUserTypeChange = (e) => {
     setUserType(e.target.value);
@@ -36,6 +37,7 @@ export default function Login() {
           console.log(data);
           if (data.statusCode === 200) {
             alert("Mentor sign in Successful!");
+            
           }
         });
     } else {
@@ -51,6 +53,7 @@ export default function Login() {
           console.log(data);
           if (data.statusCode === 200) {
             alert("Mentee sign in Successful!");
+            navigate("/dashboard");
             e.target.reset();
           }
         });
