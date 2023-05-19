@@ -7,7 +7,6 @@ export default function Problem() {
   const [category, setCategory] = useState("");
   const [time, setTime] = useState("");
   const [date, setDate] = useState(new Date().toISOString().substr(0, 10));
-  const [showButton, setShowButton] = useState(true);
 
   const handleAddItem = () => {
     const newItem = {
@@ -22,7 +21,6 @@ export default function Problem() {
     setCategory("");
     setTime("");
     setDate("");
-    setShowButton(true);
   };
 
   const handleDeleteItem = (index) => {

@@ -6,6 +6,7 @@ import Problem from "./components/Problem";
 import Development from "./components/Development";
 import Dashboard from "./components/Dashboard";
 import Streak from "./components/Streak";
+import User from "./components/UserProfile";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/development" element={<Development/>}></Route>
         <Route path="/dashboard" element={<Dashboard/>}></Route>
         <Route path="/streak" element={<Streak/>}></Route>
+        <Route path="/user_profile" element={<User/>}></Route>
       </Routes>
     </Router>
   );

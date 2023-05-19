@@ -10,6 +10,8 @@ export default function Development() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [time, setTime] = useState("");
+  const [showComments, setShowComments] = useState([]);
+
 
   const handleOpenModal = () => {
     setShowModal(true);
@@ -46,6 +48,8 @@ export default function Development() {
       link: links,
     };
     setItems([...items, newItem]);
+    setShowComments([...showComments, false]);
+    setItems([...items, newItem]);
     setTitle("");
     setDescription("");
     setTime("");
@@ -53,6 +57,13 @@ export default function Development() {
     setShowModal(false);
     setLinks([""]);
   };
+
+  const toggleComments = (index) => {
+    const newShowComments = [...showComments];
+    newShowComments[index] = !newShowComments[index];
+    setShowComments(newShowComments);
+  };
+
 
   return (
     <div className="dark:bg-gray-800 overflow-hidden text-gray-800 dark:text-white">
@@ -97,7 +108,7 @@ export default function Development() {
                         value={link}
                         onChange={(event) => handleLinkChange(index, event.target.value)}
                       />
-                      <button className="ml-5 rounded-md py-1 px-3 w-1/5 bg-red-500 text-white" onClick={() => handleRemoveLink(index)}>
+                      <button className="ml-2 rounded-md py-1 px-3 w-1/5 bg-red-500 text-white" onClick={() => handleRemoveLink(index)}>
                         Delete
                       </button>
 
@@ -123,12 +134,25 @@ export default function Development() {
                 <li className="dark:text-white">{item.date}</li>
                 <div className='pt-4'>
                   {item.link.map((link, linkIndex) => (
-                    <li className="dark:text-white text-blue-600" key={linkIndex}>
+                    <li className="dark:text-white dark:text-blue-400" key={linkIndex}>
                       <a href={link}>{link}</a>
                     </li>
                   ))}
                 </div>
-                
+                <div className='pt-4'>
+                  {/* Toggle button */}
+                  <button className="rounded-md py-1 px-3 bg-blue-600 text-white" onClick={() => toggleComments(index)}>
+                    {showComments[index] ? "Hide Comments" : "Show Comments"}
+                  </button>
+
+                  {/* Comment section */}
+                  {showComments[index] && (
+                    <div>
+                      {/* Render comments from the database */}
+                      {/* ... */}
+                    </div>
+                  )}
+                </div>
               </div>
             ))}
           </div>
