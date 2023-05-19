@@ -6,7 +6,7 @@ const mentorSignUpHandler = require("./routeHandler/SignUpHandlers/mentorSignUpH
 const mentorSignInHandler = require("./routeHandler/SignInHandlers/mentorSignInHandler")
 const menteeSignUpHandler = require("./routeHandler/SignUpHandlers/menteeSignUpHandler")
 const menteeSignInHandler = require("./routeHandler/SignInHandlers/MenteeSignInHandler")
-const devRecordHandler = require("./routeHandler/DevHandlers/devRecordHandler")
+const devRecordHandler = require("./routeHandler/RecordHandlers/devRecordHandler")
 
 const cors = require("cors")
 
