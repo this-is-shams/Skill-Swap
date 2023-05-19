@@ -28,17 +28,11 @@ export default function Problem() {
     newItems.splice(index, 1);
     setItems(newItems);
   };
-
   return (
-    <div className="dark:bg-gray-800 h-screen" style={{ flexDirection: "column" }}>
-      <Sidebar />
-      <div
-        className="dark:bg-gray-800"
-      >
-        <div
-          className="bg-white dark:bg-gray-800 z-10"
-          style={{ position: "fixed", top: 40, left: 280, right: 12 }}
-        >
+    <div>
+      <div><Sidebar /></div>
+      <div className="h-screen dark:bg-gray-800">
+        <div className="dark:bg-gray-800 z-10" style={{ position: "fixed", top: 40, left: 280, right: 12 }}>
           <div className="flex items-center justify-between">
             <div className="p-4 pt-10">
               <span className="dark:text-white">{items.length + 1}.</span>
@@ -93,7 +87,9 @@ export default function Problem() {
             </div>
           </div>
         </div>
+      </div>
 
+      <div className="dark:bg-gray-800 h-screen">
         <div
           className="bg-white m-10 pt-2 pb-2 dark:bg-gray-800 rounded-md shadow-md z-0"
           style={{
