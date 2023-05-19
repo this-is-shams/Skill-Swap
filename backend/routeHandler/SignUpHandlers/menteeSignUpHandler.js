@@ -3,6 +3,7 @@ const mongoose = require("mongoose")
 const bcrypt = require("bcrypt")
 const router = express.Router()
 const menteeSignUp = require("../../schemas/menteeSchema")
+const leaderboard = require("../../schemas/leaderBoardSchema")
 
 router.get("/", async (req, res) => {
   try {
@@ -26,6 +27,16 @@ router.post("/", async (req, res) => {
       mentor: req.body.mentor,
     })
 
+    // Posting To Leaderboard With default Value.
+    const newLeaderboard = new leaderboard({
+      user: req.body.user,
+      totalCpTime: 0,
+      totalDevTime: 0,
+    })
+
+    await newLeaderboard.save()
+    // Leaderboard
+    
     await newMenteeSignUp.save()
     res.status(200).json({
       message: "Mentee Signup successful!",
