@@ -1,8 +1,7 @@
-import {React} from "react";
-import { Link,useNavigate } from "react-router-dom";
+import { React } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import loginImg from "../assets/emne.gif";
 import { useRef, useState } from "react";
-
 
 export default function Login() {
   //const optionRef=useRef()
@@ -24,7 +23,6 @@ export default function Login() {
     //const formData = { user, pass };
 
     if (uType === "mentor") {
-
       const url = `http://localhost:5000/signin/mentor/${user}/${pass}`;
       fetch(url, {
         method: "GET",
@@ -38,7 +36,6 @@ export default function Login() {
           if (data.statusCode === 200) {
             alert("Mentor sign in Successful!");
             navigate("/men_dash");
-            
           }
         });
     } else {
@@ -113,11 +110,11 @@ export default function Login() {
             </p>
             <p>Forgot Password</p>
           </div>
-          {/* <Link to="/dashboard"> */}
-          <button className="w-full my-5 py-2 bg-blue-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg">
-            Sign in
-          </button>
-          {/* </Link> */}
+          <Link to="/dashboard">
+            <button className="w-full my-5 py-2 bg-blue-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg">
+              Sign in
+            </button>
+          </Link>
           <h1 className="dark:text-gray-200 text-center">
             Don't have any account? Click on{" "}
             <Link to="/signup" className="underline">

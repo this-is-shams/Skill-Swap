@@ -1,48 +1,47 @@
 const express = require("express")
 const router = express.Router()
-const devRecord = require("../../schemas/devRecordSchema")
+const cpRecord = require("../../schemas/cpRecordSchema")
 const MenteeSignUp = require("../../schemas/menteeSchema")
 const leaderboard = require("../../schemas/leaderBoardSchema")
 
 router.get("/", async (req, res) => {
   try {
-    const users = await devRecord.find()
+    const users = await cpRecord.find()
     res.json(users)
   } catch (err) {
     res.status(500).json({ message: err.message })
   }
 })
 
-// POST DEV data
+// POST CP data
 router.post("/", async (req, res) => {
   try {
-    const devRecordInsert = new devRecord({
+    const devRecordInsert = new cpRecord({
       user: req.body.user,
-      title: req.body.title,
-      description: req.body.description,
+      link: req.body.link,
+      status: req.body.status,
       time: req.body.time,
       date: req.body.date,
-      links: req.body.links,
       remarks: req.body.remarks,
     })
     const leaderboardUser = await leaderboard.findOne({ user: req.body.user }) // To match username with DB
-    leaderboardUser.totalDevTime += req.body.time
+    leaderboardUser.totalCpTime += req.body.time
 
     await devRecordInsert.save()
     await leaderboardUser.save()
     res.status(200).json({
-      message: "Development Record Inserted successfully!",
+      message: "CP Record Inserted successfully!",
       statusCode: 200,
     })
   } catch (err) {
     console.error(err)
     res.status(500).json({
-      err: "Development Record Insertion failed!",
+      err: "CP Record Insertion failed!",
     })
   }
 })
 
-// GET USER DEVELOPMENT RECORDS
+// GET USER CP RECORDS
 router.get("/:username", async (req, res) => {
   try {
     const { username } = req.params
@@ -56,13 +55,13 @@ router.get("/:username", async (req, res) => {
         return res.status(401).json({ message: "User Not found!" })
       }
 
-      // Fetching user's development records
-      const userAllDevRecord = await devRecord.find({ user: username })
+      // Fetching user's CP records
+      const userAllCpRecord = await cpRecord.find({ user: username })
 
-      if (userAllDevRecord.length === 0) {
+      if (userAllCpRecord.length === 0) {
         return res.status(401).json({ message: "No Records to show!" })
       } else {
-        res.send(userAllDevRecord)
+        res.send(userAllCpRecord)
       }
     } catch (err) {
       console.error(err)

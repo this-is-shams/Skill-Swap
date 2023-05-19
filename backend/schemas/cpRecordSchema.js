@@ -1,30 +1,24 @@
 const mongoose = require("mongoose")
 
-const devRecordSchema = mongoose.Schema({
+const cpRecordSchema = mongoose.Schema({
   user: {
     type: String,
     required: true,
   },
-  title: {
+  link: {
     type: String,
     required: true,
   },
-  description: {
+  status: {
     type: String,
     required: true,
   },
   time: {
     type: Number,
-    default: 0,
     required: true,
   },
   date: {
     type: String,
-    required: true,
-  },
-  links: {
-    type: [String], // Specify that "links" is an array of strings
-    // default: [], // Optional: Set a default empty array if desired
     required: true,
   },
   remarks: {
@@ -34,6 +28,6 @@ const devRecordSchema = mongoose.Schema({
   },
 })
 
-const devRecord = mongoose.model("devRecord", devRecordSchema)
+const cpRecord = mongoose.model("cpRecord", cpRecordSchema)
 
-module.exports = devRecord
+module.exports = cpRecord

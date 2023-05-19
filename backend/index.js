@@ -7,6 +7,8 @@ const mentorSignInHandler = require("./routeHandler/SignInHandlers/mentorSignInH
 const menteeSignUpHandler = require("./routeHandler/SignUpHandlers/menteeSignUpHandler")
 const menteeSignInHandler = require("./routeHandler/SignInHandlers/MenteeSignInHandler")
 const devRecordHandler = require("./routeHandler/RecordHandlers/devRecordHandler")
+const cpRecordHandler = require("./routeHandler/RecordHandlers/cpRecordHandler")
+const leaderboardHandler = require("./routeHandler/operationHandlers/leaderboardHandler")
 
 const cors = require("cors")
 
@@ -38,7 +40,8 @@ app.use("/signin/mentor", mentorSignInHandler)
 app.use("/signup/mentee", menteeSignUpHandler)
 app.use("/signin/mentee", menteeSignInHandler)
 app.use("/dev", devRecordHandler)
-
+app.use("/cp", cpRecordHandler)
+app.use("/leaderboard", leaderboardHandler)
 //default error handler
 function errorHandler(err, req, res, next) {
   if (res.headerSent) {
@@ -50,3 +53,5 @@ function errorHandler(err, req, res, next) {
 app.listen(5000, () => {
   console.log("app listening at port 5000")
 })
+
+app.use(errorHandler)
