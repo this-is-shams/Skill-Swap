@@ -4,6 +4,8 @@ const bcrypt = require("bcrypt")
 const router = express.Router()
 const menteeSignUp = require("../../schemas/menteeSchema")
 const leaderboard = require("../../schemas/leaderBoardSchema")
+const mentorCollection = require("../../schemas/mentorSchema")
+const mmRelation = require("../../schemas/mmRelationSchema")
 
 router.get("/", async (req, res) => {
   try {
@@ -14,29 +16,43 @@ router.get("/", async (req, res) => {
   }
 })
 
-// POST signup data
+// Post
 router.post("/", async (req, res) => {
   try {
-    const hashedPassword = await bcrypt.hash(req.body.pass, 10)
+    const { name, user, pass, cat, mentor } = req.body
+
+    // Check if mentor exists
+    let mentorExist = await mmRelation.findOne({ mentorUserId: mentor })
+    if (!mentorExist) {
+      return res.status(404).json({ message: "Mentor not found" })
+    }
+
+    // Push the user to the menteeIds array of the mentor
+    mentorExist.menteeIds.push(user)
+
+    // Save the updated mentor document
+    await mentorExist.save()
+
+    const hashedPassword = await bcrypt.hash(pass, 10)
     const newMenteeSignUp = new menteeSignUp({
-      name: req.body.name,
-      user: req.body.user,
+      name: name,
+      user: user,
       pass: hashedPassword,
       conPass: hashedPassword,
-      cat: req.body.cat,
-      mentor: req.body.mentor,
+      cat: cat,
+      mentor: mentor,
     })
 
     // Posting To Leaderboard With default Value.
     const newLeaderboard = new leaderboard({
-      user: req.body.user,
+      user,
       totalCpTime: 0,
       totalDevTime: 0,
     })
 
     await newLeaderboard.save()
     // Leaderboard
-    
+
     await newMenteeSignUp.save()
     res.status(200).json({
       message: "Mentee Signup successful!",
@@ -49,6 +65,42 @@ router.post("/", async (req, res) => {
     })
   }
 })
+
+// // POST signup data
+// router.post("/", async (req, res) => {
+//   try {
+//     const hashedPassword = await bcrypt.hash(req.body.pass, 10)
+//     const newMenteeSignUp = new menteeSignUp({
+//       name: req.body.name,
+//       user: req.body.user,
+//       pass: hashedPassword,
+//       conPass: hashedPassword,
+//       cat: req.body.cat,
+//       mentor: req.body.mentor,
+//     })
+
+//     // Posting To Leaderboard With default Value.
+//     const newLeaderboard = new leaderboard({
+//       user: req.body.user,
+//       totalCpTime: 0,
+//       totalDevTime: 0,
+//     })
+
+//     await newLeaderboard.save()
+//     // Leaderboard
+
+//     await newMenteeSignUp.save()
+//     res.status(200).json({
+//       message: "Mentee Signup successful!",
+//       statusCode: 200,
+//     })
+//   } catch (err) {
+//     console.error(err)
+//     res.status(500).json({
+//       err: "Mentee Signup failed!",
+//     })
+//   }
+// })
 //POST all signup data
 router.post("/all", async (req, res) => {})
 

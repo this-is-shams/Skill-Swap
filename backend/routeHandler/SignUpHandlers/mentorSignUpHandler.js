@@ -3,6 +3,7 @@ const mongoose = require("mongoose")
 const bcrypt = require("bcrypt")
 const router = express.Router()
 const mentorSignUp = require("../../schemas/mentorSchema")
+const mmRelation = require("../../schemas/mmRelationSchema")
 
 router.get("/", async (req, res) => {
   try {
@@ -24,6 +25,16 @@ router.post("/", async (req, res) => {
       conPass: hashedPassword,
       cat: req.body.cat,
     })
+
+    // Posting To MMrelation With default Value.
+    const newmmRelation = new mmRelation({
+      mentorName: req.body.name,
+      mentorUserId: req.body.user,
+      menteeIds: [],
+    })
+
+    await newmmRelation.save()
+    // MMrelation
 
     await newMentorSignUp.save()
     res.status(200).json({

@@ -9,6 +9,7 @@ const menteeSignInHandler = require("./routeHandler/SignInHandlers/MenteeSignInH
 const devRecordHandler = require("./routeHandler/RecordHandlers/devRecordHandler")
 const cpRecordHandler = require("./routeHandler/RecordHandlers/cpRecordHandler")
 const leaderboardHandler = require("./routeHandler/operationHandlers/leaderboardHandler")
+const mentorViewHandler = require("./routeHandler/operationHandlers/mentorWindowHandler")
 
 const cors = require("cors")
 
@@ -33,8 +34,6 @@ mongoose
   .catch((err) => console.log(err))
 
 //application routes
-app.use("/signup", signupHandler)
-app.use("/signin", signinHandler)
 app.use("/signup/mentor", mentorSignUpHandler)
 app.use("/signin/mentor", mentorSignInHandler)
 app.use("/signup/mentee", menteeSignUpHandler)
@@ -42,6 +41,7 @@ app.use("/signin/mentee", menteeSignInHandler)
 app.use("/dev", devRecordHandler)
 app.use("/cp", cpRecordHandler)
 app.use("/leaderboard", leaderboardHandler)
+app.use("/viewmentee", mentorViewHandler)
 //default error handler
 function errorHandler(err, req, res, next) {
   if (res.headerSent) {
