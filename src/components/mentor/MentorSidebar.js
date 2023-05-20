@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import submit from "./assets/submission.png";
-import dev from "./assets/dev.png";
+import submit from "./assets/tas.png";
+import forum from "./assets/forum.png";
 import leader from "./assets/leader.png";
 import prof from "./assets/prof.png";
 import dash from "./assets/dash.png";
@@ -10,26 +10,26 @@ export default function MentorSidebar() {
   return (
     <div>
       <div
-        className="bg-white dark:bg-gray-800 h-screen float-left fixed top-12 z-50 overflow-hidden;"
+        className="bg-white dark:bg-gray-800 h-screen float-left fixed top-14 z-50 overflow-hidden;"
         style={{ float: "left" }}
       >
         <div className="pt-20 p-6">
-          <Link to="/dashboard">
+          <Link to="/men_dash">
             <button className="mb-8 py-1 px-5 w-52 bg-gray-200 hover:bg-gray-300 rounded-md text-gray-800 font-semibold whitespace-normal text-center">
               <img src={dash} alt="" className="w-8 float-left"></img>
               <h1 className="flex-1 pt-1">Dashboard</h1>
             </button>
           </Link>
-          <Link to="/problem">
+          <Link to="/tasks">
             <button className="flex mb-8 py-1 px-5 w-52 bg-gray-200 hover:bg-gray-300 rounded-md text-gray-800 font-semibold whitespace-normal text-center">
               <img src={submit} alt="" className="w-8 float-left"></img>
-              <h1 className="flex-1 pt-1">Problem Solving</h1>
+              <h1 className="flex-1 pt-1">Tasks</h1>
             </button>
           </Link>
           <Link to="/development" className="flex items-center">
             <button className="mb-8 py-1 px-5 w-52 bg-gray-200 hover:bg-gray-300 rounded-md text-gray-800 font-semibold whitespace-normal text-center">
-              <img src={dev} alt="" className="w-8 float-left"></img>
-              <h1 className="flex-1 pt-1">Development</h1>
+              <img src={forum} alt="" className="w-8 float-left"></img>
+              <h1 className="flex-1 pt-1">Forum</h1>
             </button>
           </Link>
           <Link to="/" className="flex items-center">

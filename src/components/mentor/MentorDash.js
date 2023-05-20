@@ -9,7 +9,7 @@ export default function MentorDash() {
   return (
     <div>
       <div><MentorSidebar /></div>
-      <div className='h-screen dark:bg-slate-800 dark:text-white  pl-80 pt-20'>
+      <div className='h-screen dark:bg-slate-800 dark:text-white  pl-60 pt-20'>
         <div className='h-5/6 w-90 m-10'>
           <div className='w-full h-full flex flex-row'>
             <div className='w-1/2 h-full'>
@@ -21,8 +21,8 @@ export default function MentorDash() {
                   <img className='w-30 pt-20' src={stud} alt="" />
                 </div>
                 <div className='w-2/3 h-1/2 pt-20 float-left flex flex-col justify-center items-center'>
-                  <h1 className='font-bold text-2xl'>Enrolled Students</h1>
-                  <span className='font-bold text-2xl pt-10 text-center'>15</span>
+                  <h1 className='font-bold text-3xl  text-blue-800 dark:text-blue-400 '>Enrolled Students</h1>
+                  <span className='font-bold text-3xl pt-10 text-center'>15</span>
                 </div>
               </div>
 
@@ -32,8 +32,8 @@ export default function MentorDash() {
                   <img className='w-30 pt-20' src={ti} alt="" />
                 </div>
                 <div className='w-2/3 h-1/2 pt-20 float-left flex flex-col justify-center items-center'>
-                  <h1 className='font-bold text-2xl'>Students Time (Avg.)</h1>
-                  <span className='font-bold text-2xl pt-10 text-center'>15 Hours</span>
+                  <h1 className='font-bold text-3xl  text-blue-800 dark:text-blue-400 '>Students Time (Avg.)</h1>
+                  <span className='font-bold text-3xl pt-10 text-center'>15 Hours</span>
                 </div>
               </div>
 
@@ -47,8 +47,8 @@ export default function MentorDash() {
                   <img className='w-30 pt-20' src={time} alt="" />
                 </div>
                 <div className='w-2/3 h-1/2 pt-20 float-left flex flex-col justify-center items-center'>
-                  <h1 className='font-bold text-2xl'>Last Task on</h1>
-                  <span className='font-bold text-2xl pt-10 text-center'>20th March, 2023</span>
+                  <h1 className='font-bold text-3xl  text-blue-800 dark:text-blue-400 '>Last Task on</h1>
+                  <span className='font-bold text-3xl pt-10 text-center'>20th March, 2023</span>
                 </div>
               </div>
 
@@ -58,8 +58,8 @@ export default function MentorDash() {
                   <img className='w-30 pt-20' src={task} alt="" />
                 </div>
                 <div className='w-2/3 h-1/2 pt-20 float-left flex flex-col justify-center items-center'>
-                  <h1 className='font-bold text-2xl'>Total Tasks Given</h1>
-                  <span className='font-bold text-2xl pt-10 text-center'>56</span>
+                  <h1 className='font-bold text-3xl  text-blue-800 dark:text-blue-400 '>Total Tasks Given</h1>
+                  <span className='font-bold text-3xl pt-10 text-center'>56</span>
                 </div>
               </div>
 

@@ -34,7 +34,7 @@ export default function Login() {
         .then((data) => {
           console.log(data);
           if (data.statusCode === 200) {
-            alert("Mentor sign in Successful!");
+            // alert("Mentor sign in Successful!");
             navigate("/men_dash");
           }
         });
