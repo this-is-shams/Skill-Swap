@@ -9,13 +9,13 @@ export default function MentorDash() {
   return (
     <div>
       <div><MentorSidebar /></div>
-      <div className='h-screen pl-80 pt-20'>
+      <div className='h-screen dark:bg-slate-800 dark:text-white  pl-80 pt-20'>
         <div className='h-5/6 w-90 m-10'>
           <div className='w-full h-full flex flex-row'>
             <div className='w-1/2 h-full'>
 
 
-              <div className='w-full h-1/2 overflow-hidden border border-black'>
+              <div className='w-full h-1/2 overflow-hidden border border-black dark:border-white'>
                 {/* Enroll student div */}
                 <div className='w-1/3 h-1/2 float-left flex justify-center items-center'>
                   <img className='w-30 pt-20' src={stud} alt="" />
@@ -26,7 +26,7 @@ export default function MentorDash() {
                 </div>
               </div>
 
-              <div className='w-full h-1/2 overflow-hidden  border border-black'>
+              <div className='w-full h-1/2 overflow-hidden  border border-black dark:border-white'>
                 {/* Enroll student div */}
                 <div className='w-1/3 h-1/2 float-left flex justify-center items-center'>
                   <img className='w-30 pt-20' src={ti} alt="" />
@@ -41,7 +41,7 @@ export default function MentorDash() {
             </div>
             <div className='w-1/2 h-full'>
 
-              <div className='w-full h-1/2 overflow-hidden  border border-black'>
+              <div className='w-full h-1/2 overflow-hidden  border border-black dark:border-white'>
                 {/* Enroll student div */}
                 <div className='w-1/3 h-1/2 float-left flex justify-center items-center'>
                   <img className='w-30 pt-20' src={time} alt="" />
@@ -52,7 +52,7 @@ export default function MentorDash() {
                 </div>
               </div>
 
-              <div className='w-full h-1/2 overflow-hidden -100 border border-black'>
+              <div className='w-full h-1/2 overflow-hidden -100 border border-black dark:border-white'>
                 {/* Enroll student div */}
                 <div className='w-1/3 h-1/2 float-left flex justify-center items-center'>
                   <img className='w-30 pt-20' src={task} alt="" />
