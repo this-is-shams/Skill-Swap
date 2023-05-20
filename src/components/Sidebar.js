@@ -8,7 +8,7 @@ import dash from "../assets/dash.png";
 
 export default function Dashboard() {
   return (
-    <div className="bg-white dark:bg-gray-800 h-screen fixed top-14 z-50 overflow-hidden;">
+    <div className="bg-white dark:bg-slate-800 h-screen fixed top-14 z-50 overflow-hidden;">
       <div className="pt-20 p-6">
         <Link to="/dashboard">
           <button className="mb-8 py-1 px-5 w-52 bg-gray-200 hover:bg-gray-300 rounded-md text-gray-800 font-semibold whitespace-normal text-center">

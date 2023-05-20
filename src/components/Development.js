@@ -69,7 +69,7 @@ export default function Development() {
     <div className="dark:bg-gray-800 overflow-hidden text-gray-800 dark:text-white">
       <Sidebar />
       <div className='bg-white dark:bg-gray-800 h-screen w-full lg:w-4/5 flex-col flex-wrap'>
-        <div className='bg-white dark:bg-gray-800' style={{ position: 'absolute', top: 56, left: 280, right: 12 }}>
+        <div className='bg-white dark:bg-gray-800' style={{ position: 'absolute', top: 80, left: 280, right: 12 }}>
           <button onClick={handleOpenModal} className='rounded-md py-1 px-3 bg-blue-800 text-white w-full position: fixed;'>Add Development Record +</button>
           {showModal && (
             <div className="modal">

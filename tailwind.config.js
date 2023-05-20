@@ -21,6 +21,15 @@ module.exports = {
           '.color-github-4': { fill: '#1e6823' },
         },
       },
+      spacing: {
+        '0': '0',
+      },
+      margin: {
+        '0': '0',
+      },
+      padding: {
+        '0': '0',
+      },
     },    
   },
   variants: {
