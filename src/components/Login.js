@@ -2,6 +2,8 @@ import { React } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import loginImg from "../assets/emne.gif";
 import { useRef, useState } from "react";
+import { setLoggedInMentee } from "./auth";
+import { setLoggedInmentor } from "./auth";
 
 export default function Login() {
   //const optionRef=useRef()
@@ -34,7 +36,8 @@ export default function Login() {
         .then((data) => {
           console.log(data);
           if (data.statusCode === 200) {
-            // alert("Mentor sign in Successful!");
+            setLoggedInmentor(user);
+            alert("Mentor sign in Successful!");
             navigate("/men_dash");
           }
         });
@@ -50,6 +53,7 @@ export default function Login() {
         .then((data) => {
           console.log(data);
           if (data.statusCode === 200) {
+            setLoggedInMentee(user);
             alert("Mentee sign in Successful!");
             navigate("/dashboard");
             e.target.reset();
@@ -111,9 +115,9 @@ export default function Login() {
             <p>Forgot Password</p>
           </div>
           {/* <Link to="/dashboard"> */}
-            <button className="w-full my-5 py-2 bg-blue-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg">
-              Sign in
-            </button>
+          <button className="w-full my-5 py-2 bg-blue-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg">
+            Sign in
+          </button>
           {/* </Link> */}
           <h1 className="dark:text-gray-200 text-center">
             Don't have any account? Click on{" "}
