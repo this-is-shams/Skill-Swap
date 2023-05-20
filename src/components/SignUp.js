@@ -1,10 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import register from "../assets/register.gif";
 import { useRef } from "react";
+import axios from "axios";
 
 function SignUp() {
   const [category, setMentor] = useState("");
   const [uType, setUserType] = useState("");
+
+  ///// All Mentor Information object Fetching CODE START
+  const [mentorData, setMentorData] = useState("");
+
+  useEffect(() => {
+    const fetchMentorData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/signup/mentor/" // Eta basically backend er index.js and signuphandler dekhlei bujhe jabi. main kaj ta mentor signup handler e hoye ekhane object akare chole ashche.
+        );
+        setMentorData(response.data);
+      } catch (error) {
+        console.log("Error fetching mentor data:", error);
+      }
+    };
+
+    fetchMentorData();
+  }, []); // Empty dependency array to execute the effect only once
+  /// mentorData OBJECT e shob ase
+  console.log(mentorData);
+  /// All Mentor Fetching code ENDS
+
+  /// A template commented out to get idea of how to access those data
+  // {
+  //   mentorData.map((mentor, index) => (
+  //     <div key={index}>
+  //       <h3>Name: {mentor.name}</h3>
+  //       <p>Email: {mentor.email}</p>
+  //       {/* Access other properties of the mentor object */}
+  //     </div>
+  //   ));
+  // }
+
+  ///
 
   const handleMentorChange = (e) => {
     setMentor(e.target.value);
