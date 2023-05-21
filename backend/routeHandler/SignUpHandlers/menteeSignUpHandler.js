@@ -22,7 +22,9 @@ router.post("/", async (req, res) => {
   try {
     const { name, user, pass, cat, mentor } = req.body
 
+    console.log(mentor)
     // Check if mentor exists
+
     let mentorExist = await mmRelation.findOne({ mentorUserId: mentor })
     if (!mentorExist) {
       return res.status(404).json({ message: "Mentor not found" })
