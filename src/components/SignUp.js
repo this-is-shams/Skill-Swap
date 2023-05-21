@@ -23,23 +23,7 @@ function SignUp() {
     };
 
     fetchMentorData();
-  }, []); // Empty dependency array to execute the effect only once
-  /// mentorData OBJECT e shob ase
-  //console.log(mentorData);
-  /// All Mentor Fetching code ENDS
-
-  /// A template commented out to get idea of how to access those data
-  // {
-  //   mentorData.map((mentor, index) => (
-  //     <div key={index}>
-  //       <h3>Name: {mentor.name}</h3>
-  //       <p>Email: {mentor.email}</p>
-  //       {/* Access other properties of the mentor object */}
-  //     </div>
-  //   ));
-  // }
-
-  ///
+  }, []);
 
   const handleCategoryChange = (e) => {
     setCategory(e.target.value);
@@ -110,17 +94,6 @@ function SignUp() {
         });
     }
 
-    // console.log(newService);
-    // e.preventDefault()
-    // fetch("http://localhost:5000/signup", { method: 'POST', headers: { 'Content-Type': 'application/json', }, body: JSON.stringify(newService), })
-    //   .then(res => res.json())
-    //   .then((data) => {
-    //     console.log(data)
-    //     if (data.statusCode === 200) {
-    //       alert('Succesfully Added!')
-    //       e.target.reset();
-    //     }
-    //   })
   };
   //Database e account create howar code
 
