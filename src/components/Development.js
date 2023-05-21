@@ -1,6 +1,8 @@
-import { React, useState } from 'react';
+import { React, useState } from "react";
 import Sidebar from "./Sidebar";
-import 'react-datepicker/dist/react-datepicker.css';
+import "react-datepicker/dist/react-datepicker.css";
+import { getLoggedInMentee } from "./auth";
+import axios from "axios";
 
 export default function Development() {
   const [showModal, setShowModal] = useState(false);
@@ -11,7 +13,6 @@ export default function Development() {
   const [description, setDescription] = useState("");
   const [time, setTime] = useState("");
   const [showComments, setShowComments] = useState([]);
-
 
   const handleOpenModal = () => {
     setShowModal(true);
@@ -35,27 +36,34 @@ export default function Development() {
     const newLinks = [...links];
     newLinks.splice(index, 1);
     setLinks(newLinks);
-  }
+  };
 
-
-  const handleAddItem = () => {
+  const handleAddItem = async () => {
     const newItem = {
-      serialNo: items.length + 1,
+      user: getLoggedInMentee(),
       title: title,
       description: description,
       time: time,
       date: date,
-      link: links,
+      links: links,
+      remarks: "No Remarks YET!",
     };
-    setItems([...items, newItem]);
-    setShowComments([...showComments, false]);
-    setItems([...items, newItem]);
-    setTitle("");
-    setDescription("");
-    setTime("");
-    setDate("");
-    setShowModal(false);
-    setLinks([""]);
+    try {
+      const response = await axios.post("http://localhost:5000/dev", newItem);
+      console.log(response.data);
+      setItems([...items, newItem]);
+      setShowComments([...showComments, false]);
+      setItems([...items, newItem]);
+      setTitle("");
+      setDescription("");
+      setTime("");
+      setDate("");
+      setShowModal(false);
+      setLinks([""]);
+    } catch (error) {
+      console.log("Error From Server Side", error);
+      alert("Error Posting Record");
+    }
   };
 
   const toggleComments = (index) => {
@@ -64,33 +72,58 @@ export default function Development() {
     setShowComments(newShowComments);
   };
 
-
   return (
     <div className="dark:bg-gray-800 overflow-hidden text-gray-800 dark:text-white">
       <Sidebar />
-      <div className='bg-white dark:bg-gray-800 h-screen w-full lg:w-4/5 flex-col flex-wrap'>
-        <div className='bg-white dark:bg-gray-800' style={{ position: 'absolute', top: 80, left: 280, right: 12 }}>
-          <button onClick={handleOpenModal} className='rounded-md py-1 px-3 bg-blue-800 text-white w-full position: fixed;'>Add Development Record +</button>
+      <div className="bg-white dark:bg-gray-800 h-screen w-full lg:w-4/5 flex-col flex-wrap">
+        <div
+          className="bg-white dark:bg-gray-800"
+          style={{ position: "absolute", top: 80, left: 280, right: 12 }}
+        >
+          <button
+            onClick={handleOpenModal}
+            className="rounded-md py-1 px-3 bg-blue-800 text-white w-full position: fixed;"
+          >
+            Add Development Record +
+          </button>
           {showModal && (
             <div className="modal">
               <div className="modal-content dark:text-white dark:bg-gray-800">
                 <span className="close" onClick={handleCloseModal}>
                   &times;
                 </span>
-                <h1 className='pt-2 text-center font-semibold'>ADD DEVELOPMENT LEARNING</h1>
-                <div className='pt-5'>
+                <h1 className="pt-2 text-center font-semibold">
+                  ADD DEVELOPMENT LEARNING
+                </h1>
+                <div className="pt-5">
                   <h2>Title</h2>
-                  <input className='dark:text-white rounded-md py-1 px-3 dark:bg-gray-600 border border-gray-400 w-full' id='title-input' value={title} onChange={(e) => setTitle(e.target.value)}></input>
+                  <input
+                    className="dark:text-white rounded-md py-1 px-3 dark:bg-gray-600 border border-gray-400 w-full"
+                    id="title-input"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                  ></input>
                 </div>
-                <div className='pt-5'>
+                <div className="pt-5">
                   <h2>Description</h2>
-                  <input className='dark:text-white rounded-md py-1 px-3 dark:bg-gray-600 border border-gray-400 w-full' id='description-input' value={description} onChange={(e) => setDescription(e.target.value)}></input>
+                  <input
+                    className="dark:text-white rounded-md py-1 px-3 dark:bg-gray-600 border border-gray-400 w-full"
+                    id="description-input"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  ></input>
                 </div>
-                <div className='pt-5'>
+                <div className="pt-5">
                   <h2>Time</h2>
-                  <input className='dark:text-white rounded-md py-1 px-3 dark:bg-gray-600 border border-gray-400 w-full' id='time-input' value={time} type="number" onChange={(e) => setTime(e.target.value)}></input>
+                  <input
+                    className="dark:text-white rounded-md py-1 px-3 dark:bg-gray-600 border border-gray-400 w-full"
+                    id="time-input"
+                    value={time}
+                    type="number"
+                    onChange={(e) => setTime(e.target.value)}
+                  ></input>
                 </div>
-                <div className='pt-5'>
+                <div className="pt-5">
                   <h2>Date</h2>
                   <input
                     type="date"
@@ -99,49 +132,81 @@ export default function Development() {
                     className="dark:text-white rounded-md py-1 px-3 dark:bg-gray-600 border border-gray-400 w-full"
                   />
                 </div>
-                <div className='pt-5'>
+                <div className="pt-5">
                   {links.map((link, index) => (
-                    <div key={index} className='pt-2'>
+                    <div key={index} className="pt-2">
                       <h2>Link</h2>
                       <input
-                        className='dark:text-white rounded-md py-1 px-3 dark:bg-gray-600 border border-gray-400 w-3/4'
+                        className="dark:text-white rounded-md py-1 px-3 dark:bg-gray-600 border border-gray-400 w-3/4"
                         value={link}
-                        onChange={(event) => handleLinkChange(index, event.target.value)}
+                        onChange={(event) =>
+                          handleLinkChange(index, event.target.value)
+                        }
                       />
-                      <button className="ml-2 rounded-md py-1 px-3 w-1/5 bg-red-500 text-white" onClick={() => handleRemoveLink(index)}>
+                      <button
+                        className="ml-2 rounded-md py-1 px-3 w-1/5 bg-red-500 text-white"
+                        onClick={() => handleRemoveLink(index)}
+                      >
                         Delete
                       </button>
-
                     </div>
                   ))}
-                  <div className='pt-2'><button className="rounded-md py-1 px-3 bg-blue-600 text-white w-full" onClick={handleAddLink}>Add Link</button></div>
-                  <div className='pt-2'><button className="rounded-md py-1 px-3 bg-blue-600 text-white w-full" onClick={handleAddItem}>Submit</button></div>
+                  <div className="pt-2">
+                    <button
+                      className="rounded-md py-1 px-3 bg-blue-600 text-white w-full"
+                      onClick={handleAddLink}
+                    >
+                      Add Link
+                    </button>
+                  </div>
+                  <div className="pt-2">
+                    <button
+                      className="rounded-md py-1 px-3 bg-blue-600 text-white w-full"
+                      onClick={handleAddItem}
+                    >
+                      Submit
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           )}
-          <div className="bg-white w-full pt-10 pb-2 dark:bg-gray-800 rounded-md shadow-md"
+          <div
+            className="bg-white w-full pt-10 pb-2 dark:bg-gray-800 rounded-md shadow-md"
             style={{
               flexDirection: "column",
               display: "flex",
-            }}>
+            }}
+          >
             {items.map((item, index) => (
-              <div className="p-5 dark:bg-gray-800 w-full m-2" key={index} style={{ flexDirection: "row", border: "2px solid blue" }}>
-                <li className="dark:text-white font-bold">Task {item.serialNo}</li>
+              <div
+                className="p-5 dark:bg-gray-800 w-full m-2"
+                key={index}
+                style={{ flexDirection: "row", border: "2px solid blue" }}
+              >
+                <li className="dark:text-white font-bold">
+                  Task {item.serialNo}
+                </li>
                 <li className="dark:text-white">{item.title}</li>
                 <li className="dark:text-white">{item.description}</li>
                 <li className="dark:text-white">{item.time}</li>
                 <li className="dark:text-white">{item.date}</li>
-                <div className='pt-4'>
-                  {item.link.map((link, linkIndex) => (
-                    <li className=" dark:text-blue-400 text-blue-600" key={linkIndex}>
+                <div className="pt-4">
+                  {item.links.map((link, linkIndex) => (
+                    <li
+                      className="dark:text-blue-400 text-blue-600"
+                      key={linkIndex}
+                    >
                       <a href={link}>{link}</a>
                     </li>
                   ))}
                 </div>
-                <div className='pt-4'>
+                <div className="pt-4">
                   {/* Toggle button */}
-                  <button className="rounded-md py-1 px-3 bg-blue-600 text-white" onClick={() => toggleComments(index)}>
+                  <button
+                    className="rounded-md py-1 px-3 bg-blue-600 text-white"
+                    onClick={() => toggleComments(index)}
+                  >
                     {showComments[index] ? "Hide Comments" : "Show Comments"}
                   </button>
 
@@ -149,6 +214,7 @@ export default function Development() {
                   {showComments[index] && (
                     <div>
                       {/* Render comments from the database */}
+
                       {/* ... */}
                     </div>
                   )}
@@ -206,5 +272,5 @@ export default function Development() {
         }
       `}</style>
     </div>
-  )
+  );
 }

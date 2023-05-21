@@ -89,7 +89,7 @@ export default function DarkMode() {
             <div className="overflow-hidden">
               <div className="float-left">
                   <h1 className="text-center m-4 dark:text-white font-semibold font">
-                    {userData.name}
+                  {userData.name}
                   </h1>
               </div>
               <div className="float-right dark:text-white">

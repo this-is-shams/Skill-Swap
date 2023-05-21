@@ -187,7 +187,7 @@ function SignUp() {
                     mentorData.map((mentor, index) => {
                       if (mentor.cat === category) {
                         return (
-                          <option key={index} value={mentor.name}>
+                          <option key={index} value={mentor.user}>
                             {mentor.name} ({mentor.user})
                           </option>
                         );
