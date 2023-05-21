@@ -5,7 +5,6 @@ import { useRef, useState } from "react";
 import { setLoggedInMentee } from "./auth";
 import { setLoggedInmentor } from "./auth";
 
-export let user;
 
 export default function Login() {
   //const optionRef=useRef()

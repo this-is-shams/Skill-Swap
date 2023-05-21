@@ -79,8 +79,8 @@ function Streak() {
   };
 
   return (
-    <div className="w-5/6 dark:bg-gray-800 flex justify-center">
-      <div className="flex flex-row-reverse">
+    <div className="dark:bg-gray-800 flex justify-center">
+      <div className="">
         <select
           className="text-black dark:text-white dark:bg-gray-800 h-10"
           id="year"
