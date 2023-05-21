@@ -13,6 +13,7 @@ export default function Problem() {
   const handleAddItem = async () => {
     const newItem = {
       user: getLoggedInMentee(),
+      serial: items.length + 1,
       link: problemLink,
       status: category,
       time: time,
@@ -123,7 +124,7 @@ export default function Problem() {
               style={{ flexDirection: "row" }}
             >
               <div className="float-left w-1/6 dark:text-white">
-                {item.serialNo}
+                {item.serial}
               </div>
 
               <div className="float-left w-1/6">
@@ -139,7 +140,8 @@ export default function Problem() {
               </div>
 
               <div className="float-left w-1/6 flex justify-center dark:text-white">
-                {item.category}
+                {item.status}
+                {/* <h1>asfsaf</h1> */}
               </div>
 
               <div className="float-left w-1/6 flex justify-center dark:text-white">

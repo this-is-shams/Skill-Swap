@@ -18,6 +18,7 @@ router.post("/", async (req, res) => {
   try {
     const devRecordInsert = new cpRecord({
       user: req.body.user,
+      serial: req.body.serial,
       link: req.body.link,
       status: req.body.status,
       time: req.body.time,

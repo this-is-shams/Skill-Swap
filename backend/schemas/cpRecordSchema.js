@@ -5,6 +5,10 @@ const cpRecordSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  serial: {
+    type: Number,
+    required: false,
+  },
   link: {
     type: String,
     required: true,
