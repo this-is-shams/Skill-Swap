@@ -93,7 +93,6 @@ function SignUp() {
           }
         });
     }
-
   };
   //Database e account create howar code
 
