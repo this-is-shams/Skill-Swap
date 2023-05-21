@@ -12,12 +12,31 @@ router.get("/", async (req, res) => {
     res.status(500).json({ message: err.message })
   }
 })
+router.get("/:username", async (req, res) => {
+  const { username } = req.params
+
+  try {
+    // Checking if the user exists
+    const foundUser = await devRecord.findOne({ user: username })
+    if (!foundUser) {
+      return res.status(401).json({ message: "User not found" })
+    }
+
+    // Fetching user's DEV records
+    const userAllDevRecord = await devRecord.find({ user: username })
+    res.json(userAllDevRecord)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ message: "An error occurred during user retrieval" })
+  }
+})
 
 // POST DEV data
 router.post("/", async (req, res) => {
   try {
     const devRecordInsert = new devRecord({
       user: req.body.user,
+      taskId: req.body.taskId,
       title: req.body.title,
       description: req.body.description,
       time: req.body.time,

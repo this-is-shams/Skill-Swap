@@ -9,6 +9,11 @@ const mmRelationSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  taskIds: {
+    type: [String],
+    default: [],
+    required: true,
+  },
   menteeIds: {
     type: [String], // Specify that "links" is an array of strings
     // default: [], // Optional: Set a default empty array if desired

@@ -5,6 +5,10 @@ const devRecordSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  taskId: {
+    type: String,
+    required: true,
+  },
   title: {
     type: String,
     required: true,

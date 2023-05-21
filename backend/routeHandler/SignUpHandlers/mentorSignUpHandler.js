@@ -40,6 +40,7 @@ router.post("/", async (req, res) => {
     const newmmRelation = new mmRelation({
       mentorName: req.body.name,
       mentorUserId: req.body.user,
+      taskIds: [],
       menteeIds: [],
     })
 
