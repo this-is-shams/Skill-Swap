@@ -30,17 +30,17 @@ export default function Task() {
     return (
         <div>
             <div><MentorSidebar /></div>
-            <div className='dark:bg-slate-800 dark:text-white pl-60 mt-14 ml-10'>
-                <div className='w-full h-full dark:bg-slate-800'>
-                    <div className='dark:bg-slate-800 fixed bg-white w-full'>
-                        <button className="bg-blue-500  hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" onClick={handleAddTask}>
+            <div className='dark:bg-slate-800 dark:text-white pl-60 ml-10'>
+                <div className='w-full h-full dark:bg-slate-800 mt-20'>
+                    <div className='dark:bg-slate-800 fixed bg-white w-full h-20'>
+                        <button className="bg-blue-500  hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-10" onClick={handleAddTask}>
                             Add Task
                         </button>
                     </div>
 
                     {isModalOpen && (
                         <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-500 bg-opacity-75 z-50">
-                            <div className="bg-white w-1/3 p-4 rounded">
+                            <div className="bg-white dark:text-white w-1/3 p-4 rounded">
                                 <h2 className="text-xl font-bold mb-4">Add Task</h2>
                                 <form onSubmit={handleSubmit}>
                                     <div className="mb-4">
