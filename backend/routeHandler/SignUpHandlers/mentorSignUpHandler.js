@@ -5,9 +5,10 @@ const router = express.Router()
 const mentorSignUp = require("../../schemas/mentorSchema")
 const mmRelation = require("../../schemas/mmRelationSchema")
 
-router.get("/", async (req, res) => {
+router.get("/:username", async (req, res) => {
   try {
-    const users = await mentorSignUp.find()
+    const { username } = req.params
+    const users = await mentorSignUp.findOne({ user: username })
     res.json(users)
   } catch (err) {
     res.status(500).json({ message: err.message })

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import { getLoggedInMentee } from "./auth";
 import axios from "axios";
@@ -32,11 +32,43 @@ export default function Problem() {
       alert("Error Posting Record");
     }
   };
+  useEffect(() => {
+    fetchCPRecords();
+  }, []);
 
-  const handleDeleteItem = (index) => {
-    const newItems = [...items];
-    newItems.splice(index, 1);
-    setItems(newItems);
+  const fetchCPRecords = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/cp/${getLoggedInMentee()}`
+      );
+      setItems(response.data);
+    } catch (error) {
+      console.log("Error fetching CP records:", error);
+      alert("Error fetching CP records");
+    }
+  };
+
+  const handleDeleteItem = async (index) => {
+    try {
+      const deletedItem = items[index];
+      console.log(deletedItem);
+      const response = await axios.delete(
+        `http://localhost:5000/cp/${deletedItem.user}/${deletedItem.serial}`
+      );
+
+      if (response.status === 200) {
+        const newItems = [...items];
+        newItems.splice(index, 1);
+        setItems(newItems);
+        alert("Record Successfully Deleted");
+      } else {
+        console.log("CP Record deletion failed");
+        alert("CP Record deletion failed");
+      }
+    } catch (error) {
+      console.log("Error from Server Side", error);
+      alert("Error deleting CP Record");
+    }
   };
   return (
     <div>

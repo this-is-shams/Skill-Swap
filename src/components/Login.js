@@ -4,11 +4,11 @@ import loginImg from "../assets/emne.gif";
 import { useRef, useState } from "react";
 import { setLoggedInMentee } from "./auth";
 import { setLoggedInmentor } from "./auth";
-
+import { setuserType } from "./auth";
 
 export default function Login() {
   //const optionRef=useRef()
-  
+
   const userRef = useRef();
   const passRef = useRef();
   const [uType, setUserType] = useState("");
@@ -39,6 +39,7 @@ export default function Login() {
           console.log(data);
           if (data.statusCode === 200) {
             setLoggedInmentor(user);
+            setuserType(uType);
             alert("Mentor sign in Successful!");
             navigate("/men_dash");
           }
@@ -56,6 +57,7 @@ export default function Login() {
           console.log(data);
           if (data.statusCode === 200) {
             setLoggedInMentee(user);
+            setuserType(uType);
             alert("Mentee sign in Successful!");
             navigate("/dashboard");
             e.target.reset();
@@ -131,5 +133,4 @@ export default function Login() {
       </div>
     </div>
   );
-  
 }

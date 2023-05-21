@@ -5,21 +5,23 @@ import sun from "../assets/sunny-outline.svg";
 import logo from "../assets/skill.png";
 import axios from "axios";
 import { getLoggedInMentee } from "./auth";
+import { getLoggedInmentor } from "./auth";
+import { getuserType } from "./auth";
 
 export default function DarkMode() {
-  const user = getLoggedInMentee();
+  const menteeUser = getLoggedInMentee();
+  const mentorUser = getLoggedInmentor();
   const [userData, setUserData] = useState("");
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        console.log("In dark");
-        console.log(user);
+        const userType = getuserType();
+        const user = userType === "mentor" ? mentorUser : menteeUser;
         const response = await axios.get(
-          `http://localhost:5000/signup/mentee/${user}`
+          `http://localhost:5000/signup/${userType}/${user}`
         );
         const data = response.data;
-        console.log(data);
         setUserData(data);
       } catch (error) {
         console.log("Error fetching user data:", error);
@@ -27,8 +29,7 @@ export default function DarkMode() {
     };
 
     fetchUserData();
-  }, [user]);
-  
+  }, [menteeUser, mentorUser]);
 
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -63,11 +64,7 @@ export default function DarkMode() {
   return (
     <div className="dark:bg-indigo-100-accent overflow-hidden fixed z-50 top-0">
       <div className="bg-white dark:bg-slate-800 fixed h-14 w-full pl-8 pt-3">
-        <img
-          src={logo}
-          className=""
-          style={{ display: "inline-block" }}
-        ></img>
+        <img src={logo} className="" style={{ display: "inline-block" }}></img>
         <h1
           className="dark:text-white"
           style={{
@@ -88,9 +85,9 @@ export default function DarkMode() {
           <div className="flex justify-center items-center h-full">
             <div className="overflow-hidden">
               <div className="float-left">
-                  <h1 className="text-center m-4 dark:text-white font-semibold font">
+                <h1 className="text-center m-4 dark:text-white font-semibold font">
                   {userData.name}
-                  </h1>
+                </h1>
               </div>
               <div className="float-right dark:text-white">
                 <h1 className="pt-3 float-right">⌄</h1>
@@ -100,7 +97,10 @@ export default function DarkMode() {
           {showDropdown && (
             <div className="absolute bg-white dark:bg-slate-800 mt-2 rounded-full shadow-md">
               <ul className="py-2 px-8 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full z-50">
-                <li className="cursor-pointer dark:text-white z-50" onClick={logOut}>
+                <li
+                  className="cursor-pointer dark:text-white z-50"
+                  onClick={logOut}
+                >
                   Log out
                 </li>
               </ul>
