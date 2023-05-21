@@ -32,6 +32,7 @@ export default function Problem() {
       alert("Error Posting Record");
     }
   };
+  
   useEffect(() => {
     fetchCPRecords();
   }, []);
@@ -55,7 +56,6 @@ export default function Problem() {
       const response = await axios.delete(
         `http://localhost:5000/cp/${deletedItem.user}/${deletedItem.serial}`
       );
-
       if (response.status === 200) {
         const newItems = [...items];
         newItems.splice(index, 1);
@@ -161,7 +161,7 @@ export default function Problem() {
 
               <div className="float-left w-1/6">
                 <a
-                  href={item.problemLink}
+                  href={item.link}
                   className="p-10 bg-blue-500 text-white rounded-md py-1 px-3"
                   target="_blank"
                   rel="noopener noreferrer"
