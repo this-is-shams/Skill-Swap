@@ -5,8 +5,11 @@ import { useRef, useState } from "react";
 import { setLoggedInMentee } from "./auth";
 import { setLoggedInmentor } from "./auth";
 
+export let user;
+
 export default function Login() {
   //const optionRef=useRef()
+  
   const userRef = useRef();
   const passRef = useRef();
   const [uType, setUserType] = useState("");
@@ -114,11 +117,11 @@ export default function Login() {
             </p>
             <p>Forgot Password</p>
           </div>
-          <Link to="/dashboard">
+          {/* <Link to="/dashboard"> */}
           <button className="w-full my-5 py-2 bg-blue-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg">
             Sign in
           </button>
-          </Link>
+          {/* </Link> */}
           <h1 className="dark:text-gray-200 text-center">
             Don't have any account? Click on{" "}
             <Link to="/signup" className="underline">
@@ -129,4 +132,5 @@ export default function Login() {
       </div>
     </div>
   );
+  
 }
