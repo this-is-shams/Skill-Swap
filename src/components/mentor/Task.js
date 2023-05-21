@@ -4,6 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 
 export default function Task() {
+    const currentDate = new Date();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [tasks, setTasks] = useState([]);
     const [newTask, setNewTask] = useState('');
@@ -29,16 +30,16 @@ export default function Task() {
     return (
         <div>
             <div><MentorSidebar /></div>
-            <div className='h-screen dark:bg-slate-800 dark:text-white pl-80 pt-20'>
-                <div className='w-full h-full bg-yellow-300'>
-                    <div className='dark:bg-slate-800'>
+            <div className='dark:bg-slate-800 dark:text-white pl-60 mt-14 ml-10'>
+                <div className='w-full h-full dark:bg-slate-800'>
+                    <div className='dark:bg-slate-800 fixed bg-white w-full'>
                         <button className="bg-blue-500  hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" onClick={handleAddTask}>
                             Add Task
                         </button>
                     </div>
 
                     {isModalOpen && (
-                        <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
+                        <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-500 bg-opacity-75 z-50">
                             <div className="bg-white w-1/3 p-4 rounded">
                                 <h2 className="text-xl font-bold mb-4">Add Task</h2>
                                 <form onSubmit={handleSubmit}>
@@ -73,12 +74,12 @@ export default function Task() {
                         </div>
                     )}
 
-                    <div className="h-screen dark:bg-slate-800 dark:text-white pl-80 pt-20">
-                        <div className="w-full h-full bg-yellow-300">
+                    <div className="h-screen dark:bg-slate-800 dark:text-white pt-20">
+                        <div className="w-full h-full ">
                             <table className="w-full">
                                 <thead>
                                     <tr>
-                                        <th className="bg-gray-200 text-left py-2 px-4">Tasks</th>
+                                        <th className="bg-gray-200 dark:bg-slate-600 text-left py-2 px-4 flex justify-center items-center">Tasks ({currentDate.toDateString()})</th>
                                     </tr>
                                 </thead>
                                 <tbody>
