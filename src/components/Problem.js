@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
+import { getLoggedInMentee } from "./auth";
+import axios from "axios";
 
 export default function Problem() {
   const [items, setItems] = useState([]);
@@ -8,19 +10,26 @@ export default function Problem() {
   const [time, setTime] = useState("");
   const [date, setDate] = useState(new Date().toISOString().substr(0, 10));
 
-  const handleAddItem = () => {
+  const handleAddItem = async () => {
     const newItem = {
-      serialNo: items.length + 1,
-      problemLink: problemLink,
-      category: category,
+      user: getLoggedInMentee(),
+      link: problemLink,
+      status: category,
       time: time,
       date: date,
     };
-    setItems([...items, newItem]);
-    setProblemLink("");
-    setCategory("");
-    setTime("");
-    setDate("");
+    try {
+      const response = await axios.post("http://localhost:5000/cp", newItem);
+      console.log(response.data);
+      setItems([...items, newItem]);
+      setProblemLink("");
+      setCategory("");
+      setTime("");
+      setDate("");
+    } catch (error) {
+      console.log("Error From Server Side", error);
+      alert("Error Posting Record");
+    }
   };
 
   const handleDeleteItem = (index) => {
@@ -30,9 +39,14 @@ export default function Problem() {
   };
   return (
     <div>
-      <div><Sidebar /></div>
+      <div>
+        <Sidebar />
+      </div>
       <div className="h-screen dark:bg-gray-800">
-        <div className="dark:bg-gray-800 z-10" style={{ position: "fixed", top: 50, left: 280, right: 12 }}>
+        <div
+          className="dark:bg-gray-800 z-10"
+          style={{ position: "fixed", top: 50, left: 280, right: 12 }}
+        >
           <div className="flex items-center justify-between">
             <div className="p-4 pt-10">
               <span className="dark:text-white">{items.length + 1}.</span>
@@ -103,12 +117,16 @@ export default function Problem() {
           }}
         >
           {items.map((item, index) => (
-            <div className="p-2 dark:bg-gray-800" key={index} style={{ flexDirection: "row" }}>
-
-              <div className="float-left w-1/6 dark:text-white">{item.serialNo}</div>
+            <div
+              className="p-2 dark:bg-gray-800"
+              key={index}
+              style={{ flexDirection: "row" }}
+            >
+              <div className="float-left w-1/6 dark:text-white">
+                {item.serialNo}
+              </div>
 
               <div className="float-left w-1/6">
-
                 <a
                   href={item.problemLink}
                   className="p-10 bg-blue-500 text-white rounded-md py-1 px-3"
@@ -118,14 +136,19 @@ export default function Problem() {
                 >
                   Link
                 </a>
-
               </div>
 
-              <div className="float-left w-1/6 flex justify-center dark:text-white">{item.category}</div>
+              <div className="float-left w-1/6 flex justify-center dark:text-white">
+                {item.category}
+              </div>
 
-              <div className="float-left w-1/6 flex justify-center dark:text-white">{item.time}</div>
+              <div className="float-left w-1/6 flex justify-center dark:text-white">
+                {item.time}
+              </div>
 
-              <div className="float-left w-1/6 flex justify-center dark:text-white">{item.date}</div>
+              <div className="float-left w-1/6 flex justify-center dark:text-white">
+                {item.date}
+              </div>
 
               <div className="float-left w-1/6 flex justify-center dark:text-white">
                 <button

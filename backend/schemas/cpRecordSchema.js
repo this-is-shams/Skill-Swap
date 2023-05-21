@@ -24,7 +24,7 @@ const cpRecordSchema = mongoose.Schema({
   remarks: {
     type: String,
     default: "No Remarks YET",
-    required: true,
+    required: false,
   },
 })
 
