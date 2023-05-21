@@ -61,7 +61,7 @@ export default function DarkMode() {
   };
 
   return (
-    <div className="dark:bg-indigo-100-accent overflow-hidden fixed z-10 top-0">
+    <div className="dark:bg-indigo-100-accent overflow-hidden fixed z-50 top-0">
       <div className="bg-white dark:bg-slate-800 fixed h-14 w-full pl-8 pt-3">
         <img
           src={logo}
@@ -99,8 +99,8 @@ export default function DarkMode() {
           </div>
           {showDropdown && (
             <div className="absolute bg-white dark:bg-slate-800 mt-2 rounded-full shadow-md">
-              <ul className="py-2 px-8 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full">
-                <li className="cursor-pointer dark:text-white" onClick={logOut}>
+              <ul className="py-2 px-8 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full z-50">
+                <li className="cursor-pointer dark:text-white z-50" onClick={logOut}>
                   Log out
                 </li>
               </ul>
