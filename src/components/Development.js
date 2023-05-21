@@ -10,6 +10,7 @@ export default function Development() {
   const [items, setItems] = useState([]);
   const [links, setLinks] = useState([""]);
   const [title, setTitle] = useState("");
+  const [task, setTaskID] = useState("");
   const [description, setDescription] = useState("");
   const [time, setTime] = useState("");
   const [showComments, setShowComments] = useState([]);
@@ -54,6 +55,7 @@ export default function Development() {
       setItems([...items, newItem]);
       setShowComments([...showComments, false]);
       setItems([...items, newItem]);
+      setTaskID("");
       setTitle("");
       setDescription("");
       setTime("");
@@ -95,6 +97,15 @@ export default function Development() {
                 <h1 className="pt-2 text-center font-semibold">
                   ADD DEVELOPMENT LEARNING
                 </h1>
+                <div className="pt-5">
+                  <h2>Task ID</h2>
+                  <input
+                    className="dark:text-white rounded-md py-1 px-3 dark:bg-gray-600 border border-gray-400 w-full"
+                    id="task-input"
+                    value={task}
+                    onChange={(e) => setTitle(e.target.value)}
+                  ></input>
+                </div>
                 <div className="pt-5">
                   <h2>Title</h2>
                   <input
