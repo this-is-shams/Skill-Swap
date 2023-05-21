@@ -12,6 +12,7 @@ import User from "./components/UserProfile";
 import MenDash from "./components/mentor/MentorDash";
 import Task from "./components/mentor/Task";
 import DarkModeTemp from "./components/DarkModeTemp";
+import Lead from "./components/Leader";
 
 function App() {
   const [shouldShowDarkMode, setShouldShowDarkMode] = useState(true);
@@ -35,6 +36,7 @@ function App() {
         <Route path="/user_profile" element={<User />} />
         <Route path="/men_dash" element={<MenDash />} />
         <Route path="/tasks" element={<Task />} />
+        <Route path="/leaderboard" element={<Lead />} />
       </Routes>
     </Router>
   );
