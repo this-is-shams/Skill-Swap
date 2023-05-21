@@ -74,7 +74,7 @@ export default function DarkMode() {
             fontSize: "22px",
           }}
         >
-          Skill Swap V_1.0
+          Skill Swap <span className=" text-sm">V_1.0</span>
         </h1>
       </div>
       <div className="fixed right-0 flex pt-2 float-right h-[50px]">
