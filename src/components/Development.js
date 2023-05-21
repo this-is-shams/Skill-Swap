@@ -42,6 +42,7 @@ export default function Development() {
   const handleAddItem = async () => {
     const newItem = {
       user: getLoggedInMentee(),
+      taskID: task,
       title: title,
       description: description,
       time: time,
@@ -103,7 +104,7 @@ export default function Development() {
                     className="dark:text-white rounded-md py-1 px-3 dark:bg-gray-600 border border-gray-400 w-full"
                     id="task-input"
                     value={task}
-                    onChange={(e) => setTitle(e.target.value)}
+                    onChange={(e) => setTaskID(e.target.value)}
                   ></input>
                 </div>
                 <div className="pt-5">
@@ -193,10 +194,10 @@ export default function Development() {
               <div
                 className="p-5 dark:bg-gray-800 w-full m-2"
                 key={index}
-                style={{ flexDirection: "row", border: "2px solid blue" }}
+                style={{ flexDirection: "row", border: "2px solid gray" }}
               >
                 <li className="dark:text-white font-bold">
-                  Task {item.serialNo}
+                  Task # {item.taskID}
                 </li>
                 <li className="dark:text-white">{item.title}</li>
                 <li className="dark:text-white">{item.description}</li>
