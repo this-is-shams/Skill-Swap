@@ -41,6 +41,7 @@ export default function Problem() {
       const response = await axios.get(
         `http://localhost:5000/cp/${getLoggedInMentee()}`
       );
+      console.log(items);
       setItems(response.data);
     } catch (error) {
       console.log("Error fetching CP records:", error);
@@ -59,7 +60,14 @@ export default function Problem() {
       if (response.status === 200) {
         const newItems = [...items];
         newItems.splice(index, 1);
-        setItems(newItems);
+
+        // Update the serial numbers of the remaining items
+        const updatedItems = newItems.map((item, i) => ({
+          ...item,
+          serial: i + 1,
+        }));
+
+        setItems(updatedItems);
         alert("Record Successfully Deleted");
       } else {
         console.log("CP Record deletion failed");
