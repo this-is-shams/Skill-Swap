@@ -4,7 +4,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 export default function Leader() {
-  const [leaderboardData, setLeaderboardData] = useState([]);
+  const [CleaderboardData, setCLeaderboardData] = useState([]);
+  const [DleaderboardData, setDLeaderboardData] = useState([]);
 
   useEffect(() => {
     fetchLeaderboardData();
@@ -21,22 +22,8 @@ export default function Leader() {
 
       const devLeaderboardData = devLeaderboardResponse.data;
       const cpLeaderboardData = cpLeaderboardResponse.data;
-
-      // Combine dev and CP leaderboard data, assuming the order of data is maintained
-      const combinedLeaderboardData = devLeaderboardData.map(
-        (devRecord, index) => {
-          const cpRecord = cpLeaderboardData[index];
-          return {
-            serial: index + 1,
-            name: devRecord.name,
-            user: devRecord.user,
-            totalDevTime: devRecord.totalDevTime,
-            totalCpTime: cpRecord.totalCpTime,
-          };
-        }
-      );
-
-      setLeaderboardData(combinedLeaderboardData);
+      setCLeaderboardData(cpLeaderboardData);
+      setDLeaderboardData(devLeaderboardData);
     } catch (error) {
       console.error("Error fetching leaderboard data:", error);
       // Handle error state or display error message
@@ -69,7 +56,7 @@ export default function Leader() {
               </tr>
             </thead>
             <tbody className="">
-              {leaderboardData.map((person, index) => (
+              {CleaderboardData.map((person, index) => (
                 <tr key={index}>
                   <td className="border px-4 py-2">{index + 1}</td>
                   <td className="border px-4 py-2">{person.name}</td>
@@ -93,7 +80,7 @@ export default function Leader() {
               </tr>
             </thead>
             <tbody className="">
-              {leaderboardData.map((person, index) => (
+              {DleaderboardData.map((person, index) => (
                 <tr key={index}>
                   <td className="border px-4 py-2">{index + 1}</td>
                   <td className="border px-4 py-2">{person.name}</td>

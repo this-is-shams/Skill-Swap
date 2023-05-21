@@ -14,7 +14,7 @@ router.get("/devleaderboard", async (req, res) => {
       allLeaderboardRecords.map(async (record) => {
         const mentee = await menteeFind.findOne({ user: record.user })
         const name = mentee ? mentee.name : ""
-        return { name, user: record.user, totalDevTime: record.totalDevTime }
+        return { name, user: mentee.user, totalDevTime: record.totalDevTime }
       })
     )
     res.status(200).json(leaderboardWithNames)
@@ -33,7 +33,7 @@ router.get("/cpleaderboard", async (req, res) => {
       allLeaderboardRecords.map(async (record) => {
         const mentee = await menteeFind.findOne({ user: record.user })
         const name = mentee ? mentee.name : ""
-        return { name, user: record.user, totalCpTime: record.totalCpTime }
+        return { name, user: mentee.user, totalCpTime: record.totalCpTime }
       })
     )
     res.status(200).json(leaderboardWithNames)
