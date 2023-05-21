@@ -5,29 +5,31 @@ import sun from "../assets/sunny-outline.svg";
 import logo from "../assets/skill.png";
 import axios from "axios";
 import { getLoggedInMentee } from "./auth";
+import { user } from './Login.js';
 
 export default function DarkMode() {
-  const user = getLoggedInMentee();
-  const [userData, setUserData] = useState("");
+  // const user = getLoggedInMentee();
+  // const [userData, setUserData] = useState("");
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        console.log("In dark");
-        console.log(user);
-        const response = await axios.get(
-          `http://localhost:5000/signup/mentee/${user}`
-        );
-        const data = response.data;
-        console.log(data);
-        setUserData(data);
-      } catch (error) {
-        console.log("Error fetching user data:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchUserData = async () => {
+  //     try {
+  //       console.log("In dark");
+  //       console.log(user);
+  //       const response = await axios.get(
+  //         `http://localhost:5000/signup/mentee/${user}`
+  //       );
+  //       const data = response.data;
+  //       console.log(data);
+  //       setUserData(data);
+  //     } catch (error) {
+  //       console.log("Error fetching user data:", error);
+  //     }
+  //   };
 
-    fetchUserData();
-  }, [user]);
+  //   fetchUserData();
+  // }, [user]);
+  
 
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -60,8 +62,8 @@ export default function DarkMode() {
   };
 
   return (
-    <div className="dark:bg-slate-800 m-0 overflow-hidden fixed z-50">
-      <div className="bg-white dark:bg-slate-800 fixed h-14 w-full pl-8">
+    <div className="dark:bg-indigo-100-accent overflow-hidden fixed z-10 top-0">
+      <div className="bg-white dark:bg-slate-800 fixed h-14 w-full pl-8 pt-3">
         <img
           src={logo}
           className=""
@@ -87,9 +89,9 @@ export default function DarkMode() {
           <div className="flex justify-center items-center h-full">
             <div className="overflow-hidden">
               <div className="float-left">
-                <h1 className="text-center m-4 dark:text-white font-semibold font">
-                  {userData.name}
-                </h1>
+                  <h1 className="text-center m-4 dark:text-white font-semibold font">
+                  {user}
+                  </h1>
               </div>
               <div className="float-right dark:text-white">
                 <h1 className="pt-3 float-right">⌄</h1>
