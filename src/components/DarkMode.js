@@ -64,7 +64,7 @@ export default function DarkMode() {
   return (
     <div className="dark:bg-indigo-100-accent overflow-hidden fixed z-50 top-0">
       <div className="bg-white dark:bg-slate-800 fixed h-14 w-full pl-8 pt-3">
-        <img src={logo} className="" style={{ display: "inline-block" }}></img>
+        <a href="/"><img src={logo} className="" style={{ display: "inline-block" }}></img></a>
         <h1
           className="dark:text-white"
           style={{
@@ -74,7 +74,7 @@ export default function DarkMode() {
             fontSize: "22px",
           }}
         >
-          Skill Swap
+          Skill Swap V_1.0
         </h1>
       </div>
       <div className="fixed right-0 flex pt-2 float-right h-[50px]">

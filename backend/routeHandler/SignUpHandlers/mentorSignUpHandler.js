@@ -15,6 +15,15 @@ router.get("/:username", async (req, res) => {
   }
 })
 
+router.get("/", async (req, res) => {
+  try {
+    const users = await mentorSignUp.find()
+    res.json(users)
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+  }
+})
+
 // POST signup data
 router.post("/", async (req, res) => {
   try {

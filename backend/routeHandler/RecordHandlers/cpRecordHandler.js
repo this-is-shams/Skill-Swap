@@ -88,38 +88,6 @@ router.get("/:username", async (req, res) => {
   }
 })
 
-// // DELETE CP Record by User ID and Serial Number
-// router.delete("/:userId/:serialNo", async (req, res) => {
-//   const { userId, serialNo } = req.params
-
-//   try {
-//     // Find the CP record in the database by user ID and serial number and remove it
-//     const deletedRecord = await cpRecord.findOneAndDelete({
-//       user: userId,
-//       serial: serialNo,
-//     })
-//     console.log(deletedRecord)
-//     if (!deletedRecord) {
-//       return res.status(404).json({ message: "CP Record not found" })
-//     }
-
-//     // Find the associated leaderboard record and update the totalCpTime
-//     const leaderboardUser = await leaderboard.findOne({
-//       user: deletedRecord.user,
-//     })
-//     if (leaderboardUser) {
-//       leaderboardUser.totalCpTime -= deletedRecord.time
-//       await leaderboardUser.save()
-//     }
-
-//     res.status(200).json({ message: "CP Record deleted successfully" })
-//   } catch (err) {
-//     console.error(err)
-//     res
-//       .status(500)
-//       .json({ message: "An error occurred while deleting the CP Record" })
-//   }
-// })
 
 // DELETE CP Record by User ID and Serial Number
 router.delete("/:userId/:serialNo", async (req, res) => {
