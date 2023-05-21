@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import "react-datepicker/dist/react-datepicker.css";
 import { getLoggedInMentee } from "./auth";
@@ -42,7 +42,7 @@ export default function Development() {
   const handleAddItem = async () => {
     const newItem = {
       user: getLoggedInMentee(),
-      taskID: task,
+      taskId: task,
       title: title,
       description: description,
       time: time,
@@ -68,6 +68,27 @@ export default function Development() {
       alert("Error Posting Record");
     }
   };
+
+  // Fetching
+  useEffect(() => {
+    fetchDevRecords();
+  }, []);
+
+  const fetchDevRecords = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/dev/${getLoggedInMentee()}`
+      );
+      console.log(items);
+      setItems([...items, ...response.data]);
+    } catch (error) {
+      console.log("Error fetching Dev records:", error);
+      alert("Error fetching Development records");
+    }
+  };
+
+  console.log("FETCH DEV CHECK");
+  console.log(items);
 
   const toggleComments = (index) => {
     const newShowComments = [...showComments];
@@ -197,7 +218,7 @@ export default function Development() {
                 style={{ flexDirection: "row", border: "2px solid gray" }}
               >
                 <li className="dark:text-white font-bold">
-                  Task # {item.taskID}
+                  Task ID: {item.taskId}
                 </li>
                 <li className="dark:text-white">{item.title}</li>
                 <li className="dark:text-white">{item.description}</li>
@@ -226,7 +247,7 @@ export default function Development() {
                   {showComments[index] && (
                     <div>
                       {/* Render comments from the database */}
-
+                      {item.remarks}
                       {/* ... */}
                     </div>
                   )}
