@@ -73,7 +73,7 @@ export default function Development() {
           <button onClick={handleOpenModal} className='rounded-md py-1 px-3 bg-blue-800 text-white w-full position: fixed;'>Add Development Record +</button>
           {showModal && (
             <div className="modal">
-              <div className="modal-content dark:text-white dark:bg-gray-600">
+              <div className="modal-content dark:text-white dark:bg-gray-800">
                 <span className="close" onClick={handleCloseModal}>
                   &times;
                 </span>
@@ -134,7 +134,7 @@ export default function Development() {
                 <li className="dark:text-white">{item.date}</li>
                 <div className='pt-4'>
                   {item.link.map((link, linkIndex) => (
-                    <li className="dark:text-white dark:text-blue-400" key={linkIndex}>
+                    <li className=" dark:text-blue-400 text-blue-600" key={linkIndex}>
                       <a href={link}>{link}</a>
                     </li>
                   ))}

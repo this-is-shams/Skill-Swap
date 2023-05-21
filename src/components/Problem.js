@@ -32,7 +32,7 @@ export default function Problem() {
     <div>
       <div><Sidebar /></div>
       <div className="h-screen dark:bg-gray-800">
-        <div className="dark:bg-gray-800 z-10" style={{ position: "fixed", top: 40, left: 280, right: 12 }}>
+        <div className="dark:bg-gray-800 z-10" style={{ position: "fixed", top: 50, left: 280, right: 12 }}>
           <div className="flex items-center justify-between">
             <div className="p-4 pt-10">
               <span className="dark:text-white">{items.length + 1}.</span>

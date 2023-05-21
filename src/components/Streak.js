@@ -29,6 +29,38 @@ function Streak() {
     }
   }
 
+  for (let i = 0; i < values.length; i++) {
+    if (values[i].date === "2023-02-03") {
+      values[i].problemSolvingCount = 2;
+      values[i].developmentCount = 3;
+      break;
+    }
+  }
+
+  for (let i = 0; i < values.length; i++) {
+    if (values[i].date === "2023-04-03") {
+      values[i].problemSolvingCount = 2;
+      values[i].developmentCount = 3;
+      break;
+    }
+  }
+
+  for (let i = 0; i < values.length; i++) {
+    if (values[i].date === "2023-04-04") {
+      values[i].problemSolvingCount = 2;
+      values[i].developmentCount = 3;
+      break;
+    }
+  }
+
+  for (let i = 0; i < values.length; i++) {
+    if (values[i].date === "2023-06-03") {
+      values[i].problemSolvingCount = 2;
+      values[i].developmentCount = 3;
+      break;
+    }
+  }
+
 
   const yearOptions = ["2020", "2021", "2022", "2023"];
 

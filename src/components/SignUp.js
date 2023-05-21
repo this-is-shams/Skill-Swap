@@ -4,7 +4,7 @@ import { useRef } from "react";
 import axios from "axios";
 
 function SignUp() {
-  const [category, setMentor] = useState("");
+  const [category, setCategory] = useState("");
   const [uType, setUserType] = useState("");
 
   ///// All Mentor Information object Fetching CODE START
@@ -25,7 +25,7 @@ function SignUp() {
     fetchMentorData();
   }, []); // Empty dependency array to execute the effect only once
   /// mentorData OBJECT e shob ase
-  console.log(mentorData);
+  //console.log(mentorData);
   /// All Mentor Fetching code ENDS
 
   /// A template commented out to get idea of how to access those data
@@ -41,8 +41,8 @@ function SignUp() {
 
   ///
 
-  const handleMentorChange = (e) => {
-    setMentor(e.target.value);
+  const handleCategoryChange = (e) => {
+    setCategory(e.target.value);
   };
 
   const handleUserTypeChange = (e) => {
@@ -195,7 +195,7 @@ function SignUp() {
                   className="rounded-lg dark:bg-gray-700 mt-2 p-2 focus:border-blue-500 dark:focus:bg-gray-800 focus:outline-none"
                   type="text"
                   value={category}
-                  onChange={handleMentorChange}
+                  onChange={handleCategoryChange}
                 >
                   <option>Please select...</option>
                   <option value="fjs">Full StackJS</option>
@@ -211,40 +211,17 @@ function SignUp() {
                   className="rounded-lg dark:bg-gray-700 mt-2 p-2 focus:border-blue-500 dark:focus:bg-gray-800 focus:outline-none"
                   type="text"
                 >
-                  {category === "fjs" && (
-                    <>
-                      <option value="Md. Al Asad Nur Riyad">
-                        Md. Al Asad Nur Riyad
-                      </option>
-                      <option value="Md Kalim Amzad Chy">
-                        Md Kalim Amzad Chy
-                      </option>
-                      <option value="Md. Monjurul Hoque Chowdhury">
-                        Md. Monjurul Hoque Chowdhury
-                      </option>
-                      <option value="Md Shahariar Younus Ashik">
-                        Md Shahariar Younus Ashik
-                      </option>
-                      <option value="Mohammad Arfizur Rahmandot">
-                        Mohammad Arfizur Rahman
-                      </option>
-                    </>
-                  )}
-
-                  {category === "sp" && (
-                    <>
-                      <option value="Iqbal Hossain">Iqbal Hossain</option>
-                      <option value="Md. Arif Haider">Md. Arif Haider</option>
-                      <option value="Arafat Hossain">Arafat Hossain</option>
-                      <option value="Naimul Haque">Naimul Haque</option>
-                      <option value="Shabaj Khan">Shabaj Khan</option>
-                    </>
-                  )}
-                  {category === "Please select..." && (
-                    <>
-                      <option>Choose category first...</option>
-                    </>
-                  )}
+                  {mentorData &&
+                    mentorData.map((mentor, index) => {
+                      if (mentor.cat === category) {
+                        return (
+                          <option key={index} value={mentor.name}>
+                            {mentor.name} ({mentor.user})
+                          </option>
+                        );
+                      }
+                      return null;
+                    })}
                 </select>
               </div>
             </div>
@@ -260,7 +237,7 @@ function SignUp() {
                   className="rounded-lg dark:bg-gray-700 mt-2 p-2 focus:border-blue-500 dark:focus:bg-gray-800 focus:outline-none"
                   type="text"
                   value={category}
-                  onChange={handleMentorChange}
+                  onChange={handleCategoryChange}
                 >
                   <option>Please select...</option>
                   <option value="fjs">Full StackJS</option>

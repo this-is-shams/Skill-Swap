@@ -61,10 +61,10 @@ export default function DarkMode() {
 
   return (
     <div className="dark:bg-slate-800 m-0 overflow-hidden fixed z-50">
-      <div className="bg-white dark:bg-slate-800 fixed h-14 w-full pt-2 pl-8 mt-2 top-0">
+      <div className="bg-white dark:bg-slate-800 fixed h-14 w-full pl-8">
         <img
           src={logo}
-          className="top-0"
+          className=""
           style={{ display: "inline-block" }}
         ></img>
         <h1
