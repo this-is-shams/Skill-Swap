@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import axios from "axios";
-import { useEffect, useState } from "react";
 
 export default function Leader() {
   const [CleaderboardData, setCLeaderboardData] = useState([]);
   const [DleaderboardData, setDLeaderboardData] = useState([]);
+  const [leaderboardData, setLeaderboardData] = useState([]);
 
   useEffect(() => {
     fetchLeaderboardData();
@@ -33,16 +33,17 @@ export default function Leader() {
   const handleWeekClick = async () => {
     try {
       const devLeaderboardResponse = await axios.get(
-        "http://localhost:5000/leaderboard/devleaderboard/week"
+        "http://localhost:5000/leaderboarddev/devleaderboardweek"
       );
       const cpLeaderboardResponse = await axios.get(
-        "http://localhost:5000/leaderboard/cpleaderboard/week"
+        "http://localhost:5000/leaderboardcp/cpleaderboardweek"
       );
 
       const devLeaderboardData = devLeaderboardResponse.data;
       const cpLeaderboardData = cpLeaderboardResponse.data;
       setCLeaderboardData(cpLeaderboardData);
       setDLeaderboardData(devLeaderboardData);
+
     } catch (error) {
       console.error("Error fetching leaderboard data:", error);
       // Handle error state or display error message
@@ -52,10 +53,10 @@ export default function Leader() {
   const handleMonthClick = async () => {
     try {
       const devLeaderboardResponse = await axios.get(
-        "http://localhost:5000/leaderboard/devleaderboard/month"
+        "http://localhost:5000/leaderboarddev/devleaderboardmonth"
       );
       const cpLeaderboardResponse = await axios.get(
-        "http://localhost:5000/leaderboard/cpleaderboard/month"
+        "http://localhost:5000/leaderboardcp/cpleaderboardmonth"
       );
 
       const devLeaderboardData = devLeaderboardResponse.data;
@@ -71,10 +72,10 @@ export default function Leader() {
   const handleTotalClick = async () => {
     try {
       const devLeaderboardResponse = await axios.get(
-        "http://localhost:5000/leaderboard/devleaderboard/total"
+        "http://localhost:5000/leaderboard/devleaderboard"
       );
       const cpLeaderboardResponse = await axios.get(
-        "http://localhost:5000/leaderboard/cpleaderboard/total"
+        "http://localhost:5000/leaderboard/cpleaderboard"
       );
 
       const devLeaderboardData = devLeaderboardResponse.data;
@@ -86,6 +87,10 @@ export default function Leader() {
       // Handle error state or display error message
     }
   };
+
+  // useEffect(() => {
+  //   console.log(leaderboardData);
+  // }, [leaderboardData]);
 
   return (
     <div>
@@ -116,7 +121,7 @@ export default function Leader() {
             </button>
           </div>
           <table className="border-collapse w-full">
-          <thead>
+            <thead>
               <tr>
                 <th className="px-4 py-2">Rank</th>
                 <th className="px-4 py-2">Name</th>
@@ -125,12 +130,12 @@ export default function Leader() {
               </tr>
             </thead>
             <tbody className="">
-              {DleaderboardData.map((person, index) => (
+              {CleaderboardData.map((person, index) => (
                 <tr key={index}>
                   <td className="border px-4 py-2">{index + 1}</td>
                   <td className="border px-4 py-2">{person.name}</td>
                   <td className="border px-4 py-2">{person.user}</td>
-                  <td className="border px-4 py-2">{person.totalDevTime}</td>
+                  <td className="border px-4 py-2">{person.totalCpTime}</td>
                 </tr>
               ))}
             </tbody>
@@ -160,7 +165,7 @@ export default function Leader() {
             </button>
           </div>
           <table className="border-collapse w-full">
-          <thead>
+            <thead>
               <tr>
                 <th className="px-4 py-2">Rank</th>
                 <th className="px-4 py-2">Name</th>
