@@ -12,8 +12,7 @@ function Streak() {
   const startDate = new Date(`${parseInt(year, 10) - 1}-12-31`);
   const endDate = new Date(`${year}-12-31`);
   const values = [];
-  for (let date = new Date(startDate);date <= endDate;date.setDate(date.getDate() + 1)) 
-  {
+  for (let date = new Date(startDate); date <= endDate; date.setDate(date.getDate() + 1)) {
     values.push({
       date: date.toISOString().slice(0, 10),
       problemSolvingCount: 0,
@@ -79,10 +78,11 @@ function Streak() {
   };
 
   return (
-    <div className="dark:bg-gray-800 flex justify-center">
-      <div className="">
+    <div className="dark:bg-slate-800 flex flex-col items-center">
+      <div className="mb-auto pb-10">
+        <l>Heatmap of: </l>
         <select
-          className="text-black dark:text-white dark:bg-gray-800 h-10"
+          className="text-black dark:text-white dark:bg-slate-800"
           id="year"
           value={year}
           onChange={handleYearChange}
@@ -103,6 +103,9 @@ function Streak() {
         classForValue={classForValue}
       />
     </div>
+
+
+
   );
 }
 

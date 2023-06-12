@@ -240,7 +240,7 @@ export default function Development() {
                     className="rounded-md py-1 px-3 bg-blue-600 text-white"
                     onClick={() => toggleComments(index)}
                   >
-                    {showComments[index] ? "Hide Comments" : "Show Comments"}
+                    {showComments[index] ? "Hide Remarks" : "Show Remarks"}
                   </button>
 
                   {/* Comment section */}
