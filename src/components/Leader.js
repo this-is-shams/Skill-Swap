@@ -30,18 +30,52 @@ export default function Leader() {
     }
   };
 
-  const handleWeekClick = async () => {
+  const handleWeekClickCP = async () => {
+    try {
+      const cpLeaderboardResponse = await axios.get(
+        "http://localhost:5000/leaderboardcp/cpleaderboardweek"
+      );
+      const cpLeaderboardData = cpLeaderboardResponse.data;
+      setCLeaderboardData(cpLeaderboardData);
+
+    } catch (error) {
+      console.error("Error fetching leaderboard data:", error);
+      // Handle error state or display error message
+    }
+  };
+
+  const handleMonthClickCP = async () => {
+    try {
+      const cpLeaderboardResponse = await axios.get(
+        "http://localhost:5000/leaderboardcp/cpleaderboardmonth"
+      );
+      const cpLeaderboardData = cpLeaderboardResponse.data;
+      setCLeaderboardData(cpLeaderboardData);
+    } catch (error) {
+      console.error("Error fetching leaderboard data:", error);
+      // Handle error state or display error message
+    }
+  };
+
+  const handleTotalClickCP = async () => {
+    try {
+      const cpLeaderboardResponse = await axios.get(
+        "http://localhost:5000/leaderboard/cpleaderboard"
+      );
+      const cpLeaderboardData = cpLeaderboardResponse.data;
+      setCLeaderboardData(cpLeaderboardData);
+    } catch (error) {
+      console.error("Error fetching leaderboard data:", error);
+      // Handle error state or display error message
+    }
+  };
+
+  const handleWeekClickDev = async () => {
     try {
       const devLeaderboardResponse = await axios.get(
         "http://localhost:5000/leaderboarddev/devleaderboardweek"
       );
-      const cpLeaderboardResponse = await axios.get(
-        "http://localhost:5000/leaderboardcp/cpleaderboardweek"
-      );
-
       const devLeaderboardData = devLeaderboardResponse.data;
-      const cpLeaderboardData = cpLeaderboardResponse.data;
-      setCLeaderboardData(cpLeaderboardData);
       setDLeaderboardData(devLeaderboardData);
 
     } catch (error) {
@@ -50,18 +84,12 @@ export default function Leader() {
     }
   };
 
-  const handleMonthClick = async () => {
+  const handleMonthClickDev = async () => {
     try {
       const devLeaderboardResponse = await axios.get(
         "http://localhost:5000/leaderboarddev/devleaderboardmonth"
       );
-      const cpLeaderboardResponse = await axios.get(
-        "http://localhost:5000/leaderboardcp/cpleaderboardmonth"
-      );
-
       const devLeaderboardData = devLeaderboardResponse.data;
-      const cpLeaderboardData = cpLeaderboardResponse.data;
-      setCLeaderboardData(cpLeaderboardData);
       setDLeaderboardData(devLeaderboardData);
     } catch (error) {
       console.error("Error fetching leaderboard data:", error);
@@ -69,18 +97,12 @@ export default function Leader() {
     }
   };
 
-  const handleTotalClick = async () => {
+  const handleTotalClickDev = async () => {
     try {
       const devLeaderboardResponse = await axios.get(
         "http://localhost:5000/leaderboard/devleaderboard"
       );
-      const cpLeaderboardResponse = await axios.get(
-        "http://localhost:5000/leaderboard/cpleaderboard"
-      );
-
       const devLeaderboardData = devLeaderboardResponse.data;
-      const cpLeaderboardData = cpLeaderboardResponse.data;
-      setCLeaderboardData(cpLeaderboardData);
       setDLeaderboardData(devLeaderboardData);
     } catch (error) {
       console.error("Error fetching leaderboard data:", error);
@@ -103,19 +125,19 @@ export default function Leader() {
           <div className="mb-4">
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
-              onClick={handleWeekClick}
+              onClick={handleWeekClickCP}
             >
               Current Week
             </button>
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
-              onClick={handleMonthClick}
+              onClick={handleMonthClickCP}
             >
               Current Month
             </button>
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              onClick={handleTotalClick}
+              onClick={handleTotalClickCP}
             >
               Total
             </button>
@@ -147,19 +169,19 @@ export default function Leader() {
           <div className="mb-4">
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
-              onClick={handleWeekClick}
+              onClick={handleWeekClickDev}
             >
               Current Week
             </button>
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
-              onClick={handleMonthClick}
+              onClick={handleMonthClickDev}
             >
               Current Month
             </button>
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              onClick={handleTotalClick}
+              onClick={handleTotalClickDev}
             >
               Total
             </button>

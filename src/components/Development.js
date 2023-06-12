@@ -14,6 +14,8 @@ export default function Development() {
   const [description, setDescription] = useState("");
   const [time, setTime] = useState("");
   const [showComments, setShowComments] = useState([]);
+  const [editIndex, setEditIndex] = useState(-1);
+
 
   const handleOpenModal = () => {
     setShowModal(true);
@@ -31,6 +33,19 @@ export default function Development() {
     const newLinks = [...links];
     newLinks[index] = value;
     setLinks(newLinks);
+  };
+
+  const handleDeleteItem = async (index) => {
+    const itemToDelete = items[index];
+    try {
+      await axios.delete(`http://localhost:5000/dev/${itemToDelete.id}`);
+      const updatedItems = items.filter((item, i) => i !== index);
+      setItems(updatedItems);
+      setShowComments(updatedItems.map(() => false));
+    } catch (error) {
+      console.log("Error deleting record:", error);
+      alert("Error deleting record");
+    }
   };
 
   const handleRemoveLink = (index) => {
@@ -213,37 +228,54 @@ export default function Development() {
           >
             {items.map((item, index) => (
               <div
-                className="p-5 dark:bg-gray-800 w-full m-2"
                 key={index}
-                style={{ flexDirection: "row", border: "2px solid gray" }}
+                className="bg-gray-100 dark:bg-gray-700 p-5 my-5 mx-10 rounded-md"
               >
-                <li className="dark:text-white font-bold">
-                  Task ID: {item.taskId}
-                </li>
-                <li className="dark:text-white">{item.title}</li>
-                <li className="dark:text-white">{item.description}</li>
-                <li className="dark:text-white">{item.time}</li>
-                <li className="dark:text-white">{item.date}</li>
-                <div className="pt-4">
-                  {item.links.map((link, linkIndex) => (
-                    <li
-                      className="dark:text-blue-400 text-blue-600"
-                      key={linkIndex}
+                <div className="flex justify-between items-center">
+                  <div>
+                    <h2 className="text-2xl font-bold">{item.title}</h2>
+                    <p className="text-gray-500">{item.date}</p>
+                  </div>
+                  <div>
+                    <button
+                      className="px-4 py-2 bg-red-500 text-white rounded-md"
+                      onClick={() => handleDeleteItem(index)}
                     >
+                      Delete
+                    </button>
+                    <button
+                      className="px-4 py-2 ml-2 bg-blue-500 text-white rounded-md"
+                      onClick={() => setEditIndex(index)}
+                    >
+                      Edit
+                    </button>
+                  </div>
+
+                </div>
+                <div className="mt-5">
+                  <p>{item.description}</p>
+                </div>
+                <div className="mt-5">
+                  <p>Time: {item.time}</p>
+                </div>
+                <div className="mt-5">
+                  <p>Task ID: {item.taskId}</p>
+                </div>
+                <div className="mt-5">
+                  <h3 className="text-lg font-semibold">Links:</h3>
+                  {item.links.map((link, linkIndex) => (
+                    <p key={linkIndex}>
                       <a href={link}>{link}</a>
-                    </li>
+                    </p>
                   ))}
                 </div>
-                <div className="pt-4">
-                  {/* Toggle button */}
+                <div className="mt-5">
                   <button
-                    className="rounded-md py-1 px-3 bg-blue-600 text-white"
+                    className="px-3 py-1 bg-blue-500 text-white rounded-md"
                     onClick={() => toggleComments(index)}
                   >
-                    {showComments[index] ? "Hide Remarks" : "Show Remarks"}
+                    Show/Hide Comments
                   </button>
-
-                  {/* Comment section */}
                   {showComments[index] && (
                     <div>
                       {/* Render comments from the database */}
