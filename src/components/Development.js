@@ -16,7 +16,6 @@ export default function Development() {
   const [showComments, setShowComments] = useState([]);
   const [editIndex, setEditIndex] = useState(-1);
 
-
   const handleOpenModal = () => {
     setShowModal(true);
   };
@@ -38,7 +37,9 @@ export default function Development() {
   const handleDeleteItem = async (index) => {
     const itemToDelete = items[index];
     try {
-      await axios.delete(`http://localhost:5000/dev/${itemToDelete.id}`);
+      await axios.delete(
+        `http://localhost:5000/dev/${itemToDelete.user}/${itemToDelete.taskId}`
+      );
       const updatedItems = items.filter((item, i) => i !== index);
       setItems(updatedItems);
       setShowComments(updatedItems.map(() => false));
@@ -250,7 +251,6 @@ export default function Development() {
                       Edit
                     </button>
                   </div>
-
                 </div>
                 <div className="mt-5">
                   <p>{item.description}</p>

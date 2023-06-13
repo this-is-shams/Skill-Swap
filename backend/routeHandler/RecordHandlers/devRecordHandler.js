@@ -95,4 +95,49 @@ router.get("/:username", async (req, res) => {
   }
 })
 
+// DELETE  DEVELOPMENT DATA RECORD by User ID and Serial Number
+router.delete("/:userId/:taskId", async (req, res) => {
+  const { userId, taskId } = req.params
+  console.log(userId, taskId)
+  try {
+    // Find the CP record in the database by user ID and serial number and remove it
+    const deletedRecord = await devRecord.findOneAndDelete({
+      user: userId,
+      taskId: taskId,
+    })
+
+    if (!deletedRecord) {
+      return res.status(404).json({ message: "Development Record not found" })
+    }
+
+    // Find the associated leaderboard record and update the totalCpTime
+    const leaderboardUser = await leaderboard.findOne({
+      user: deletedRecord.user,
+    })
+    if (leaderboardUser) {
+      leaderboardUser.totalDevTime -= deletedRecord.time
+      await leaderboardUser.save()
+    }
+
+    // // Update the serial numbers of the remaining CP records for the same user
+    // const remainingRecords = await devRecord
+    //   .find({ user: userId })
+    //   .sort({ serial: 1 })
+    // for (let i = 0; i < remainingRecords.length; i++) {
+    //   const record = remainingRecords[i]
+    //   if (record.serial > serialNo) {
+    //     record.serial = record.serial - 1
+    //     await record.save()
+    //   }
+    // }
+
+    res.status(200).json({ message: "Development Record deleted successfully" })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({
+      message: "An error occurred while deleting the Development Record",
+    })
+  }
+})
+
 module.exports = router
