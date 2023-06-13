@@ -98,8 +98,10 @@ export default function Development() {
       console.log(items);
       setItems([...items, ...response.data]);
     } catch (error) {
-      console.log("Error fetching Dev records:", error);
-      alert("Error fetching Development records");
+      if (error.response && error.response.status !== 401) {
+        console.log("Error fetching Dev records:", error);
+        alert("Error fetching Development records");
+      }
     }
   };
 

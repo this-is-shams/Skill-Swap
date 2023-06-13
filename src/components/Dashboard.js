@@ -31,26 +31,65 @@ export default function Dashboard() {
       try {
         const loggedInMentee = getLoggedInMentee(); // This function returns the logged-in user
 
+        // Initialize devRecordsResponse and cpRecordsResponse as null
+        let devRecordsResponse = null;
+        let cpRecordsResponse = null;
+
         // Fetch devRecords for the logged-in user
-        const devRecordsResponse = await axios.get(
-          `http://localhost:5000/dev/${loggedInMentee}`
-        );
-        setDevRecords(devRecordsResponse.data);
+        try {
+          devRecordsResponse = await axios.get(
+            `http://localhost:5000/dev/${loggedInMentee}`
+          );
+
+          // Log the devRecords response status
+          console.log("devRecords Response Status:", devRecordsResponse.status);
+
+          // Check response status
+          if (devRecordsResponse.status === 401) {
+            setDevRecords([]); // Set devRecords to an empty array
+          } else {
+            setDevRecords(devRecordsResponse.data || []);
+          }
+        } catch (error) {
+          console.error("Error fetching devRecords:", error.message);
+          // Handle error state for devRecords
+        }
 
         // Fetch cpRecords for the logged-in user
-        const cpRecordsResponse = await axios.get(
-          `http://localhost:5000/cp/${loggedInMentee}`
-        );
-        setCpRecords(cpRecordsResponse.data);
+        try {
+          cpRecordsResponse = await axios.get(
+            `http://localhost:5000/cp/${loggedInMentee}`
+          );
+
+          // Check response status
+          if (cpRecordsResponse.status === 401) {
+            setCpRecords([]); // Set cpRecords to an empty array
+          } else {
+            setCpRecords(cpRecordsResponse.data || []);
+          }
+        } catch (error) {
+          console.error("Error fetching cpRecords:", error.message);
+          // Handle error state for cpRecords
+        }
 
         // Update pieData with the new counts
-        setPieData([
-          ["Task", "Hours per Day"],
-          ["Development", devRecordsResponse.data.length],
-          ["Problem Solving", cpRecordsResponse.data.length],
-        ]);
+        if (
+          (devRecordsResponse?.data || []).length === 0 &&
+          (cpRecordsResponse?.data || []).length === 0
+        ) {
+          setPieData([
+            ["Task", "Hours per Day"],
+            ["Not added anything", 100],
+          ]);
+        } else {
+          setPieData([
+            ["Task", "Hours per Day"],
+            ["Development", (devRecordsResponse?.data || []).length || 0],
+            ["Problem Solving", (cpRecordsResponse?.data || []).length || 0],
+          ]);
+        }
       } catch (error) {
-        console.error("Error:", error.message);
+        console.error("Error Dashboard:", error.message);
         // Handle error state
       }
     }
