@@ -99,7 +99,6 @@ export default function Development() {
       setItems([...items, ...response.data]);
     } catch (error) {
       console.log("Error fetching Dev records:", error);
-      alert("Error fetching Development records");
     }
   };
 

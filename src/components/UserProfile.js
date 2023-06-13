@@ -4,6 +4,7 @@ import Chart from "react-google-charts";
 import Streak from "./Streak";
 import axios from "axios";
 
+
 export default function UserProfile() {
     const myString = window.location.href;
     const parts = myString.split("/");
@@ -63,7 +64,6 @@ export default function UserProfile() {
             setIts([...its, ...response.data]);
         } catch (error) {
             console.log("Error fetching Dev records:", error);
-            alert("Error fetching Development records");
         }
     };
 
@@ -118,7 +118,7 @@ export default function UserProfile() {
                             Development Record
                         </button>
                     </div>
-                    <div className="dark:bg-slate-800 flex-1 p-8">
+                    
                         <div
                             className={`${toggleState === 1 ? "block" : "hidden"
                                 } text-center`}
@@ -265,7 +265,7 @@ export default function UserProfile() {
                                     flexDirection: "column",
                                     position: "absolute",
                                     left: 250,
-                                    right: -20,
+                                    right: 0,
                                     display: "flex",
                                     float: "right",
                                 }}
@@ -320,7 +320,7 @@ export default function UserProfile() {
                             </div>
 
                         </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>
