@@ -23,6 +23,10 @@ function App() {
     setShouldShowDarkMode(!["/", "/signup"].includes(currentPath));
   }, []);
 
+  useEffect(() => {
+    document.title = 'Skill Swap';
+  }, []);
+
   return (
     <Router>
       {shouldShowDarkMode ? <DarkMode /> : <DarkModeTemp />}
