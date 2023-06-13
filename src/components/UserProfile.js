@@ -31,14 +31,14 @@ export default function UserProfile() {
     };
 
     return (
-        <div>
+        <div className="dark:bg-slate-800">
             <div>
                 <Sidebar />
             </div>
-            <div className="h-screen bg-yellow-200 dark:bg-slate-800 dark:text-white pl-60 pt-20">
+            <div className="h-screen dark:bg-slate-800 dark:text-white pl-60 pt-20">
                 <div className="h-1/3 bg-blue-200"></div>
-                <div className="h-screen bg-red-200 flex flex-col items-center">
-                    <div className="flex justify-center mt-8">
+                <div className="h-screen dark:bg-slate-800 flex flex-col items-center">
+                    <div className="dark:bg-slate-800 flex justify-center mt-8">
                         <button
                             className={`mr-4 p-4 text-lg font-semibold rounded-lg ${toggleState === 1
                                 ? "bg-blue-500 text-white"
@@ -67,7 +67,7 @@ export default function UserProfile() {
                             Development Record
                         </button>
                     </div>
-                    <div className="flex-1 p-8">
+                    <div className="dark:bg-slate-800 flex-1 p-8">
                         <div
                             className={`${toggleState === 1 ? "block" : "hidden"
                                 } text-center`}
@@ -91,7 +91,7 @@ export default function UserProfile() {
                                     </div>
 
                                     <div className='w-1/2 h-full flex justify-center items-center pt-14'>
-                                        <div className='w-full h-1/2 overflow-hidden pl-20'>
+                                        <div className='w-full h-1/2 overflow-hidden pl-10'>
                                             {/* Details */}
                                             <h1 className="text-2xl text-gray-800 dark:text-white flex items-center">
                                                 <div className="w-4 h-4 bg-red-500 mr-2"></div>
