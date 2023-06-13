@@ -5,11 +5,6 @@ import Streak from "./Streak";
 import { getLoggedInMentee } from "./auth";
 import axios from "axios";
 
-const pieData = [
-  ["Task", "Hours per Day"],
-  ["Development", 40],
-  ["Problem Solving", 60],
-];
 const pieOptions = {
   pieHole: 0.5,
   backgroundColor: "transparent",
@@ -25,6 +20,11 @@ const pieOptions = {
 export default function Dashboard() {
   const [devRecords, setDevRecords] = useState([]);
   const [cpRecords, setCpRecords] = useState([]);
+  const [pieData, setPieData] = useState([
+    ["Task", "Hours per Day"],
+    ["Development", 0],
+    ["Problem Solving", 0],
+  ]);
 
   useEffect(() => {
     async function fetchData() {
@@ -42,6 +42,13 @@ export default function Dashboard() {
           `http://localhost:5000/cp/${loggedInMentee}`
         );
         setCpRecords(cpRecordsResponse.data);
+
+        // Update pieData with the new counts
+        setPieData([
+          ["Task", "Hours per Day"],
+          ["Development", devRecordsResponse.data.length],
+          ["Problem Solving", cpRecordsResponse.data.length],
+        ]);
       } catch (error) {
         console.error("Error:", error.message);
         // Handle error state
@@ -159,7 +166,7 @@ export default function Dashboard() {
           </div>
           <div className="container w-full overflow-hidden -100">
             {/* Enroll student div */}
-            <Streak />
+            <Streak devRecords={devRecords} cpRecords={cpRecords} />
           </div>
         </div>
       </div>
