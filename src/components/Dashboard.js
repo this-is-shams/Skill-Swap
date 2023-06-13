@@ -6,7 +6,7 @@ import { getLoggedInMentee } from "./auth";
 import axios from "axios";
 
 const pieOptions = {
-  pieHole: 0.25,
+  pieHole: 0,
   backgroundColor: "transparent",
   chartArea: {
     backgroundColor: "transparent",
