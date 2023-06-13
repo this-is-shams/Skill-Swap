@@ -113,11 +113,11 @@ export default function Development() {
   };
 
   return (
-    <div className="dark:bg-gray-800 overflow-hidden text-gray-800 dark:text-white">
+    <div className="dark:bg-slate-800 overflow-hidden text-gray-800 dark:text-white">
       <Sidebar />
-      <div className="bg-white dark:bg-gray-800 h-screen w-full lg:w-4/5 flex-col flex-wrap">
+      <div className="bg-white dark:bg-slate-800 h-screen w-full lg:w-4/5 flex-col flex-wrap">
         <div
-          className="bg-white dark:bg-gray-800"
+          className="bg-white dark:bg-slate-800"
           style={{ position: "absolute", top: 80, left: 280, right: 12 }}
         >
           <button
@@ -221,7 +221,7 @@ export default function Development() {
             </div>
           )}
           <div
-            className="bg-white w-full pt-10 pb-2 dark:bg-gray-800 rounded-md shadow-md"
+            className="bg-white w-full pt-10 pb-2 dark:bg-slate-800 rounded-md shadow-md"
             style={{
               flexDirection: "column",
               display: "flex",
@@ -230,7 +230,7 @@ export default function Development() {
             {items.map((item, index) => (
               <div
                 key={index}
-                className="bg-gray-100 dark:bg-gray-700 p-5 my-5 mx-10 rounded-md"
+                className="bg-gray-100 dark:bg-slate-800 p-5 my-5 mx-10 rounded-md"
               >
                 <div className="flex justify-between items-center">
                   <div>
