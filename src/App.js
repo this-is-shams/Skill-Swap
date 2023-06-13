@@ -8,11 +8,12 @@ import Problem from "./components/Problem";
 import Development from "./components/Development";
 import Dashboard from "./components/Dashboard";
 import Streak from "./components/Streak";
-import User from "./components/UserProfile";
+import User from "./components/Profile";
 import MenDash from "./components/mentor/MentorDash";
 import Task from "./components/mentor/Task";
 import DarkModeTemp from "./components/DarkModeTemp";
 import Lead from "./components/Leader";
+import UserProfile from "./components/UserProfile";
 
 function App() {
   const [shouldShowDarkMode, setShouldShowDarkMode] = useState(true);
@@ -33,10 +34,11 @@ function App() {
         <Route path="/development" element={<Development />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/streak" element={<Streak />} />
-        <Route path="/user_profile" element={<User />} />
+        <Route path="/profile" element={<User />} />
         <Route path="/men_dash" element={<MenDash />} />
         <Route path="/tasks" element={<Task />} />
         <Route path="/leaderboard" element={<Lead />} />
+        <Route path="/user/:userId" element={<UserProfile/>} />
       </Routes>
     </Router>
   );

@@ -104,14 +104,13 @@ export default function Dashboard() {
 
   return (
     <div>
-      <div>
-        <Sidebar />
-      </div>
-      <div className="h-screen dark:bg-slate-800 dark:text-white  pl-60 pt-20">
-        <div className="h-auto w-90 m-10">
-          <div className="w-full h-full flex flex-row">
-            <div className="w-1/2 h-full">
-              <div className="w-full h-1/2 overflow-hidden">
+      <div><Sidebar /></div>
+      <div className='h-screen dark:bg-slate-800 dark:text-white  pl-60 pt-20'>
+        <div className='h-auto w-90 m-10'>
+          <div className='w-full h-full flex flex-row'>
+
+            <div className='w-1/2 h-full'>
+              <div className='w-full h-1/2 overflow-hidden'>
                 {/* Chart */}
                 <Chart
                   width={"700px"}
