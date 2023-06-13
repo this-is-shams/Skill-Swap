@@ -17,13 +17,13 @@ export default function UserProfile() {
         pieHole: 0.25,
         backgroundColor: "transparent",
         chartArea: {
-          backgroundColor: "transparent",
+            backgroundColor: "transparent",
         },
         textStyle: {
-          color: "text-white dark:text-white",
+            color: "text-white dark:text-white",
         },
         legend: "none",
-      };
+    };
     const [devRecords, setDevRecords] = useState([]);
     const [cpRecords, setCpRecords] = useState([]);
     const [pieData, setPieData] = useState([
@@ -166,7 +166,27 @@ export default function UserProfile() {
                 <Sidebar />
             </div>
             <div className="h-screen dark:bg-slate-800 dark:text-white pl-60 pt-20">
-                <div className="h-1/5 bg-blue-200"></div>
+            <div className="h-1/5 w-full flex items-center justify-center">
+  <div className="flex items-center justify-center h-20 w-20 bg-green-500 rounded-full text-white font-bold text-xl mr-4">
+    {/* {userInitials} */}
+    {/* Replace userInitials with the initials of the user's name */}
+    Shams
+  </div>
+  <div className="flex flex-col">
+    <h3 className="text-xl font-semibold">Shams</h3> {/* Replace userName with the user's name */}
+    <p className="mt-1">Shams Farabi</p> {/* Replace fullName with the user's full name */}
+    <p className="mt-1">IIUC</p> {/* Replace institution with the user's institution */}
+    <p className="mt-1">shams@gmail.com</p> {/* Replace email with the user's email address */}
+    <a href="www.github.com}" className="mt-1 text-blue-500 hover:underline">
+      this-is-shams
+    </a> {/* Replace githubProfile with the user's GitHub profile URL */}
+  </div>
+</div>
+
+
+
+
+
                 <div className="h-full dark:bg-slate-800 flex flex-col items-center">
                     <div className="dark:bg-slate-800 flex justify-center mt-8">
                         <button
@@ -185,7 +205,7 @@ export default function UserProfile() {
                                 }`}
                             onClick={() => toggleTab(2)}
                         >
-                            Problem Solving Record
+                            Problem Solving
                         </button>
                         <button
                             className={`p-4 text-lg font-semibold rounded-lg ${toggleState === 3
@@ -194,7 +214,7 @@ export default function UserProfile() {
                                 }`}
                             onClick={() => toggleTab(3)}
                         >
-                            Development Record
+                            Development
                         </button>
                     </div>
 
