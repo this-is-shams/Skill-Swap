@@ -118,19 +118,6 @@ router.delete("/:userId/:taskId", async (req, res) => {
       leaderboardUser.totalDevTime -= deletedRecord.time
       await leaderboardUser.save()
     }
-
-    // // Update the serial numbers of the remaining CP records for the same user
-    // const remainingRecords = await devRecord
-    //   .find({ user: userId })
-    //   .sort({ serial: 1 })
-    // for (let i = 0; i < remainingRecords.length; i++) {
-    //   const record = remainingRecords[i]
-    //   if (record.serial > serialNo) {
-    //     record.serial = record.serial - 1
-    //     await record.save()
-    //   }
-    // }
-
     res.status(200).json({ message: "Development Record deleted successfully" })
   } catch (err) {
     console.error(err)
