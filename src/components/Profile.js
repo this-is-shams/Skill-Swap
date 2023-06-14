@@ -41,7 +41,7 @@ export default function Profile() {
         <div>
             <Sidebar />
             <div className="h-screen w-screen dark:bg-slate-800 dark:text-white pl-60 pt-20 flex col">
-                <div className="h-full w-full flex flex-col items-center justify-center">
+                <div className="h-full w-full flex flex-col items-center pt-14">
                     <div className="flex flex-col items-center justify-center mb-4">
                         <div className="h-28 w-28 bg-green-500 rounded-full text-white font-bold text-2xl mb-4 flex items-center justify-center">
                             <span className="text-center">Shams</span>
