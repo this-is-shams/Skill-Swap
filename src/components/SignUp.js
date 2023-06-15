@@ -6,13 +6,15 @@ import axios from "axios";
 function SignUp() {
   const [category, setCategory] = useState("");
   const [uType, setUserType] = useState("");
+
+  ///// All Mentor Information object Fetching CODE START
   const [mentorData, setMentorData] = useState("");
-  
+
   useEffect(() => {
     const fetchMentorData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/signup/mentor/"
+          "http://localhost:5000/signup/mentor/" // Eta basically backend er index.js and signuphandler dekhlei bujhe jabi. main kaj ta mentor signup handler e hoye ekhane object akare chole ashche.
         );
         setMentorData(response.data);
       } catch (error) {
@@ -31,6 +33,7 @@ function SignUp() {
     setUserType(e.target.value);
   };
 
+  //Database e account create howar code ^o^
   const nameRef = useRef();
   const userRef = useRef();
   const passRef = useRef();
@@ -39,9 +42,7 @@ function SignUp() {
   const mentorRef = useRef();
   const userTypeRef = useRef();
 
-  const handleSignup = async (e) => {
-    e.preventDefault();
-  
+  const handleSignup = (e) => {
     const name = nameRef.current.value;
     const user = userRef.current.value;
     const pass = passRef.current.value;
@@ -49,53 +50,69 @@ function SignUp() {
     const cat = catRef.current.value;
     const mentor = mentorRef.current.value ?? "";
     const userType = userTypeRef.current.value;
-  
+
+    var newService;
+
     if (pass !== conPass) {
       alert("Password doesn't match");
       return;
     }
-  
-    try {
-      if (uType === "mentor") {
-        const newMentor = { name, user, pass, conPass, cat };
-        console.log(newMentor);
-        const response = await axios.post("http://localhost:5000/signup/mentor", newMentor);
-        
-        if (response.status === 200) {
-          alert("Mentor Successfully Added!");
-          e.target.reset();
-        }
-      } else if (uType === "mentee") {
-        const newMentee = { name, user, pass, conPass, userType, cat, mentor };
-        console.log(newMentee);
-        const response = await axios.post("http://localhost:5000/signup/mentee", newMentee);
-        
-        if (response.status === 200) {
-          alert("Mentee Successfully Added!");
-          e.target.reset();
-        }
-      }
-    } catch (error) {
-      if (error.response && error.response.status === 409) {
-        alert("Username already exists. Please choose a different username.");
-      } else {
-        console.log("Error adding user:", error);
-      }
+
+    if (uType === "mentor") {
+      newService = { name, user, pass, conPass, cat };
+      console.log(newService);
+      e.preventDefault();
+      fetch("http://localhost:5000/signup/mentor", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newService),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.statusCode === 200) {
+            alert("Mentor Succesfully Added!");
+            e.target.reset();
+          }
+        });
+    } else if (uType === "mentee") {
+      newService = { name, user, pass, conPass, userType, cat, mentor };
+      console.log(newService);
+      e.preventDefault();
+      fetch("http://localhost:5000/signup/mentee", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newService),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.statusCode === 200) {
+            alert("Mentee Succesfully Added!");
+            e.target.reset();
+          }
+        });
     }
   };
-  
+  //Database e account create howar code
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 h-screen w-full">
       <div className="hidden sm:block dark:bg-gray-800 p-10">
-        <img className="w-full h-full object-cover pt-10" src={register} alt="" />
+        <img
+          className="w-full h-full object-cover pt-10"
+          src={register}
+          alt=""
+        />
       </div>
       <div className="bg-white dark:bg-gray-800 flex flex-col justify-center pr-10 pt-20 pb-10">
         <form
           onSubmit={handleSignup}
           className="max-w-[400px] w-full mx-auto rounded-lg bg-gray-300 dark:bg-gray-900 p-8"
         >
-          <h2 className="text-4xl dark:text-white font-bold text-center">SIGN UP</h2>
+          <h2 className="text-4xl dark:text-white font-bold text-center">
+            SIGN UP
+          </h2>
           <div className="flex flex-col dark:text-gray-400 py-2">
             <label>Full name</label>
             <input
@@ -185,7 +202,8 @@ function SignUp() {
           {uType === "mentor" && (
             <div>
               <div className="flex flex-col dark:text-gray-400 py-2">
-                <label>Category</label>
+                <label ref={mentorRef}>Category</label>{" "}
+                {/*  Ref is declared here just to solve the undefined  */}
                 <select
                   ref={catRef}
                   className="rounded-lg dark:bg-gray-700 mt-2 p-2 focus:border-blue-500 dark:focus:bg-gray-800 focus:outline-none"
