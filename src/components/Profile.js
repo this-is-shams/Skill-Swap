@@ -68,7 +68,7 @@ export default function Profile() {
       console.log("Profile updated successfully");
     } catch (error) {
       // Handle the error
-      alert("An error occurred during profile update");
+      console.log("An error occurred during profile update");
       console.error("Error updating profile:", error.message);
     }
   };
@@ -80,22 +80,49 @@ export default function Profile() {
         const profileResponse = await axios.get(
           `http://localhost:5000/profile/${loggedInMentee}`
         );
-        const { name, user, institution, semester, contactNo, email, githubProfile, stopstalkProfile, linkedinProfile } = profileResponse.data;
+        const {
+          name,
+          user,
+          institution,
+          semester,
+          contactNo,
+          email,
+          githubProfile,
+          stopstalkProfile,
+          linkedinProfile,
+        } = profileResponse.data;
 
         setFullName(name);
+        setEditedFullName(name);
+
         setUser(user);
+
         setInstitution(institution);
+        setEditedInstitution(institution);
+
         setSemester(semester);
+        setEditedSemester(semester);
+
         setContactNo(contactNo);
+        setEditedContactNo(contactNo);
+
         setEmail(email);
+        setEditedEmail(email);
+
         setGithubProfile(githubProfile);
+        setEditedGithubProfile(githubProfile);
+
         setOjProfile(stopstalkProfile);
+        setEditedOjProfile(stopstalkProfile);
+
         setLinkedinProfile(linkedinProfile);
+        setEditedLinkedinProfile(linkedinProfile);
+
         setFullName(name);
         setUser(user);
       } catch (error) {
         // Handle the error
-        console.error("Error is userprofile:", error.message);
+        console.error("Error in userprofile:", error.message);
       }
     }
 
