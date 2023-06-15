@@ -59,39 +59,76 @@ function SignUp() {
     }
 
     if (uType === "mentor") {
-      newService = { name, user, pass, conPass, cat };
+      newService = { name, user, pass, conPass, userType, cat };
       console.log(newService);
       e.preventDefault();
-      fetch("http://localhost:5000/signup/mentor", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newService),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          if (data.statusCode === 200) {
-            alert("Mentor Succesfully Added!");
-            e.target.reset();
+
+      async function handleMentorSignup() {
+        try {
+          const checkResponse = await axios.get(
+            `http://localhost:5000/signup/mentor/${user}`
+          );
+
+          if (checkResponse.status === 500) {
+            fetch("http://localhost:5000/signup/mentor", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(newService),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                console.log(data);
+                if (data.statusCode === 200) {
+                  alert("Mentor Successfully Added!");
+                  e.target.reset();
+                }
+              });
+          } else {
+            alert("User Already Exists! Try a different username");
           }
-        });
+        } catch (error) {
+          console.error(error);
+          // Handle error if the GET request to check the user's existence fails
+          alert("An error occurred while checking user existence");
+        }
+      }
+
+      handleMentorSignup();
     } else if (uType === "mentee") {
       newService = { name, user, pass, conPass, userType, cat, mentor };
       console.log(newService);
       e.preventDefault();
-      fetch("http://localhost:5000/signup/mentee", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newService),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          if (data.statusCode === 200) {
-            alert("Mentee Succesfully Added!");
-            e.target.reset();
+      async function handleMenteeSignup() {
+        try {
+          const checkResponse = await axios.get(
+            `http://localhost:5000/signup/mentee/${user}`
+          );
+
+          if (checkResponse.status === 500) {
+            fetch("http://localhost:5000/signup/mentee", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(newService),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                console.log(data);
+                if (data.statusCode === 200) {
+                  alert("Mentee Successfully Added!");
+                  e.target.reset();
+                }
+              });
+          } else {
+            alert("User Already Exists! Try a different username");
           }
-        });
+        } catch (error) {
+          console.error(error);
+          // Handle error if the GET request to check the user's existence fails
+          alert("An error occurred while checking user existence");
+        }
+      }
+
+      handleMenteeSignup();
     }
   };
   //Database e account create howar code

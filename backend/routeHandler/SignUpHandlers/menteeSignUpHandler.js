@@ -23,6 +23,10 @@ router.post("/", async (req, res) => {
     const { name, user, pass, cat, mentor } = req.body
 
     console.log(mentor)
+
+
+
+
     // Check if mentor exists
 
     let mentorExist = await mmRelation.findOne({ mentorUserId: mentor })
