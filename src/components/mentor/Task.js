@@ -1,99 +1,334 @@
-import { React, useState } from 'react'
-import MentorSidebar from './MentorSidebar'
-import 'react-datepicker/dist/react-datepicker.css';
+import { React, useEffect, useState } from "react";
+import MentorSidebar from "./MentorSidebar";
+import "react-datepicker/dist/react-datepicker.css";
+import axios from "axios";
 
+export default function Development() {
+  const [showModal, setShowModal] = useState(false);
+  const [date, setDate] = useState(new Date().toISOString().substr(0, 10));
+  const [items, setItems] = useState([]);
+  const [links, setLinks] = useState([""]);
+  const [title, setTitle] = useState("");
+  const [task, setTaskID] = useState("");
+  const [user, setUser] = useState("");
+  const [description, setDescription] = useState("");
+  const [time, setTime] = useState("");
+  const [showComments, setShowComments] = useState([]);
+  const [editIndex, setEditIndex] = useState(-1);
 
-export default function Task() {
-    const currentDate = new Date();
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [tasks, setTasks] = useState([]);
-    const [newTask, setNewTask] = useState('');
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
 
-    const handleAddTask = () => {
-        setIsModalOpen(true);
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleAddLink = () => {
+    setLinks([...links, "\n"]);
+  };
+
+  const handleLinkChange = (index, value) => {
+    const newLinks = [...links];
+    newLinks[index] = value;
+    setLinks(newLinks);
+  };
+
+  const handleDeleteItem = async (index) => {
+    const itemToDelete = items[index];
+    try {
+      await axios.delete(
+        `http://localhost:5000/dev/${itemToDelete.user}/${itemToDelete.taskId}`
+      );
+      const updatedItems = items.filter((item, i) => i !== index);
+      setItems(updatedItems);
+      setShowComments(updatedItems.map(() => false));
+    } catch (error) {
+      console.log("Error deleting record:", error);
+      alert("Error deleting record");
+    }
+  };
+
+  const handleRemoveLink = (index) => {
+    const newLinks = [...links];
+    newLinks.splice(index, 1);
+    setLinks(newLinks);
+  };
+
+  const handleAddItem = async () => {
+    const newItem = {
+      user: user,
+      taskId: task,
+      title: title,
+      description: description,
+      time: time,
+      date: date,
+      links: links,
+      remarks: "No Remarks YET!",
     };
+    try {
+      const response = await axios.post("http://localhost:5000/dev", newItem);
+      console.log(response.data);
+      setItems([...items, newItem]);
+      setShowComments([...showComments, false]);
+      setItems([...items, newItem]);
+      setTaskID("");
+      setTitle("");
+      setDescription("");
+      setTime("");
+      setDate("");
+      setShowModal(false);
+      setLinks([""]);
+    } catch (error) {
+      console.log("Error From Server Side", error);
+      alert("Error Posting Record");
+    }
+  };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (newTask.trim() !== '') {
-            setTasks([...tasks, newTask]);
-            setNewTask('');
-            setIsModalOpen(false);
-        }
-    };
+  // Fetching
+  useEffect(() => {
+    fetchDevRecords();
+  }, []);
 
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
+  const fetchDevRecords = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/dev/${user}`
+      );
+      console.log(items);
+      setItems([...items, ...response.data]);
+    } catch (error) {
+      if (error.response && error.response.status !== 401) {
+        console.log("Error fetching Dev records:", error);
+      }
+    }
+  };
 
+  console.log("FETCH DEV CHECK");
+  console.log(items);
 
-    return (
-        <div>
-            <div><MentorSidebar /></div>
-            <div className='dark:bg-slate-800 dark:text-white pl-60 ml-10'>
-                <div className='w-full h-full dark:bg-slate-800 mt-20'>
-                    <div className='dark:bg-slate-800 fixed bg-white w-full h-20'>
-                        <button className="bg-blue-500  hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-10" onClick={handleAddTask}>
-                            Add Task
-                        </button>
-                    </div>
+  const toggleComments = (index) => {
+    const newShowComments = [...showComments];
+    newShowComments[index] = !newShowComments[index];
+    setShowComments(newShowComments);
+  };
 
-                    {isModalOpen && (
-                        <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-500 bg-opacity-75 z-50">
-                            <div className="bg-white dark:text-white w-1/3 p-4 rounded">
-                                <h2 className="text-xl font-bold mb-4">Add Task</h2>
-                                <form onSubmit={handleSubmit}>
-                                    <div className="mb-4">
-                                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="taskInput">
-                                            Task:
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="taskInput"
-                                            className="w-full border border-gray-300 rounded px-3 py-2"
-                                            value={newTask}
-                                            onChange={(e) => setNewTask(e.target.value)}
-                                        />
-                                    </div>
-                                    <div className="flex justify-end">
-                                        <button
-                                            type="submit"
-                                            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-                                        >
-                                            Submit
-                                        </button>
-                                        <button
-                                            className="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded ml-2"
-                                            onClick={closeModal}
-                                        >
-                                            Cancel
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    )}
-
-                    <div className="h-screen dark:bg-slate-800 dark:text-white pt-20">
-                        <div className="w-full h-full ">
-                            <table className="w-full">
-                                <thead>
-                                    <tr>
-                                        <th className="bg-gray-200 dark:bg-slate-600 text-left py-2 px-4 flex justify-center items-center">Tasks ({currentDate.toDateString()})</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {tasks.map((task, index) => (
-                                        <tr key={index}>
-                                            <td className="border py-2 px-4">{task}</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+  return (
+    <div className="dark:bg-slate-800 overflow-hidden text-gray-800 dark:text-white">
+      <MentorSidebar />
+      <div className="bg-white dark:bg-slate-800 h-screen w-full lg:w-4/5 flex-col flex-wrap">
+        <div
+          className="bg-white dark:bg-slate-800"
+          style={{ position: "absolute", top: 80, left: 280, right: 12 }}
+        >
+          <button
+            onClick={handleOpenModal}
+            className="rounded-md py-1 px-3 bg-blue-500 text-white w-full position: fixed;"
+          >
+            Add Task +
+          </button>
+          {showModal && (
+            <div className="modal">
+              <div className="modal-content dark:text-white dark:bg-gray-800">
+                <span className="close" onClick={handleCloseModal}>
+                  &times;
+                </span>
+                <h1 className="pt-2 text-center font-semibold">
+                  ADD DEVELOPMENT LEARNING
+                </h1>
+                <div className="pt-5">
+                  <h2>Mentee</h2>
+                  <select
+                    className="dark:text-white rounded-md py-1 px-3 mt-2 dark:bg-gray-600 border border-gray-400 w-full"
+                    id="task-input"
+                    value={task}
+                    onChange={(e) => setTaskID(e.target.value)}
+                  >
+                    <option value="">Select Mentee</option>
+                    <option value="task1">Task 1</option>
+                    <option value="task2">Task 2</option>
+                    <option value="task3">Task 3</option>
+                    {/* Add more options as needed */}
+                  </select>
                 </div>
+
+                <div className="pt-5">
+                  <h2>Task ID</h2>
+                  <input
+                    className="dark:text-white rounded-md mt-2 py-1 px-3 dark:bg-gray-600 border border-gray-400 w-full"
+                    id="task-input"
+                    value={task}
+                    onChange={(e) => setTaskID(e.target.value)}
+                  ></input>
+                </div>
+                <div className="pt-5">
+                  <h2>Title</h2>
+                  <input
+                    className="dark:text-white rounded-md mt-2 py-1 px-3 dark:bg-gray-600 border border-gray-400 w-full"
+                    id="title-input"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                  ></input>
+                </div>
+                <div className="pt-5">
+                  <h2>Description</h2>
+                  <input
+                    className="dark:text-white rounded-md mt-2 py-1 px-3 dark:bg-gray-600 border border-gray-400 w-full"
+                    id="description-input"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  ></input>
+                </div>
+
+                <div className="pt-5">
+                  <h2>Date</h2>
+                  <input
+                    type="date"
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                    className="dark:text-white rounded-md py-1 mt-2 px-3 dark:bg-gray-600 border border-gray-400 w-full"
+                  />
+                </div>
+                <div className="pt-5">
+                  {links.map((link, index) => (
+                    <div key={index} className="pt-2">
+                      <h2>Resources</h2>
+                      <input
+                        className="dark:text-white rounded-md mt-2 py-1 px-3 dark:bg-gray-600 border border-gray-400 w-3/4"
+                        value={link}
+                        onChange={(event) =>
+                          handleLinkChange(index, event.target.value)
+                        }
+                      />
+                      <button
+                        className="ml-2 rounded-md py-1 px-3 w-1/5 bg-red-500 text-white"
+                        onClick={() => handleRemoveLink(index)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  ))}
+                  <div className="pt-2">
+                    <button
+                      className="rounded-md py-1 px-3 bg-blue-600 text-white w-full"
+                      onClick={handleAddLink}
+                    >
+                      Add Link
+                    </button>
+                  </div>
+                  <div className="pt-2">
+                    <button
+                      className="rounded-md py-1 px-3 bg-blue-600 text-white w-full"
+                      onClick={handleAddItem}
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
+          )}
+          <div
+            className="bg-white w-full pt-10 pb-2 dark:bg-slate-800 rounded-md shadow-md"
+            style={{
+              flexDirection: "column",
+              display: "flex",
+            }}
+          >
+            {items.map((item, index) => (
+              <div
+                key={index}
+                className="bg-gray-100 dark:bg-slate-800 p-5 my-5 mx-10 rounded-md"
+              >
+
+                <div className="flex justify-between items-center">
+                  
+                  <div>
+                  <p>#Task ID: {item.taskId}</p>
+                    <h2 className="text-2xl font-bold">{item.title}</h2>
+                    <p className="text-gray-500">{item.date}</p>
+                  </div>
+                  <div>
+                    <button
+                      className="px-4 py-2 bg-red-500 text-white rounded-md"
+                      onClick={() => handleDeleteItem(index)}
+                    >
+                      Delete
+                    </button>
+                    <button
+                      className="px-4 py-2 ml-2 bg-blue-500 text-white rounded-md"
+                      onClick={() => setEditIndex(index)}
+                    >
+                      Edit
+                    </button>
+                  </div>
+                </div>
+                <div className="mt-5">
+                  <p>{item.description}</p>
+                </div>
+
+                
+                <div className="mt-5">
+                  <h3 className="text-lg font-semibold">Links:</h3>
+                  {item.links.map((link, linkIndex) => (
+                    <p key={linkIndex}>
+                      <a href={link}>{link}</a>
+                    </p>
+                  ))}
+                </div>
+
+              </div>
+            ))}
+          </div>
         </div>
-    )
+      </div>
+
+      {/* Modal Styles */}
+      <style jsx>{`
+        /* Modal Styles */
+        .modal {
+          display: block;
+          position: fixed;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          overflow: auto;
+          background-color: rgba(0, 0, 0, 0.4);
+          z-index: 1000;
+        }
+
+        /* Modal Content Styles */
+        .modal-content {
+          background-color: #fefefe;
+          padding: 20px;
+          border: 1px solid #888;
+          border-radius: 20px;
+          width: 30%;
+          max-width: 500px;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          overflow-y: auto;
+          max-height: 80vh;
+        }
+
+        /* Close Button Style */
+        .close {
+          color: #aaa;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+          color: black;
+          text-decoration: none;
+          cursor: pointer;
+        }
+      `}</style>
+    </div>
+  );
 }
