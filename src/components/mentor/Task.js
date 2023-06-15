@@ -112,15 +112,21 @@ export default function Development() {
       const response = await axios.get(
         `http://localhost:5000/task/mentor/${getLoggedInmentor()}`
       );
-      console.log(response.data);
-      //setMentee(response.data);
-      //setItems([...items, ...response.data]); // Replace existing items with fetched data
+      const fetchedItems = response.data.map((task) => ({
+        taskId: task.mTaskId,
+        title: task.taskTitle,
+        description: task.taskDescription,
+        date: task.date,
+        links: task.resources,
+      }));
+      setItems(fetchedItems);
     } catch (error) {
       if (error.response && error.response.status !== 401) {
-        console.log("Error fetching Mentee records:", error);
+        console.log("Error fetching Task records:", error);
       }
     }
   };
+  
 
   console.log("FETCH DEV CHECK");
   console.log(items);
@@ -247,48 +253,48 @@ export default function Development() {
             </div>
           )}
           <div
-            className="bg-white w-full pt-10 pb-2 dark:bg-slate-800 rounded-md shadow-md"
-            style={{
-              flexDirection: "column",
-              display: "flex",
-            }}
+  className="bg-white w-full pt-10 pb-2 dark:bg-slate-800 rounded-md shadow-md"
+  style={{
+    flexDirection: "column",
+    display: "flex",
+  }}
+>
+  {items.map((item, index) => (
+    <div
+      key={index}
+      className="bg-gray-100 dark:bg-slate-800 p-5 my-5 mx-10 rounded-md"
+    >
+      <div className="flex justify-between items-center">
+        <div>
+          <p>#Task ID: {item.taskId}</p>
+          <h2 className="text-2xl font-bold">{item.title}</h2>
+          <p className="text-gray-500">{item.date}</p>
+        </div>
+        <div>
+          <button
+            className="px-4 py-2 bg-red-500 text-white rounded-md"
+            onClick={() => handleDeleteItem(index)}
           >
-            {items.map((item, index) => (
-              <div
-                key={index}
-                className="bg-gray-100 dark:bg-slate-800 p-5 my-5 mx-10 rounded-md"
-              >
-                <div className="flex justify-between items-center">
-                  <div>
-                    <p>#Task ID: {item.taskId}</p>
-                    <h2 className="text-2xl font-bold">{item.title}</h2>
-                    <p className="text-gray-500">{item.date}</p>
-                  </div>
-                  <div>
-                    <button
-                      className="px-4 py-2 bg-red-500 text-white rounded-md"
-                      onClick={() => handleDeleteItem(index)}
-                    >
-                      Delete
-                    </button>
-                    
-                  </div>
-                </div>
-                <div className="mt-5">
-                  <p>{item.description}</p>
-                </div>
+            Delete
+          </button>
+        </div>
+      </div>
+      <div className="mt-5">
+        <p>{item.description}</p>
+      </div>
 
-                <div className="mt-5">
-                  <h3 className="text-lg font-semibold">Resources:</h3>
-                  {item.links.map((link, linkIndex) => (
-                    <p key={linkIndex}>
-                      <a href={link}>{link}</a>
-                    </p>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
+      <div className="mt-5">
+        <h3 className="text-lg font-semibold">Resources:</h3>
+        {item.links.map((link, linkIndex) => (
+          <p key={linkIndex}>
+            <a href={link}>{link}</a>
+          </p>
+        ))}
+      </div>
+    </div>
+  ))}
+</div>
+
         </div>
       </div>
 
