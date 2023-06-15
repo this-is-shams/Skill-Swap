@@ -52,13 +52,9 @@ router.put("/:username", async (req, res) => {
     }
 
     res.json(updatedUser)
-     // Send a success alert
-    res.json({ message: "Profile updated successfully" });
   } catch (err) {
     console.error(err)
     res.status(500).json({ message: "An error occurred during profile update" })
-    // Send an error alert
-    res.status(500).json({ message: "An error occurred during profile update" });
   }
 })
 
