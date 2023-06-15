@@ -4,6 +4,26 @@ const MenteeData = require("../../schemas/menteeSchema")
 const mmRelation = require("../../schemas/mmRelationSchema")
 const devRecordAll = require("../../schemas/devRecordSchema")
 
+// GET List of Mentees
+router.get("/getmentees/:mentorid", async (req, res) => {
+  try {
+    const { mentorid } = req.params
+    const foundUser = await mmRelation.findOne({ mentorUserId: mentorid })
+
+    // Check if mentor exists
+    if (!foundUser) {
+      return res.status(404).send({ message: "Mentor not found" })
+    }
+
+    const menteeIds = foundUser.menteeIds
+
+    res.json(menteeIds)
+  } catch (err) {
+    console.error(err)
+    res.status(500).send({ message: "An error occurred from the server side" })
+  }
+})
+
 // GET MENTEE DEVELOPMENT RECORDS
 router.get("/:mentorid", async (req, res) => {
   try {

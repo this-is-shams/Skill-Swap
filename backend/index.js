@@ -50,6 +50,7 @@ app.use("/leaderboardcp", leaderboardCP)
 app.use("/leaderboarddev", leaderboardDev)
 app.use("/profile", profileHandler)
 app.use("/task", taskHandler)
+
 //default error handler
 function errorHandler(err, req, res, next) {
   if (res.headerSent) {

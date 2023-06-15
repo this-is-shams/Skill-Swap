@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import MentorSidebar from "./MentorSidebar";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
+import { getLoggedInmentor } from "../auth";
 
 export default function Development() {
   const [showModal, setShowModal] = useState(false);
@@ -37,9 +38,7 @@ export default function Development() {
   const handleDeleteItem = async (index) => {
     const itemToDelete = items[index];
     try {
-      await axios.delete(
-        `http://localhost:5000/dev/${itemToDelete.user}/${itemToDelete.taskId}`
-      );
+      await axios.delete(`http://localhost:5000/task/${itemToDelete.taskId}`);
       const updatedItems = items.filter((item, i) => i !== index);
       setItems(updatedItems);
       setShowComments(updatedItems.map(() => false));
@@ -57,14 +56,20 @@ export default function Development() {
 
   const handleAddItem = async () => {
     const newItem = {
-      
+      menteeId: mentee, // Add the selected mentee to the newItem object
+      mentorId: getLoggedInmentor(),
+      mTaskId: taskId,
+      taskTitle: title,
+      taskDescription: description,
+      date: date,
+      resources: links.filter((link) => link !== ""), // Filter out empty links
     };
+
     try {
-      const response = await axios.post("http://localhost:5000/dev", newItem);
+      const response = await axios.post("http://localhost:5000/task/", newItem);
       console.log(response.data);
       setItems([...items, newItem]);
       setShowComments([...showComments, false]);
-      setItems([...items, newItem]);
       setTaskID("");
       setTitle("");
       setDescription("");
@@ -80,19 +85,39 @@ export default function Development() {
 
   // Fetching
   useEffect(() => {
-    fetchDevRecords();
+    fetchMentees();
   }, []);
 
-  const fetchDevRecords = async () => {
+  const fetchMentees = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/dev/${mentee}`
+        `http://localhost:5000/viewmentee/getmentees/${getLoggedInmentor()}`
       );
-      console.log(items);
-      setItems([...items, ...response.data]);
+      console.log(response.data);
+      //setMentee(response.data);
+      //setItems([...items, ...response.data]); // Replace existing items with fetched data
     } catch (error) {
       if (error.response && error.response.status !== 401) {
-        console.log("Error fetching Dev records:", error);
+        console.log("Error fetching Mentee records:", error);
+      }
+    }
+  };
+  // Fetching Tasks
+  useEffect(() => {
+    fetchTask();
+  }, []);
+
+  const fetchTask = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/task/mentor/${getLoggedInmentor()}`
+      );
+      console.log(response.data);
+      //setMentee(response.data);
+      //setItems([...items, ...response.data]); // Replace existing items with fetched data
+    } catch (error) {
+      if (error.response && error.response.status !== 401) {
+        console.log("Error fetching Mentee records:", error);
       }
     }
   };
@@ -233,11 +258,9 @@ export default function Development() {
                 key={index}
                 className="bg-gray-100 dark:bg-slate-800 p-5 my-5 mx-10 rounded-md"
               >
-
                 <div className="flex justify-between items-center">
-                  
                   <div>
-                  <p>#Task ID: {item.taskId}</p>
+                    <p>#Task ID: {item.taskId}</p>
                     <h2 className="text-2xl font-bold">{item.title}</h2>
                     <p className="text-gray-500">{item.date}</p>
                   </div>
@@ -260,7 +283,6 @@ export default function Development() {
                   <p>{item.description}</p>
                 </div>
 
-                
                 <div className="mt-5">
                   <h3 className="text-lg font-semibold">Links:</h3>
                   {item.links.map((link, linkIndex) => (
@@ -269,7 +291,6 @@ export default function Development() {
                     </p>
                   ))}
                 </div>
-
               </div>
             ))}
           </div>
