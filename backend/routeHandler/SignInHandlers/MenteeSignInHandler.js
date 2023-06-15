@@ -3,6 +3,25 @@ const bcrypt = require("bcrypt")
 const router = express.Router()
 const MenteeSignUp = require("../../schemas/menteeSchema")
 
+// Get mentee details
+// GET Mentee Details by ID
+router.get("/menteedata/:id", async (req, res) => {
+  const { id } = req.params
+
+  try {
+    // Find the mentee in the database by their ID
+    const mentee = await MenteeSignUp.findOne({ user: id })
+    if (!mentee) {
+      return res.status(404).json({ message: "Mentee not found" })
+    }
+
+    res.status(200).json({ mentee })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ message: "An error occurred from the server side" })
+  }
+})
+
 // GET signin data
 router.get("/:user/:pass", async (req, res) => {
   const { user, pass } = req.params

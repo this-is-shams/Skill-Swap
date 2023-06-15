@@ -131,7 +131,6 @@ router.delete("/:userId/:taskId", async (req, res) => {
 router.put("/:userId/:taskId", async (req, res) => {
   const { userId, taskId } = req.params
   const updateData = req.body
-  
 
   try {
     // Find the CP record in the database by user ID and task ID and update it
@@ -156,19 +155,44 @@ router.put("/:userId/:taskId", async (req, res) => {
       await leaderboardUser.save()
     }
 
-    res
-      .status(200)
-      .json({
-        message: "Development Record updated successfully",
-        updatedRecord,
-      })
+    res.status(200).json({
+      message: "Development Record updated successfully",
+      updatedRecord,
+    })
   } catch (err) {
     console.error(err)
-    res
-      .status(500)
-      .json({
-        message: "An error occurred while updating the Development Record",
-      })
+    res.status(500).json({
+      message: "An error occurred while updating the Development Record",
+    })
+  }
+})
+
+// UPDATE DEVELOPMENT DATA Comment by User ID and Task ID
+router.put("/remarks/:userId/:taskId", async (req, res) => {
+  const { userId, taskId } = req.params
+  const { remarks } = req.body
+
+  try {
+    // Find the development record in the database by user ID and task ID and update the remarks field
+    const updatedRecord = await devRecord.findOneAndUpdate(
+      { user: userId, taskId: taskId },
+      { remarks },
+      { new: true }
+    )
+
+    if (!updatedRecord) {
+      return res.status(404).json({ message: "Development Record not found" })
+    }
+
+    res.status(200).json({
+      message: "Development Record updated successfully",
+      updatedRecord,
+    })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({
+      message: "An error occurred while updating the Development Record",
+    })
   }
 })
 

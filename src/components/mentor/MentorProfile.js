@@ -54,7 +54,20 @@ export default function Profile() {
         `http://localhost:5000/viewmentee/getmentees/${getLoggedInmentor()}`
       );
       const data = response.data;
-      console.log(data);
+
+      const menteeResponses = await Promise.all(
+        data.map(async (id) => {
+          const menteeResponse = await axios.get(
+            `http://localhost:5000/signin/mentee/menteedata/${id}`
+          );
+          return menteeResponse.data;
+        })
+      );
+
+      console.log(menteeResponses);
+      menteeResponses.forEach((mentee) => {
+        console.log("mentee", mentee.mentee.name);
+      });
     } catch (error) {
       console.error("Error fetching Mentee data:", error);
       // Handle error state or display error message
