@@ -68,36 +68,8 @@ export default function Profile() {
                                     </div>
                                 )}
                             </div>
-                            <div>
-                                <h3 className="mt-5 px-3 py- font-semibold">Institution</h3>
-                                {isEditable ? (
-                                    <input
-                                        type="text"
-                                        className="dark:bg-gray-700 border rounded-lg px-3 py-2 mt-1 w-64"
-                                        value={editedInstitution}
-                                        onChange={(e) => setEditedInstitution(e.target.value)}
-                                    />
-                                ) : (
-                                    <div className="px-3 py-2 mt-1 w-64">
-                                        <p>{institution}</p>
-                                    </div>
-                                )}
-                            </div>
-                            <div>
-                                <h3 className="mt-5 px-3 py- font-semibold">Semester</h3>
-                                {isEditable ? (
-                                    <input
-                                        type="text"
-                                        className="dark:bg-gray-700 border rounded-lg px-3 py-2 mt-1 w-64"
-                                        value={editedSemester}
-                                        onChange={(e) => setEditedSemester(e.target.value)}
-                                    />
-                                ) : (
-                                    <div className="px-3 py-2 mt-1 w-64">
-                                        <p>{semester}</p>
-                                    </div>
-                                )}
-                            </div>
+                           
+                            
                             <div>
                                 <h3 className="mt-5 px-3 py- font-semibold">Contact no.</h3>
                                 {isEditable ? (
