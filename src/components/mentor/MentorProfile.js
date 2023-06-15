@@ -24,9 +24,9 @@ export default function Profile() {
   const [editedEmail, setEditedEmail] = useState(email);
   const [editedOjProfile, setEditedOjProfile] = useState(ojProfile);
   const [editedGithubProfile, setEditedGithubProfile] = useState(githubProfile);
-  const [editedLinkedinProfile, setEditedLinkedinProfile] =
-    useState(linkedinProfile);
+  const [editedLinkedinProfile, setEditedLinkedinProfile] = useState(linkedinProfile);
   const [editedSemester, setEditedSemester] = useState(semester);
+  const [menteeResponses, setMenteeResponses] = useState([]);
 
   const handleEdit = () => {
     setIsEditable(true);
@@ -45,34 +45,38 @@ export default function Profile() {
   };
 
   useEffect(() => {
+    const fetchMenteeData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/viewmentee/getmentees/${getLoggedInmentor()}`
+        );
+        const data = response.data;
+
+        const menteeResponses = await Promise.all(
+          data.map(async (id) => {
+            const menteeResponse = await axios.get(
+              `http://localhost:5000/signin/mentee/menteedata/${id}`
+            );
+            return menteeResponse.data;
+          })
+        );
+
+        console.log(menteeResponses);
+        menteeResponses.forEach((mentee) => {
+          console.log("mentee", mentee.mentee.name);
+        });
+
+        setMenteeResponses(menteeResponses);
+      } catch (error) {
+        console.error("Error fetching Mentee data:", error);
+        // Handle error state or display error message
+      }
+    };
+
     fetchMenteeData();
   }, []);
 
-  const fetchMenteeData = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:5000/viewmentee/getmentees/${getLoggedInmentor()}`
-      );
-      const data = response.data;
 
-      const menteeResponses = await Promise.all(
-        data.map(async (id) => {
-          const menteeResponse = await axios.get(
-            `http://localhost:5000/signin/mentee/menteedata/${id}`
-          );
-          return menteeResponse.data;
-        })
-      );
-
-      console.log(menteeResponses);
-      menteeResponses.forEach((mentee) => {
-        console.log("mentee", mentee.mentee.name);
-      });
-    } catch (error) {
-      console.error("Error fetching Mentee data:", error);
-      // Handle error state or display error message
-    }
-  };
 
   return (
     <div>
@@ -235,13 +239,15 @@ export default function Profile() {
               </tr>
             </thead>
             <tbody className="">
-              {/* {DleaderboardData.map((person, index) => ())} */}
-              <tr>
-                <td className="border px-4 py-2">1</td>
-                <td className="border px-4 py-2">shams</td>
-                <td className="border px-4 py-2">farabi</td>
-              </tr>
+              {menteeResponses.map((mentee, index) => (
+                <tr key={index}>
+                  <td className="border px-4 py-2">{index + 1}</td>
+                  <td className="border px-4 py-2">{mentee.mentee.name}</td>
+                  <td className="border px-4 py-2">{mentee.mentee.user}</td>
+                </tr>
+              ))}
             </tbody>
+
           </table>
         </div>
       </div>
