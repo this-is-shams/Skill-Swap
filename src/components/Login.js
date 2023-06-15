@@ -56,7 +56,6 @@ export default function Login() {
           if (data.statusCode === 200) {
             setLoggedInMentee(user);
             setuserType(uType);
-            alert("Mentee sign in Successful!");
             navigate("/dashboard");
             e.target.reset();
           } else {
