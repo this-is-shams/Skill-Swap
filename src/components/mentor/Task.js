@@ -69,7 +69,7 @@ export default function Development() {
     try {
       const response = await axios.post("http://localhost:5000/task/", newItem);
       // console.log(response.data);
-      setItems([...items, newItem]);
+      //setItems([...items, newItem]);
       setShowComments([...showComments, false]);
       setTaskID("");
       setTitle("");
@@ -91,9 +91,13 @@ export default function Development() {
 
   const fetchMentees = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/viewmentee/getmentees/${getLoggedInmentor()}`);
+      const response = await axios.get(
+        `http://localhost:5000/viewmentee/getmentees/${getLoggedInmentor()}`
+      );
       console.log(response.data);
-      setMentees(response.data);
+      const allMentees = ["All", ...response.data];
+      setMentees(allMentees);
+      console.log("MENTEEES", mentees);
     } catch (error) {
       if (error.response && error.response.status !== 401) {
         console.log("Error fetching Mentee records:", error);
@@ -124,7 +128,6 @@ export default function Development() {
       }
     }
   };
-
 
   // console.log("FETCH DEV CHECK");
   // console.log(items);
@@ -168,12 +171,11 @@ export default function Development() {
                   >
                     <option value="">Select Mentee</option>
                     {mentees.map((mentee) => (
-                      <option key={mentee.id} value={mentee.id}>
-                        {mentee.name}
+                      <option key={mentee} value={mentee}>
+                        {mentee}
                       </option>
                     ))}
                   </select>
-
                 </div>
 
                 <div className="pt-5">
@@ -294,7 +296,6 @@ export default function Development() {
               </div>
             ))}
           </div>
-
         </div>
       </div>
 
