@@ -6,6 +6,8 @@ import axios from "axios";
 
 export default function Development() {
   const [showModal, setShowModal] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+  const [editIndex, setEditIndex] = useState(-1);
   const [date, setDate] = useState(new Date().toISOString().substr(0, 10));
   const [items, setItems] = useState([]);
   const [links, setLinks] = useState([""]);
@@ -14,9 +16,49 @@ export default function Development() {
   const [description, setDescription] = useState("");
   const [time, setTime] = useState("");
   const [showComments, setShowComments] = useState([]);
-  const [editIndex, setEditIndex] = useState(-1);
 
-  const handleOpenModal = () => {
+  function handleEditItem(index) {
+    // Retrieve the item to be edited using the index
+    const itemToEdit = items[index];
+  
+    // Set the item's details in the state variables to populate the modal
+    setTitle(itemToEdit.title);
+    setDescription(itemToEdit.description);
+    setDate(itemToEdit.date);
+    setTime(itemToEdit.time);
+    setLinks(itemToEdit.links);
+  
+    // Set the edit mode to true
+    setEditMode(true);
+  
+    // Save the index of the item being edited
+    setEditIndex(index);
+  
+    // Open the modal
+    setShowModal(true);
+  }
+  
+
+  const handleOpenModal = (index) => {
+    if (index !== undefined) {
+      setEditMode(true);
+      setEditIndex(index);
+      const item = items[index];
+      setTaskID(item.taskId);
+      setTitle(item.title);
+      setDescription(item.description);
+      setTime(item.time);
+      setDate(item.date);
+      setLinks(item.links);
+    } else {
+      setEditMode(false);
+      setTaskID("");
+      setTitle("");
+      setDescription("");
+      setTime("");
+      setDate(new Date().toISOString().substr(0, 10));
+      setLinks([""]);
+    }
     setShowModal(true);
   };
 
@@ -66,12 +108,23 @@ export default function Development() {
       links: links,
       remarks: "No Remarks YET!",
     };
+
     try {
-      const response = await axios.post("http://localhost:5000/dev", newItem);
-      console.log(response.data);
-      setItems([...items, newItem]);
-      setShowComments([...showComments, false]);
-      setItems([...items, newItem]);
+      if (editMode) {
+        await axios.put(
+          `http://localhost:5000/dev/${getLoggedInMentee()}/${task}`,
+          newItem
+        );
+
+        const updatedItems = [...items];
+        updatedItems[editIndex] = newItem;
+        setItems(updatedItems);
+      } else {
+        await axios.post("http://localhost:5000/dev", newItem);
+        setItems([...items, newItem]);
+        setShowComments([...showComments, false]);
+      }
+
       setTaskID("");
       setTitle("");
       setDescription("");
@@ -95,17 +148,13 @@ export default function Development() {
       const response = await axios.get(
         `http://localhost:5000/dev/${getLoggedInMentee()}`
       );
-      console.log(items);
       setItems([...items, ...response.data]);
     } catch (error) {
       if (error.response && error.response.status !== 401) {
         console.log("Error fetching Dev records:", error);
-        }
+      }
     }
   };
-
-  console.log("FETCH DEV CHECK");
-  console.log(items);
 
   const toggleComments = (index) => {
     const newShowComments = [...showComments];
@@ -122,11 +171,12 @@ export default function Development() {
           style={{ position: "absolute", top: 80, left: 280, right: 12 }}
         >
           <button
-            onClick={handleOpenModal}
+            onClick={() => handleOpenModal()}
             className="rounded-md py-1 px-3 bg-blue-800 text-white w-full position: fixed;"
           >
             Add Development Record +
           </button>
+
           {showModal && (
             <div className="modal">
               <div className="modal-content dark:text-white dark:bg-gray-800">
@@ -134,7 +184,7 @@ export default function Development() {
                   &times;
                 </span>
                 <h1 className="pt-2 text-center font-semibold">
-                  ADD DEVELOPMENT LEARNING
+                  {editMode ? "EDIT DEVELOPMENT LEARNING" : "ADD DEVELOPMENT LEARNING"}
                 </h1>
                 <div className="pt-5">
                   <h2>Task ID</h2>
@@ -189,9 +239,7 @@ export default function Development() {
                       <input
                         className="dark:text-white rounded-md py-1 px-3 dark:bg-gray-600 border border-gray-400 w-3/4"
                         value={link}
-                        onChange={(event) =>
-                          handleLinkChange(index, event.target.value)
-                        }
+                        onChange={(event) => handleLinkChange(index, event.target.value)}
                       />
                       <button
                         className="ml-2 rounded-md py-1 px-3 w-1/5 bg-red-500 text-white"
@@ -214,7 +262,7 @@ export default function Development() {
                       className="rounded-md py-1 px-3 bg-blue-600 text-white w-full"
                       onClick={handleAddItem}
                     >
-                      Submit
+                      {editMode ? "Save" : "Submit"}
                     </button>
                   </div>
                 </div>
@@ -222,7 +270,7 @@ export default function Development() {
             </div>
           )}
           <div
-            className="bg-white w-full pt-10 pb-2 dark:bg-slate-800 rounded-md shadow-md"
+            className="bg-white pt-10 pb-2 dark:bg-slate-800 rounded-md shadow-md"
             style={{
               flexDirection: "column",
               display: "flex",
@@ -231,10 +279,11 @@ export default function Development() {
             {items.map((item, index) => (
               <div
                 key={index}
-                className="bg-gray-100 dark:bg-slate-800 p-5 my-5 mx-10 rounded-md"
+                className="bg-gray-100 dark:bg-slate-700 p-5 my-5 mx-10 rounded-md"
               >
                 <div className="flex justify-between items-center">
                   <div>
+                    <p>#Task ID: {item.taskId}</p>
                     <h2 className="text-2xl font-bold">{item.title}</h2>
                     <p className="text-gray-500">{item.date}</p>
                   </div>
@@ -247,7 +296,7 @@ export default function Development() {
                     </button>
                     <button
                       className="px-4 py-2 ml-2 bg-blue-500 text-white rounded-md"
-                      onClick={() => setEditIndex(index)}
+                      onClick={() => handleEditItem(index)}
                     >
                       Edit
                     </button>
@@ -258,9 +307,6 @@ export default function Development() {
                 </div>
                 <div className="mt-5">
                   <p>Time: {item.time}</p>
-                </div>
-                <div className="mt-5">
-                  <p>Task ID: {item.taskId}</p>
                 </div>
                 <div className="mt-5">
                   <h3 className="text-lg font-semibold">Links:</h3>
