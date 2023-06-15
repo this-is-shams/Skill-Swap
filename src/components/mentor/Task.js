@@ -15,6 +15,7 @@ export default function Development() {
   const [description, setDescription] = useState("");
   const [time, setTime] = useState("");
   const [showComments, setShowComments] = useState([]);
+  const [mentees, setMentees] = useState([]);
   const [editIndex, setEditIndex] = useState(-1);
 
   const handleOpenModal = () => {
@@ -67,7 +68,7 @@ export default function Development() {
 
     try {
       const response = await axios.post("http://localhost:5000/task/", newItem);
-      console.log(response.data);
+      // console.log(response.data);
       setItems([...items, newItem]);
       setShowComments([...showComments, false]);
       setTaskID("");
@@ -90,12 +91,9 @@ export default function Development() {
 
   const fetchMentees = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/viewmentee/getmentees/${getLoggedInmentor()}`
-      );
+      const response = await axios.get(`http://localhost:5000/viewmentee/getmentees/${getLoggedInmentor()}`);
       console.log(response.data);
-      //setMentee(response.data);
-      //setItems([...items, ...response.data]); // Replace existing items with fetched data
+      setMentees(response.data);
     } catch (error) {
       if (error.response && error.response.status !== 401) {
         console.log("Error fetching Mentee records:", error);
@@ -126,10 +124,10 @@ export default function Development() {
       }
     }
   };
-  
 
-  console.log("FETCH DEV CHECK");
-  console.log(items);
+
+  // console.log("FETCH DEV CHECK");
+  // console.log(items);
 
   const toggleComments = (index) => {
     const newShowComments = [...showComments];
@@ -169,11 +167,13 @@ export default function Development() {
                     onChange={(e) => setMentee(e.target.value)}
                   >
                     <option value="">Select Mentee</option>
-                    <option value="mentee1">Mentee 1</option>
-                    <option value="mentee2">Mentee 2</option>
-                    <option value="mentee3">Mentee 3</option>
-                    {/* Add more options as needed */}
+                    {mentees.map((mentee) => (
+                      <option key={mentee.id} value={mentee.id}>
+                        {mentee.name}
+                      </option>
+                    ))}
                   </select>
+
                 </div>
 
                 <div className="pt-5">
@@ -253,47 +253,47 @@ export default function Development() {
             </div>
           )}
           <div
-  className="bg-white w-full pt-10 pb-2 dark:bg-slate-800 rounded-md shadow-md"
-  style={{
-    flexDirection: "column",
-    display: "flex",
-  }}
->
-  {items.map((item, index) => (
-    <div
-      key={index}
-      className="bg-gray-100 dark:bg-slate-800 p-5 my-5 mx-10 rounded-md"
-    >
-      <div className="flex justify-between items-center">
-        <div>
-          <p>#Task ID: {item.taskId}</p>
-          <h2 className="text-2xl font-bold">{item.title}</h2>
-          <p className="text-gray-500">{item.date}</p>
-        </div>
-        <div>
-          <button
-            className="px-4 py-2 bg-red-500 text-white rounded-md"
-            onClick={() => handleDeleteItem(index)}
+            className="bg-white w-full pt-10 pb-2 dark:bg-slate-800 rounded-md shadow-md"
+            style={{
+              flexDirection: "column",
+              display: "flex",
+            }}
           >
-            Delete
-          </button>
-        </div>
-      </div>
-      <div className="mt-5">
-        <p>{item.description}</p>
-      </div>
+            {items.map((item, index) => (
+              <div
+                key={index}
+                className="bg-gray-100 dark:bg-slate-800 p-5 my-5 mx-10 rounded-md"
+              >
+                <div className="flex justify-between items-center">
+                  <div>
+                    <p>#Task ID: {item.taskId}</p>
+                    <h2 className="text-2xl font-bold">{item.title}</h2>
+                    <p className="text-gray-500">{item.date}</p>
+                  </div>
+                  <div>
+                    <button
+                      className="px-4 py-2 bg-red-500 text-white rounded-md"
+                      onClick={() => handleDeleteItem(index)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+                <div className="mt-5">
+                  <p>{item.description}</p>
+                </div>
 
-      <div className="mt-5">
-        <h3 className="text-lg font-semibold">Resources:</h3>
-        {item.links.map((link, linkIndex) => (
-          <p key={linkIndex}>
-            <a href={link}>{link}</a>
-          </p>
-        ))}
-      </div>
-    </div>
-  ))}
-</div>
+                <div className="mt-5">
+                  <h3 className="text-lg font-semibold">Resources:</h3>
+                  {item.links.map((link, linkIndex) => (
+                    <p key={linkIndex}>
+                      <a href={link}>{link}</a>
+                    </p>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
 
         </div>
       </div>
