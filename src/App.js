@@ -14,6 +14,10 @@ import Task from "./components/mentor/Task";
 import DarkModeTemp from "./components/DarkModeTemp";
 import Lead from "./components/Leader";
 import UserProfile from "./components/UserProfile";
+import TaskUser from "./components/taskView";
+import Forum from "./components/Forum";
+import MenLead from "./components/mentor/MentorLeader";
+import UserProfileMen from "./components/mentor/UserProfileMen";
 
 function App() {
   const [shouldShowDarkMode, setShouldShowDarkMode] = useState(true);
@@ -43,6 +47,10 @@ function App() {
         <Route path="/tasks" element={<Task />} />
         <Route path="/leaderboard" element={<Lead />} />
         <Route path="/user/:userId" element={<UserProfile/>} />
+        <Route path="/userMen/:userId" element={<UserProfileMen/>} />
+        <Route path="/taskview" element={<TaskUser />} />
+        <Route path="/forum" element={<Forum />} />
+        <Route path="/mentorLeader" element={<MenLead />} />
       </Routes>
     </Router>
   );

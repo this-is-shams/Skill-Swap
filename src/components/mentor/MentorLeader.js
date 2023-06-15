@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "./Sidebar";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import UserProfile from "./UserProfile";
+import MentorSidebar from "./MentorSidebar";
 
 export default function Leader() {
   const [CleaderboardData, setCLeaderboardData] = useState([]);
@@ -123,7 +122,7 @@ export default function Leader() {
   return (
     <div>
       <div>
-        <Sidebar />
+        <MentorSidebar />
       </div>
       <div className="h-screen dark:bg-slate-800 dark:text-white pl-60 pt-20 flex">
         <div className="pt-30 pl-50 m-10 text-center  w-1/2">
@@ -161,7 +160,7 @@ export default function Leader() {
               {CleaderboardData.map((person, index) => (
                 <tr key={index}>
                   <td className="border px-4 py-2">{index + 1}</td>
-                  <td className="border px-4 py-2"><Link to={`/user/${person.user}`}>{person.name}</Link></td>
+                  <td className="border px-4 py-2"><Link to={`/userMen/${person.user}`}>{person.name}</Link></td>
                   <td className="border px-4 py-2">{person.user}</td>
                   <td className="border px-4 py-2">{person.totalCpTime}</td>
                 </tr>
@@ -205,7 +204,7 @@ export default function Leader() {
               {DleaderboardData.map((person, index) => (
                 <tr key={index}>
                   <td className="border px-4 py-2">{index + 1}</td>
-                  <td className="border px-4 py-2"><Link to={`/user/${person.user}`}>{person.name}</Link></td>
+                  <td className="border px-4 py-2"><Link to={`/userMen/${person.user}`}>{person.name}</Link></td>
                   <td className="border px-4 py-2">{person.user}</td>
                   <td className="border px-4 py-2">{person.totalDevTime}</td>
                 </tr>
