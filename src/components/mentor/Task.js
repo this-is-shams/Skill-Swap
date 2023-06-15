@@ -248,12 +248,7 @@ export default function Development() {
                     >
                       Delete
                     </button>
-                    <button
-                      className="px-4 py-2 ml-2 bg-blue-500 text-white rounded-md"
-                      onClick={() => setEditIndex(index)}
-                    >
-                      Edit
-                    </button>
+                    
                   </div>
                 </div>
                 <div className="mt-5">
@@ -262,7 +257,7 @@ export default function Development() {
 
                 
                 <div className="mt-5">
-                  <h3 className="text-lg font-semibold">Links:</h3>
+                  <h3 className="text-lg font-semibold">Resources:</h3>
                   {item.links.map((link, linkIndex) => (
                     <p key={linkIndex}>
                       <a href={link}>{link}</a>

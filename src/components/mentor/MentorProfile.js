@@ -211,7 +211,7 @@ export default function Profile() {
                     </div>
                 </div>
 
-                <div className='pl-60 text-center w-screen flex justify-center ' style={{ position: "absolute", top: 600, right: 0 }}>
+                <div className='pl-64 dark:text-white text-center w-screen flex justify-center ' style={{ position: "absolute",  top: 600, right: 0 }}>
                     
                     <table className="border-collapse w-full">
                         <thead>
