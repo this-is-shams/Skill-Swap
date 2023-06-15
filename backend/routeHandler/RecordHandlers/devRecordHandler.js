@@ -127,4 +127,49 @@ router.delete("/:userId/:taskId", async (req, res) => {
   }
 })
 
+// UPDATE DEVELOPMENT DATA RECORD by User ID and Task ID
+router.put("/:userId/:taskId", async (req, res) => {
+  const { userId, taskId } = req.params
+  const updateData = req.body
+  
+
+  try {
+    // Find the CP record in the database by user ID and task ID and update it
+    const updatedRecord = await devRecord.findOneAndUpdate(
+      { user: userId, taskId: taskId },
+      updateData,
+      { new: true }
+    )
+
+    if (!updatedRecord) {
+      return res.status(404).json({ message: "Development Record not found" })
+    }
+
+    // Find the associated leaderboard record and update the totalDevTime
+    const leaderboardUser = await leaderboard.findOne({
+      user: updatedRecord.user,
+    })
+    if (leaderboardUser) {
+      // Calculate the difference in time between the updated and previous time values
+      const timeDifference = updatedRecord.time - leaderboardUser.totalDevTime
+      leaderboardUser.totalDevTime += timeDifference
+      await leaderboardUser.save()
+    }
+
+    res
+      .status(200)
+      .json({
+        message: "Development Record updated successfully",
+        updatedRecord,
+      })
+  } catch (err) {
+    console.error(err)
+    res
+      .status(500)
+      .json({
+        message: "An error occurred while updating the Development Record",
+      })
+  }
+})
+
 module.exports = router

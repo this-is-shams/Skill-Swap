@@ -17,27 +17,37 @@ export default function Development() {
   const [time, setTime] = useState("");
   const [showComments, setShowComments] = useState([]);
 
-  function handleEditItem(index) {
-    // Retrieve the item to be edited using the index
-    const itemToEdit = items[index];
-  
-    // Set the item's details in the state variables to populate the modal
-    setTitle(itemToEdit.title);
-    setDescription(itemToEdit.description);
-    setDate(itemToEdit.date);
-    setTime(itemToEdit.time);
-    setLinks(itemToEdit.links);
-  
-    // Set the edit mode to true
-    setEditMode(true);
-  
-    // Save the index of the item being edited
-    setEditIndex(index);
-  
-    // Open the modal
-    setShowModal(true);
+  async function handleEditItem(index) {
+    try {
+      // Retrieve the item to be edited using the index
+      const itemToEdit = items[index];
+
+      // Set the item's details in the state variables to populate the modal
+      setTitle(itemToEdit.title);
+      setDescription(itemToEdit.description);
+      setDate(itemToEdit.date);
+      setTime(itemToEdit.time);
+      setLinks(itemToEdit.links);
+      console.log(itemToEdit.user);
+
+      await axios.put(
+        `http://localhost:5000/dev/${getLoggedInMentee()}/${itemToEdit.taskId}`,
+        itemToEdit
+      );
+
+      // Set the edit mode to true
+      setEditMode(true);
+
+      // Save the index of the item being edited
+      setEditIndex(index);
+
+      // Open the modal
+      setShowModal(true);
+    } catch (error) {
+      console.error("Error handling edit item:", error);
+      // Handle error state or display error message
+    }
   }
-  
 
   const handleOpenModal = (index) => {
     if (index !== undefined) {
@@ -184,7 +194,9 @@ export default function Development() {
                   &times;
                 </span>
                 <h1 className="pt-2 text-center font-semibold">
-                  {editMode ? "EDIT DEVELOPMENT LEARNING" : "ADD DEVELOPMENT LEARNING"}
+                  {editMode
+                    ? "EDIT DEVELOPMENT LEARNING"
+                    : "ADD DEVELOPMENT LEARNING"}
                 </h1>
                 <div className="pt-5">
                   <h2>Task ID</h2>
@@ -239,7 +251,9 @@ export default function Development() {
                       <input
                         className="dark:text-white rounded-md py-1 px-3 dark:bg-gray-600 border border-gray-400 w-3/4"
                         value={link}
-                        onChange={(event) => handleLinkChange(index, event.target.value)}
+                        onChange={(event) =>
+                          handleLinkChange(index, event.target.value)
+                        }
                       />
                       <button
                         className="ml-2 rounded-md py-1 px-3 w-1/5 bg-red-500 text-white"

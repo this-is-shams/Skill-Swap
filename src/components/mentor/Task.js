@@ -57,14 +57,7 @@ export default function Development() {
 
   const handleAddItem = async () => {
     const newItem = {
-      user: mentee, // Updated from `user` to `mentee`
-      taskId: taskId,
-      title: title,
-      description: description,
-      time: time,
-      date: date,
-      links: links,
-      remarks: "No Remarks YET!",
+      
     };
     try {
       const response = await axios.post("http://localhost:5000/dev", newItem);
