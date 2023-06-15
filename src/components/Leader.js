@@ -130,7 +130,7 @@ export default function Leader() {
           <h1 className="text-3xl font-bold mb-4">Problem Solving</h1>
           <div className="mb-4">
             <button
-              className={`bg-${activeButton === 'weekCP' ? 'gray-500' : 'blue-500'} hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2`}
+              className={`bg-${activeButton === 'weekCP' ? 'gray-500' : 'blue-500'} hover:bg-blue-700  text-white font-bold py-2 px-4 rounded mr-2`}
               onClick={handleWeekClickCP}
             >
               Current Week
