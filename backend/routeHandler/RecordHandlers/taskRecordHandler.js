@@ -1,61 +1,60 @@
-// const express = require("express")
-// const router = express.Router()
-// const devRecord = require("../../schemas/devRecordSchema")
-// const MenteeSignUp = require("../../schemas/menteeSchema")
-// const task = require("../../schemas/taskSchema")
+const express = require("express")
+const router = express.Router()
+const MenteeSignUp = require("../../schemas/menteeSchema")
+const task = require("../../schemas/taskSchema")
 
-// router.get("/", async (req, res) => {
-//   try {
-//     const users = await devRecord.find()
-//     res.json(users)
-//   } catch (err) {
-//     res.status(500).json({ message: err.message })
-//   }
-// })
-// router.get("/:username", async (req, res) => {
-//   const { username } = req.params
+router.get("/", async (req, res) => {
+  try {
+    const tasks = await task.find()
+    res.json(tasks)
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+  }
+})
+router.get("/:mTaskId", async (req, res) => {
+  const { mTaskId } = req.params
 
-//   try {
-//     // Checking if the user exists
-//     const foundUser = await devRecord.findOne({ user: username })
-//     if (!foundUser) {
-//       return res.status(401).json({ message: "User not found" })
-//     }
+  try {
+    // Checking if the user exists
+    const foundUser = await task.findOne({ mTaskId: mTaskId })
+    if (!foundUser) {
+      return res.status(401).json({ message: "Task not found" })
+    }
 
-//     // Fetching user's DEV records
-//     const userAllDevRecord = await devRecord.find({ user: username })
-//     res.json(userAllDevRecord)
-//   } catch (err) {
-//     console.error(err)
-//     res.status(500).json({ message: "An error occurred during user retrieval" })
-//   }
-// })
+    // Fetching user's DEV records
+    const userAllTaskRecord = await task.find({ mTaskId: mTaskId })
+    res.json(userAllTaskRecord)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ message: "An error occurred during task retrieval" })
+  }
+})
 
-// // POST DEV data
-// router.post("/", async (req, res) => {
-//   try {
-//     const devRecordInsert = new devRecord({
-//       user: req.body.user,
-//       taskId: req.body.taskId,
-//       title: req.body.title,
-//       description: req.body.description,
-//       time: req.body.time,
-//       date: req.body.date,
-//       links: req.body.links,
-//       remarks: req.body.remarks,
-//     })
+// POST Task data
+router.post("/", async (req, res) => {
+  try {
+    const taskNew = new task({
+        mTaskId : req.body.mTaskId,
+        mentorId: req.body.mentorId,
+        date: req.body.date,
+        taskTitle: req.body.taskTitle,
+        taskDescription: req.body.taskDescription,
+        resources: req.body.resources,
+        menteeId: req.body.menteeId  || "All",
+    })
 
-//     res.status(200).json({
-//       message: "Development Record Inserted successfully!",
-//       statusCode: 200,
-//     })
-//   } catch (err) {
-//     console.error(err)
-//     res.status(500).json({
-//       err: "Development Record Insertion failed!",
-//     })
-//   }
-// })
+    await taskNew.save()
+    res.status(200).json({
+      message: "Task added successfully!",
+      statusCode: 200,
+    })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({
+      err: "Task Add failed!",
+    })
+  }
+})
 
 // // GET USER DEVELOPMENT RECORDS
 // router.get("/:username", async (req, res) => {
@@ -123,4 +122,4 @@
 //   }
 // })
 
-// module.exports = router
+module.exports = router

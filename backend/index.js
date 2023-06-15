@@ -8,6 +8,7 @@ const menteeSignUpHandler = require("./routeHandler/SignUpHandlers/menteeSignUpH
 const menteeSignInHandler = require("./routeHandler/SignInHandlers/MenteeSignInHandler")
 const devRecordHandler = require("./routeHandler/RecordHandlers/devRecordHandler")
 const cpRecordHandler = require("./routeHandler/RecordHandlers/cpRecordHandler")
+const taskHandler = require("./routeHandler/RecordHandlers/taskRecordHandler")
 const leaderboardHandler = require("./routeHandler/operationHandlers/leaderboardHandler")
 const mentorViewHandler = require("./routeHandler/operationHandlers/mentorWindowHandler")
 const profileHandler = require("./routeHandler/operationHandlers/profileUpdateHandler")
@@ -48,6 +49,7 @@ app.use("/viewmentee", mentorViewHandler)
 app.use("/leaderboardcp", leaderboardCP)
 app.use("/leaderboarddev", leaderboardDev)
 app.use("/profile", profileHandler)
+app.use("/task", taskHandler)
 //default error handler
 function errorHandler(err, req, res, next) {
   if (res.headerSent) {
