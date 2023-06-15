@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import MentorSidebar from "./MentorSidebar";
 import { getLoggedInmentor } from "../auth";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function Profile() {
   const [isEditable, setIsEditable] = useState(false);
@@ -242,7 +243,7 @@ export default function Profile() {
               {menteeResponses.map((mentee, index) => (
                 <tr key={index}>
                   <td className="border px-4 py-2">{index + 1}</td>
-                  <td className="border px-4 py-2">{mentee.mentee.name}</td>
+                  <td className="border px-4 py-2"><Link to={`/userzzz/${mentee.mentee.user}`}>{mentee.mentee.name}</Link></td>
                   <td className="border px-4 py-2">{mentee.mentee.user}</td>
                 </tr>
               ))}
