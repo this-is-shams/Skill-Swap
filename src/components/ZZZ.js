@@ -613,9 +613,9 @@ export default function UserProfile() {
 
                                                     {/* Render comments */}
                                                     {comments[index] && (
-                                                        <ul className="mt-4">
+                                                        <ul className="mt-4 p-2">
                                                             {comments[index].map((comment, commentIndex) => (
-                                                                <li key={commentIndex}>{comment}</li>
+                                                                 <li key={commentIndex}><p className=" font-semibold">Mentor</p>{comment}</li>
                                                             ))}
                                                         </ul>
                                                     )}
