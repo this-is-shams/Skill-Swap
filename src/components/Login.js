@@ -7,13 +7,12 @@ import { setLoggedInmentor } from "./auth";
 import { setuserType } from "./auth";
 
 export default function Login() {
-  //const optionRef=useRef()
-
   const userRef = useRef();
   const passRef = useRef();
   const [uType, setUserType] = useState("");
   const userTypeRef = useRef();
   const navigate = useNavigate();
+  const [error, setError] = useState("");
 
   const handleUserTypeChange = (e) => {
     setUserType(e.target.value);
@@ -21,10 +20,8 @@ export default function Login() {
 
   const handleSignin = (e) => {
     e.preventDefault();
-    //const option=optionRef.current.value
     const user = userRef.current.value;
     const pass = passRef.current.value;
-    //const formData = { user, pass };
 
     if (uType === "mentor") {
       const url = `http://localhost:5000/signin/mentor/${user}/${pass}`;
@@ -40,8 +37,9 @@ export default function Login() {
           if (data.statusCode === 200) {
             setLoggedInmentor(user);
             setuserType(uType);
-            alert("Mentor sign in Successful!");
             navigate("/men_dash");
+          } else {
+            setError("Invalid username or password");
           }
         });
     } else {
@@ -61,27 +59,25 @@ export default function Login() {
             alert("Mentee sign in Successful!");
             navigate("/dashboard");
             e.target.reset();
+          } else {
+            setError("Invalid username or password");
           }
         });
     }
   };
+
   return (
     <div className="dark:bg-gray-800 grid grid-cols-1 sm:grid-cols-2 h-screen w-full pt-20 pb-10">
       <div className="hidden sm:block dark:bg-gray-800 ">
-        <img
-          className="w-full h-full object-cover p-10"
-          src={loginImg}
-          alt=""
-        />
+        <img className="w-full h-full object-cover p-10" src={loginImg} alt="" />
       </div>
       <div className="bg-white dark:bg-gray-800 flex flex-col justify-center">
         <form
           onSubmit={handleSignin}
           className="max-w-[400px] w-full mx-auto rounded-lg bg-gray-300 dark:bg-gray-900 p-8"
         >
-          <h2 className="text-4xl dark:text-white font-bold text-center">
-            SIGN IN
-          </h2>
+          <h2 className="text-4xl dark:text-white font-bold text-center">SIGN IN</h2>
+          {error && <p className="text-red-500 text-center mb-4">{error}</p>}
           <div className="flex flex-col dark:text-gray-400 py-2">
             <label>User Type</label>
             <select
@@ -118,11 +114,9 @@ export default function Login() {
             </p>
             <p>Forgot Password</p>
           </div>
-          {/* <Link to="/dashboard"> */}
           <button className="w-full my-5 py-2 bg-blue-500 shadow-lg shadow-teal-500/50 hover:shadow-teal-500/40 text-white font-semibold rounded-lg">
             Sign in
           </button>
-          {/* </Link> */}
           <h1 className="dark:text-gray-200 text-center">
             Don't have any account? Click on{" "}
             <Link to="/signup" className="underline">

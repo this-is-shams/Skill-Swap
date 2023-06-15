@@ -18,6 +18,7 @@ import TaskUser from "./components/taskView";
 import Forum from "./components/Forum";
 import MenLead from "./components/mentor/MentorLeader";
 import UserProfileMen from "./components/mentor/UserProfileMen";
+import MentorProfile from "./components/mentor/MentorProfile";
 
 function App() {
   const [shouldShowDarkMode, setShouldShowDarkMode] = useState(true);
@@ -51,6 +52,8 @@ function App() {
         <Route path="/taskview" element={<TaskUser />} />
         <Route path="/forum" element={<Forum />} />
         <Route path="/mentorLeader" element={<MenLead />} />
+        <Route path="/mentorProfile" element={<MentorProfile />} />
+        
       </Routes>
     </Router>
   );

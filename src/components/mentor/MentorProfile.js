@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Sidebar from './Sidebar';
+import MentorSidebar from './MentorSidebar';
 
 export default function Profile() {
     const [isEditable, setIsEditable] = useState(false);
@@ -39,7 +39,7 @@ export default function Profile() {
 
     return (
         <div>
-            <Sidebar />
+            <MentorSidebar />
             <div className="h-screen w-screen dark:bg-slate-800 dark:text-white pl-60 pt-20 flex col">
                 <div className="h-full w-full flex flex-col items-center pt-14">
                     <div className="flex flex-col items-center justify-center mb-4">

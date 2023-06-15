@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import MentorSidebar from "./MentorSidebar";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
@@ -9,8 +9,8 @@ export default function Development() {
   const [items, setItems] = useState([]);
   const [links, setLinks] = useState([""]);
   const [title, setTitle] = useState("");
-  const [task, setTaskID] = useState("");
-  const [user, setUser] = useState("");
+  const [taskId, setTaskID] = useState(""); // Renamed from `task` to `taskId`
+  const [mentee, setMentee] = useState(""); // Added `mentee` state
   const [description, setDescription] = useState("");
   const [time, setTime] = useState("");
   const [showComments, setShowComments] = useState([]);
@@ -57,8 +57,8 @@ export default function Development() {
 
   const handleAddItem = async () => {
     const newItem = {
-      user: user,
-      taskId: task,
+      user: mentee, // Updated from `user` to `mentee`
+      taskId: taskId,
       title: title,
       description: description,
       time: time,
@@ -93,7 +93,7 @@ export default function Development() {
   const fetchDevRecords = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/dev/${user}`
+        `http://localhost:5000/dev/${mentee}`
       );
       console.log(items);
       setItems([...items, ...response.data]);
@@ -140,14 +140,14 @@ export default function Development() {
                   <h2>Mentee</h2>
                   <select
                     className="dark:text-white rounded-md py-1 px-3 mt-2 dark:bg-gray-600 border border-gray-400 w-full"
-                    id="task-input"
-                    value={task}
-                    onChange={(e) => setTaskID(e.target.value)}
+                    id="mentee-input"
+                    value={mentee}
+                    onChange={(e) => setMentee(e.target.value)}
                   >
                     <option value="">Select Mentee</option>
-                    <option value="task1">Task 1</option>
-                    <option value="task2">Task 2</option>
-                    <option value="task3">Task 3</option>
+                    <option value="mentee1">Mentee 1</option>
+                    <option value="mentee2">Mentee 2</option>
+                    <option value="mentee3">Mentee 3</option>
                     {/* Add more options as needed */}
                   </select>
                 </div>
@@ -157,7 +157,7 @@ export default function Development() {
                   <input
                     className="dark:text-white rounded-md mt-2 py-1 px-3 dark:bg-gray-600 border border-gray-400 w-full"
                     id="task-input"
-                    value={task}
+                    value={taskId}
                     onChange={(e) => setTaskID(e.target.value)}
                   ></input>
                 </div>

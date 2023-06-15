@@ -30,12 +30,7 @@ export default function taskView() {
                             <p className="font-semibold text-gray-700 dark:text-gray-200">Resources</p>
                             <a href="#" className="text-blue-500 hover:underline">Link Placeholder</a>
                         </div>
-                        <div className="mb-4">
-                            <label className="flex items-center">
-                                <input type="checkbox" className="form-checkbox" />
-                                <span className="ml-2 text-gray-700 dark:text-gray-200">Completed</span>
-                            </label>
-                        </div>
+                    
                     </div>
                 </div>
             </div>

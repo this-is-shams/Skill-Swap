@@ -65,7 +65,7 @@ export default function Profile() {
       setOjProfile(editedOjProfile);
       setGithubProfile(editedGithubProfile);
       setLinkedinProfile(editedLinkedinProfile);
-      alert("Profile updated successfully");
+      console.log("Profile updated successfully");
     } catch (error) {
       // Handle the error
       alert("An error occurred during profile update");
