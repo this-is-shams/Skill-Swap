@@ -24,7 +24,7 @@ export default function Login() {
     const pass = passRef.current.value;
 
     if (uType === "mentor") {
-      const url = `http://localhost:5000/signin/mentor/${user}/${pass}`;
+      const url = `https://back-8c42.onrender.com/signin/mentor/${user}/${pass}`;
       fetch(url, {
         method: "GET",
         headers: {
@@ -43,7 +43,7 @@ export default function Login() {
           }
         });
     } else {
-      const url = `http://localhost:5000/signin/mentee/${user}/${pass}`;
+      const url = `https://back-8c42.onrender.com/signin/mentee/${user}/${pass}`;
       fetch(url, {
         method: "GET",
         headers: {
