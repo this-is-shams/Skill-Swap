@@ -19,7 +19,7 @@ export default function DarkMode() {
         const userType = getuserType();
         const user = userType === "mentor" ? mentorUser : menteeUser;
         const response = await axios.get(
-          `http://localhost:5000/signup/${userType}/${user}`
+          `https://back-8c42.onrender.com/signup/${userType}/${user}`
         );
         const data = response.data;
         setUserData(data);

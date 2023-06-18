@@ -17,10 +17,10 @@ export default function Leader() {
   const fetchLeaderboardData = async () => {
     try {
       const devLeaderboardResponse = await axios.get(
-        "http://localhost:5000/leaderboard/devleaderboard"
+        "https://back-8c42.onrender.com/leaderboard/devleaderboard"
       );
       const cpLeaderboardResponse = await axios.get(
-        "http://localhost:5000/leaderboard/cpleaderboard"
+        "https://back-8c42.onrender.com/leaderboard/cpleaderboard"
       );
 
       const devLeaderboardData = devLeaderboardResponse.data;
@@ -36,7 +36,7 @@ export default function Leader() {
   const handleWeekClickCP = async () => {
     try {
       const cpLeaderboardResponse = await axios.get(
-        "http://localhost:5000/leaderboardcp/cpleaderboardweek"
+        "https://back-8c42.onrender.com/leaderboardcp/cpleaderboardweek"
       );
       const cpLeaderboardData = cpLeaderboardResponse.data;
       setCLeaderboardData(cpLeaderboardData);
@@ -50,7 +50,7 @@ export default function Leader() {
   const handleMonthClickCP = async () => {
     try {
       const cpLeaderboardResponse = await axios.get(
-        "http://localhost:5000/leaderboardcp/cpleaderboardmonth"
+        "https://back-8c42.onrender.com/leaderboardcp/cpleaderboardmonth"
       );
       const cpLeaderboardData = cpLeaderboardResponse.data;
       setCLeaderboardData(cpLeaderboardData);
@@ -64,7 +64,7 @@ export default function Leader() {
   const handleTotalClickCP = async () => {
     try {
       const cpLeaderboardResponse = await axios.get(
-        "http://localhost:5000/leaderboard/cpleaderboard"
+        "https://back-8c42.onrender.com/leaderboard/cpleaderboard"
       );
       const cpLeaderboardData = cpLeaderboardResponse.data;
       setCLeaderboardData(cpLeaderboardData);
@@ -78,7 +78,7 @@ export default function Leader() {
   const handleWeekClickDev = async () => {
     try {
       const devLeaderboardResponse = await axios.get(
-        "http://localhost:5000/leaderboarddev/devleaderboardweek"
+        "https://back-8c42.onrender.com/leaderboarddev/devleaderboardweek"
       );
       const devLeaderboardData = devLeaderboardResponse.data;
       setDLeaderboardData(devLeaderboardData);
@@ -92,7 +92,7 @@ export default function Leader() {
   const handleMonthClickDev = async () => {
     try {
       const devLeaderboardResponse = await axios.get(
-        "http://localhost:5000/leaderboarddev/devleaderboardmonth"
+        "https://back-8c42.onrender.com/leaderboarddev/devleaderboardmonth"
       );
       const devLeaderboardData = devLeaderboardResponse.data;
       setDLeaderboardData(devLeaderboardData);
@@ -106,7 +106,7 @@ export default function Leader() {
   const handleTotalClickDev = async () => {
     try {
       const devLeaderboardResponse = await axios.get(
-        "http://localhost:5000/leaderboard/devleaderboard"
+        "https://back-8c42.onrender.com/leaderboard/devleaderboard"
       );
       const devLeaderboardData = devLeaderboardResponse.data;
       setDLeaderboardData(devLeaderboardData);

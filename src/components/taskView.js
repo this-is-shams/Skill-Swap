@@ -12,7 +12,7 @@ export default function TaskView() {
 
   const fetchTaskData = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/task");
+      const response = await axios.get("https://back-8c42.onrender.com/task");
       const data = response.data;
 
       const loggedInMenteeId = getLoggedInMentee();

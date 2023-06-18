@@ -14,7 +14,7 @@ function SignUp() {
     const fetchMentorData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/signup/mentor/" // Eta basically backend er index.js and signuphandler dekhlei bujhe jabi. main kaj ta mentor signup handler e hoye ekhane object akare chole ashche.
+          "https://back-8c42.onrender.com/signup/mentor/" // Eta basically backend er index.js and signuphandler dekhlei bujhe jabi. main kaj ta mentor signup handler e hoye ekhane object akare chole ashche.
         );
         setMentorData(response.data);
       } catch (error) {
@@ -66,7 +66,7 @@ function SignUp() {
       async function handleMentorSignup() {
         try {
           const checkResponse = await axios.get(
-            `http://localhost:5000/signup/mentor/${user}`
+            `https://back-8c42.onrender.com/signup/mentor/${user}`
           );
 
           console.log("CHeck RRR", checkResponse.status)
@@ -75,7 +75,7 @@ function SignUp() {
         } catch (error) {
           console.error(error);
           if (error.response.status === 500 || error.response.status === 404) {
-            fetch("http://localhost:5000/signup/mentor", {
+            fetch("https://back-8c42.onrender.com/signup/mentor", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(newService),
@@ -103,7 +103,7 @@ function SignUp() {
         try {
           console.log("Before")
           const checkResponse = await axios.get(
-            `http://localhost:5000/signup/mentee/${user}`
+            `https://back-8c42.onrender.com/signup/mentee/${user}`
           );
           console.log("CHeck RRR", checkResponse.status)
           alert("User Already Exists! Try a different username");
@@ -112,7 +112,7 @@ function SignUp() {
           //console.error(error);
           //console.log("ERRRRRRR",error.response.status);
           if (error.response.status === 500 || error.response.status === 404) {
-            fetch("http://localhost:5000/signup/mentee", {
+            fetch("https://back-8c42.onrender.com/signup/mentee", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(newService),

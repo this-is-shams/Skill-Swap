@@ -19,7 +19,7 @@ export default function MentorDash() {
         // Fetch mentorResponse for the logged-in mentor
         try {
           const response = await axios.get(
-            `http://localhost:5000/viewmentee/${loggedInMentor}`
+            `https://back-8c42.onrender.com/viewmentee/${loggedInMentor}`
           );
           setMentorResponse(response.data);
 

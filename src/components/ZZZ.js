@@ -44,7 +44,7 @@ export default function UserProfile() {
                 // Fetch devRecords for the logged-in user
                 try {
                     devRecordsResponse = await axios.get(
-                        `http://localhost:5000/dev/${loggedInMentee}`
+                        `https://back-8c42.onrender.com/dev/${loggedInMentee}`
                     );
 
                     // Log the devRecords response status
@@ -64,7 +64,7 @@ export default function UserProfile() {
                 // Fetch cpRecords for the logged-in user
                 try {
                     cpRecordsResponse = await axios.get(
-                        `http://localhost:5000/cp/${loggedInMentee}`
+                        `https://back-8c42.onrender.com/cp/${loggedInMentee}`
                     );
 
                     // Check response status
@@ -160,7 +160,7 @@ export default function UserProfile() {
     const fetchCPRecords = async () => {
         try {
             const response = await axios.get(
-                `http://localhost:5000/cp/${username}`
+                `https://back-8c42.onrender.com/cp/${username}`
             );
             // console.log(items);
             setItems(response.data);
@@ -182,7 +182,7 @@ export default function UserProfile() {
     const fetchDevRecords = async () => {
         try {
             const response = await axios.get(
-                `http://localhost:5000/dev/${username}`
+                `https://back-8c42.onrender.com/dev/${username}`
             );
             // console.log(its);
             setIts([...its, ...response.data]);
@@ -269,7 +269,7 @@ export default function UserProfile() {
             // Make the PUT request to update the profile
             const loggedInMentee = username; // Assuming this function returns the logged-in user
             await axios.put(
-                `http://localhost:5000/profile/${loggedInMentee}`,
+                `https://back-8c42.onrender.com/profile/${loggedInMentee}`,
                 updatedProfile
             );
 
@@ -295,7 +295,7 @@ export default function UserProfile() {
             try {
                 const loggedInMentee = username; // This function returns the logged-in user
                 const profileResponse = await axios.get(
-                    `http://localhost:5000/profile/${loggedInMentee}`
+                    `https://back-8c42.onrender.com/profile/${loggedInMentee}`
                 );
                 const {
                     name,

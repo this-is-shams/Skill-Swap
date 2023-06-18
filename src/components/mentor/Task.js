@@ -39,7 +39,7 @@ export default function Development() {
   const handleDeleteItem = async (index) => {
     const itemToDelete = items[index];
     try {
-      await axios.delete(`http://localhost:5000/task/${itemToDelete.taskId}`);
+      await axios.delete(`https://back-8c42.onrender.com/task/${itemToDelete.taskId}`);
       const updatedItems = items.filter((item, i) => i !== index);
       setItems(updatedItems);
       setShowComments(updatedItems.map(() => false));
@@ -67,7 +67,7 @@ export default function Development() {
     };
 
     try {
-      const response = await axios.post("http://localhost:5000/task/", newItem);
+      const response = await axios.post("https://back-8c42.onrender.com/task/", newItem);
       // console.log(response.data);
       //setItems([...items, newItem]);
       setShowComments([...showComments, false]);
@@ -92,7 +92,7 @@ export default function Development() {
   const fetchMentees = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/viewmentee/getmentees/${getLoggedInmentor()}`
+        `https://back-8c42.onrender.com/viewmentee/getmentees/${getLoggedInmentor()}`
       );
       console.log(response.data);
       const allMentees = ["All", ...response.data];
@@ -112,7 +112,7 @@ export default function Development() {
   const fetchTask = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/task/mentor/${getLoggedInmentor()}`
+        `https://back-8c42.onrender.com/task/mentor/${getLoggedInmentor()}`
       );
       const fetchedItems = response.data.map((task) => ({
         taskId: task.mTaskId,
