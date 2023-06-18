@@ -9,11 +9,17 @@ router.get("/:username", async (req, res) => {
   try {
     const { username } = req.params
     const users = await mentorSignUp.findOne({ user: username })
-    res.json(users)
+    
+    if(users === null){
+      res.status(404).json({ message: "User not found" })
+    } else {
+      res.json(users)
+    }
   } catch (err) {
     res.status(500).json({ message: err.message })
   }
 })
+
 
 router.get("/", async (req, res) => {
   try {
@@ -59,13 +65,13 @@ router.post("/", async (req, res) => {
     })
   }
 })
-//POST all signup data
-router.post("/all", async (req, res) => {})
+// //POST all signup data
+// router.post("/all", async (req, res) => {})
 
-//PUT signup data
-router.put("/:id", async (req, res) => {})
+// //PUT signup data
+// router.put("/:id", async (req, res) => {})
 
-//DELETE signup data
-router.delete("/:id", async (req, res) => {})
+// //DELETE signup data
+// router.delete("/:id", async (req, res) => {})
 
 module.exports = router

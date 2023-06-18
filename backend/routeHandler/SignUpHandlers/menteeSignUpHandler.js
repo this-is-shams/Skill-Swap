@@ -7,15 +7,36 @@ const leaderboard = require("../../schemas/leaderBoardSchema")
 const mentorCollection = require("../../schemas/mentorSchema")
 const mmRelation = require("../../schemas/mmRelationSchema")
 
+// router.get("/:username", async (req, res) => {
+//   try {
+//     console.log("In backend",req.params.username)
+//     const { username } = req.params
+//     const users = await menteeSignUp.findOne({ user: username })
+//     console.log("In backend U",users)
+//     res.json(users)
+//     if(users === null){
+//       res.status(404).json({message:"User not found"})
+//     }
+//   } catch (err) {
+//     res.status(500).json({ message: err.message })
+//   }
+// })
+
 router.get("/:username", async (req, res) => {
   try {
     const { username } = req.params
     const users = await menteeSignUp.findOne({ user: username })
-    res.json(users)
+    console.log("In backend U",users)
+    
+    if(users === null){
+      return res.status(404).json({message:"User not found"})
+    } else res.json(users)
   } catch (err) {
     res.status(500).json({ message: err.message })
   }
 })
+
+
 
 // Post
 router.post("/", async (req, res) => {

@@ -69,7 +69,12 @@ function SignUp() {
             `http://localhost:5000/signup/mentor/${user}`
           );
 
-          if (checkResponse.status === 500) {
+          console.log("CHeck RRR", checkResponse.status)
+          alert("User Already Exists! Try a different username");
+
+        } catch (error) {
+          console.error(error);
+          if (error.response.status === 500 || error.response.status === 404) {
             fetch("http://localhost:5000/signup/mentor", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -83,13 +88,9 @@ function SignUp() {
                   e.target.reset();
                 }
               });
-          } else {
-            alert("User Already Exists! Try a different username");
           }
-        } catch (error) {
-          console.error(error);
           // Handle error if the GET request to check the user's existence fails
-          alert("An error occurred while checking user existence");
+          // alert("An error occurred while checking user existence");
         }
       }
 
@@ -100,11 +101,17 @@ function SignUp() {
       e.preventDefault();
       async function handleMenteeSignup() {
         try {
+          console.log("Before")
           const checkResponse = await axios.get(
             `http://localhost:5000/signup/mentee/${user}`
           );
+          console.log("CHeck RRR", checkResponse.status)
+          alert("User Already Exists! Try a different username");
 
-          if (checkResponse.status === 500) {
+        } catch (error) {
+          //console.error(error);
+          //console.log("ERRRRRRR",error.response.status);
+          if (error.response.status === 500 || error.response.status === 404) {
             fetch("http://localhost:5000/signup/mentee", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -121,10 +128,8 @@ function SignUp() {
           } else {
             alert("User Already Exists! Try a different username");
           }
-        } catch (error) {
-          console.error(error);
           // Handle error if the GET request to check the user's existence fails
-          alert("An error occurred while checking user existence");
+          //alert("An error occurred while checking user existence");
         }
       }
 
