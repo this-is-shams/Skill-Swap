@@ -4,7 +4,7 @@ module.exports = function (app) {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'http://localhost:5000', // Replace with your backend server URL
+      target: 'https://back-8c42.onrender.com/', // Replace with your backend server URL
       changeOrigin: true,
     })
   );
