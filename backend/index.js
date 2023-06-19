@@ -65,4 +65,3 @@ app.listen(5000, () => {
 
 app.use(errorHandler)
 
-console.log("SHams")
