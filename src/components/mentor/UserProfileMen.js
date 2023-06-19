@@ -44,7 +44,7 @@ export default function UserProfile() {
         // Fetch devRecords for the logged-in user
         try {
           devRecordsResponse = await axios.get(
-            `https://back-8c42.onrender.com/dev/${loggedInMentee}`
+            `https://localhost:5000/dev/${loggedInMentee}`
           );
 
           // Log the devRecords response status
@@ -64,7 +64,7 @@ export default function UserProfile() {
         // Fetch cpRecords for the logged-in user
         try {
           cpRecordsResponse = await axios.get(
-            `https://back-8c42.onrender.com/cp/${loggedInMentee}`
+            `https://localhost:5000/cp/${loggedInMentee}`
           );
 
           // Check response status
@@ -160,7 +160,7 @@ export default function UserProfile() {
   const fetchCPRecords = async () => {
     try {
       const response = await axios.get(
-        `https://back-8c42.onrender.com/cp/${username}`
+        `https://localhost:5000/cp/${username}`
       );
       // console.log(items);
       setItems(response.data);
@@ -180,7 +180,7 @@ export default function UserProfile() {
   const fetchDevRecords = async () => {
     try {
       const response = await axios.get(
-        `https://back-8c42.onrender.com/dev/${username}`
+        `https://localhost:5000/dev/${username}`
       );
       // console.log(its);
       setIts([...its, ...response.data]);
@@ -255,7 +255,7 @@ export default function UserProfile() {
       // Make the PUT request to update the profile
       const loggedInMentee = username; // Assuming this function returns the logged-in user
       await axios.put(
-        `https://back-8c42.onrender.com/profile/${loggedInMentee}`,
+        `https://localhost:5000/profile/${loggedInMentee}`,
         updatedProfile
       );
 
@@ -281,7 +281,7 @@ export default function UserProfile() {
       try {
         const loggedInMentee = username; // This function returns the logged-in user
         const profileResponse = await axios.get(
-          `https://back-8c42.onrender.com/profile/${loggedInMentee}`
+          `https://localhost:5000/profile/${loggedInMentee}`
         );
         const {
           name,

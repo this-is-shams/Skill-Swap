@@ -20,7 +20,7 @@ export default function Problem() {
       date: date,
     };
     try {
-      const response = await axios.post("https://back-8c42.onrender.com/cp", newItem);
+      const response = await axios.post("https://localhost:5000/cp", newItem);
       console.log(response.data);
       setItems([...items, newItem]);
       setProblemLink("");
@@ -40,7 +40,7 @@ export default function Problem() {
   const fetchCPRecords = async () => {
     try {
       const response = await axios.get(
-        `https://back-8c42.onrender.com/cp/${getLoggedInMentee()}`
+        `https://localhost:5000/cp/${getLoggedInMentee()}`
       );
       console.log(items);
       setItems(response.data);
@@ -55,7 +55,7 @@ export default function Problem() {
       const deletedItem = items[index];
       console.log(deletedItem);
       const response = await axios.delete(
-        `https://back-8c42.onrender.com/cp/${deletedItem.user}/${deletedItem.serial}`
+        `https://localhost:5000/cp/${deletedItem.user}/${deletedItem.serial}`
       );
       if (response.status === 200) {
         const newItems = [...items];

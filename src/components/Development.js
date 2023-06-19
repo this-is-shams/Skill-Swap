@@ -31,7 +31,7 @@ export default function Development() {
       console.log(itemToEdit.user);
 
       await axios.put(
-        `https://back-8c42.onrender.com/dev/${getLoggedInMentee()}/${itemToEdit.taskId}`,
+        `https://localhost:5000/dev/${getLoggedInMentee()}/${itemToEdit.taskId}`,
         itemToEdit
       );
 
@@ -90,7 +90,7 @@ export default function Development() {
     const itemToDelete = items[index];
     try {
       await axios.delete(
-        `https://back-8c42.onrender.com/dev/${itemToDelete.user}/${itemToDelete.taskId}`
+        `https://localhost:5000/dev/${itemToDelete.user}/${itemToDelete.taskId}`
       );
       const updatedItems = items.filter((item, i) => i !== index);
       setItems(updatedItems);
@@ -122,7 +122,7 @@ export default function Development() {
     try {
       if (editMode) {
         await axios.put(
-          `https://back-8c42.onrender.com/dev/${getLoggedInMentee()}/${task}`,
+          `https://localhost:5000/dev/${getLoggedInMentee()}/${task}`,
           newItem
         );
 
@@ -130,7 +130,7 @@ export default function Development() {
         updatedItems[editIndex] = newItem;
         setItems(updatedItems);
       } else {
-        await axios.post("https://back-8c42.onrender.com/dev", newItem);
+        await axios.post("https://localhost:5000/dev", newItem);
         setItems([...items, newItem]);
         setShowComments([...showComments, false]);
       }
@@ -156,7 +156,7 @@ export default function Development() {
   const fetchDevRecords = async () => {
     try {
       const response = await axios.get(
-        `https://back-8c42.onrender.com/dev/${getLoggedInMentee()}`
+        `https://localhost:5000/dev/${getLoggedInMentee()}`
       );
       setItems([...items, ...response.data]);
     } catch (error) {

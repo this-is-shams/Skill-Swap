@@ -52,7 +52,7 @@ export default function Profile() {
       // Make the PUT request to update the profile
       const loggedInMentee = getLoggedInMentee(); // Assuming this function returns the logged-in user
       await axios.put(
-        `https://back-8c42.onrender.com/profile/${loggedInMentee}`,
+        `https://localhost:5000/profile/${loggedInMentee}`,
         updatedProfile
       );
 
@@ -78,7 +78,7 @@ export default function Profile() {
       try {
         const loggedInMentee = getLoggedInMentee(); // This function returns the logged-in user
         const profileResponse = await axios.get(
-          `https://back-8c42.onrender.com/profile/${loggedInMentee}`
+          `https://localhost:5000/profile/${loggedInMentee}`
         );
         const {
           name,

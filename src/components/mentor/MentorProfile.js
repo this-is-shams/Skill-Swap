@@ -49,14 +49,14 @@ export default function Profile() {
     const fetchMenteeData = async () => {
       try {
         const response = await axios.get(
-          `https://back-8c42.onrender.com/viewmentee/getmentees/${getLoggedInmentor()}`
+          `https://localhost:5000/viewmentee/getmentees/${getLoggedInmentor()}`
         );
         const data = response.data;
 
         const menteeResponses = await Promise.all(
           data.map(async (id) => {
             const menteeResponse = await axios.get(
-              `https://back-8c42.onrender.com/signin/mentee/menteedata/${id}`
+              `https://localhost:5000/signin/mentee/menteedata/${id}`
             );
             return menteeResponse.data;
           })
