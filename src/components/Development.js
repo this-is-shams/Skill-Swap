@@ -90,7 +90,7 @@ export default function Development() {
     const itemToDelete = items[index];
     try {
       await axios.delete(
-        `https://localhost:5000/dev/${itemToDelete.user}/${itemToDelete.taskId}`
+        `http://localhost:5000/dev/${itemToDelete.user}/${itemToDelete.taskId}`
       );
       const updatedItems = items.filter((item, i) => i !== index);
       setItems(updatedItems);
@@ -122,7 +122,7 @@ export default function Development() {
     try {
       if (editMode) {
         await axios.put(
-          `https://localhost:5000/dev/${getLoggedInMentee()}/${task}`,
+          `http://localhost:5000/dev/${getLoggedInMentee()}/${task}`,
           newItem
         );
 
@@ -130,7 +130,7 @@ export default function Development() {
         updatedItems[editIndex] = newItem;
         setItems(updatedItems);
       } else {
-        await axios.post("https://localhost:5000/dev", newItem);
+        await axios.post("http://localhost:5000/dev", newItem);
         setItems([...items, newItem]);
         setShowComments([...showComments, false]);
       }
@@ -156,7 +156,7 @@ export default function Development() {
   const fetchDevRecords = async () => {
     try {
       const response = await axios.get(
-        `https://localhost:5000/dev/${getLoggedInMentee()}`
+        `http://localhost:5000/dev/${getLoggedInMentee()}`
       );
       setItems([...items, ...response.data]);
     } catch (error) {

@@ -12,7 +12,7 @@ export default function TaskView() {
 
   const fetchTaskData = async () => {
     try {
-      const response = await axios.get("https://localhost:5000/task");
+      const response = await axios.get("http://localhost:5000/task");
       const data = response.data;
 
       const loggedInMenteeId = getLoggedInMentee();

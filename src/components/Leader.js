@@ -17,10 +17,10 @@ export default function Leader() {
   const fetchLeaderboardData = async () => {
     try {
       const devLeaderboardResponse = await axios.get(
-        "https://localhost:5000/leaderboard/devleaderboard"
+        "http://localhost:5000/leaderboard/devleaderboard"
       );
       const cpLeaderboardResponse = await axios.get(
-        "https://localhost:5000/leaderboard/cpleaderboard"
+        "http://localhost:5000/leaderboard/cpleaderboard"
       );
 
       const devLeaderboardData = devLeaderboardResponse.data;
@@ -36,7 +36,7 @@ export default function Leader() {
   const handleWeekClickCP = async () => {
     try {
       const cpLeaderboardResponse = await axios.get(
-        "https://localhost:5000/leaderboardcp/cpleaderboardweek"
+        "http://localhost:5000/leaderboardcp/cpleaderboardweek"
       );
       const cpLeaderboardData = cpLeaderboardResponse.data;
       setCLeaderboardData(cpLeaderboardData);
@@ -50,7 +50,7 @@ export default function Leader() {
   const handleMonthClickCP = async () => {
     try {
       const cpLeaderboardResponse = await axios.get(
-        "https://localhost:5000/leaderboardcp/cpleaderboardmonth"
+        "http://localhost:5000/leaderboardcp/cpleaderboardmonth"
       );
       const cpLeaderboardData = cpLeaderboardResponse.data;
       setCLeaderboardData(cpLeaderboardData);
@@ -64,7 +64,7 @@ export default function Leader() {
   const handleTotalClickCP = async () => {
     try {
       const cpLeaderboardResponse = await axios.get(
-        "https://localhost:5000/leaderboard/cpleaderboard"
+        "http://localhost:5000/leaderboard/cpleaderboard"
       );
       const cpLeaderboardData = cpLeaderboardResponse.data;
       setCLeaderboardData(cpLeaderboardData);
@@ -78,7 +78,7 @@ export default function Leader() {
   const handleWeekClickDev = async () => {
     try {
       const devLeaderboardResponse = await axios.get(
-        "https://localhost:5000/leaderboarddev/devleaderboardweek"
+        "http://localhost:5000/leaderboarddev/devleaderboardweek"
       );
       const devLeaderboardData = devLeaderboardResponse.data;
       setDLeaderboardData(devLeaderboardData);
@@ -92,7 +92,7 @@ export default function Leader() {
   const handleMonthClickDev = async () => {
     try {
       const devLeaderboardResponse = await axios.get(
-        "https://localhost:5000/leaderboarddev/devleaderboardmonth"
+        "http://localhost:5000/leaderboarddev/devleaderboardmonth"
       );
       const devLeaderboardData = devLeaderboardResponse.data;
       setDLeaderboardData(devLeaderboardData);
@@ -106,7 +106,7 @@ export default function Leader() {
   const handleTotalClickDev = async () => {
     try {
       const devLeaderboardResponse = await axios.get(
-        "https://localhost:5000/leaderboard/devleaderboard"
+        "http://localhost:5000/leaderboard/devleaderboard"
       );
       const devLeaderboardData = devLeaderboardResponse.data;
       setDLeaderboardData(devLeaderboardData);

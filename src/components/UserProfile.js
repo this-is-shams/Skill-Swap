@@ -43,7 +43,7 @@ export default function UserProfile() {
         // Fetch devRecords for the logged-in user
         try {
           devRecordsResponse = await axios.get(
-            `https://localhost:5000/dev/${loggedInMentee}`
+            `http://localhost:5000/dev/${loggedInMentee}`
           );
 
           // Log the devRecords response status
@@ -63,7 +63,7 @@ export default function UserProfile() {
         // Fetch cpRecords for the logged-in user
         try {
           cpRecordsResponse = await axios.get(
-            `https://localhost:5000/cp/${loggedInMentee}`
+            `http://localhost:5000/cp/${loggedInMentee}`
           );
 
           // Check response status
@@ -158,7 +158,7 @@ export default function UserProfile() {
   }, []);
   const fetchCPRecords = async () => {
     try {
-      const response = await axios.get(`https://localhost:5000/cp/${username}`);
+      const response = await axios.get(`http://localhost:5000/cp/${username}`);
       // console.log(items);
       setItems(response.data);
     } catch (error) {
@@ -175,7 +175,7 @@ export default function UserProfile() {
   }, []);
   const fetchDevRecords = async () => {
     try {
-      const response = await axios.get(`https://localhost:5000/dev/${username}`);
+      const response = await axios.get(`http://localhost:5000/dev/${username}`);
       // console.log(its);
       setIts([...its, ...response.data]);
     } catch (error) {
@@ -243,7 +243,7 @@ export default function UserProfile() {
       // Make the PUT request to update the profile
       const loggedInMentee = username; // Assuming this function returns the logged-in user
       await axios.put(
-        `https://localhost:5000/profile/${loggedInMentee}`,
+        `http://localhost:5000/profile/${loggedInMentee}`,
         updatedProfile
       );
 
@@ -269,7 +269,7 @@ export default function UserProfile() {
       try {
         const loggedInMentee = username; // This function returns the logged-in user
         const profileResponse = await axios.get(
-          `https://localhost:5000/profile/${loggedInMentee}`
+          `http://localhost:5000/profile/${loggedInMentee}`
         );
         const {
           name,

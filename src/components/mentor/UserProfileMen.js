@@ -281,7 +281,7 @@ export default function UserProfile() {
       try {
         const loggedInMentee = username; // This function returns the logged-in user
         const profileResponse = await axios.get(
-          `https://localhost:5000/profile/${loggedInMentee}`
+          `http://localhost:5000/profile/${loggedInMentee}`
         );
         const {
           name,

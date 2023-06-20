@@ -38,7 +38,7 @@ export default function Dashboard() {
         // Fetch devRecords for the logged-in user
         try {
           devRecordsResponse = await axios.get(
-            `https://localhost:5000/dev/${loggedInMentee}`
+            `http://localhost:5000/dev/${loggedInMentee}`
           );
 
           // Log the devRecords response status
@@ -58,7 +58,7 @@ export default function Dashboard() {
         // Fetch cpRecords for the logged-in user
         try {
           cpRecordsResponse = await axios.get(
-            `https://localhost:5000/cp/${loggedInMentee}`
+            `http://localhost:5000/cp/${loggedInMentee}`
           );
 
           // Check response status
